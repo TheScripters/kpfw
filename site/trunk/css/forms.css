@@ -1,0 +1,141 @@
+﻿/* Forms */
+/**************************************
+
+READ ME:
+    Any changes you need to make need to be in a separate stylesheet overriding these styles, do not edit this stylesheet.
+    
+**************************************/
+.custom-lock label {
+    font-size: 14px !important;
+}
+
+button, input[type="submit"], input[type="button"] {
+    border: 0;
+}
+
+input[type="text"], input[type="email"], input[type="password"], textarea, input[type="tel"], button, input[type="submit"], input[type="button"] {
+    -webkit-appearance: none;
+}
+
+input[type="text"], input[type="email"], input[type="password"], textarea, select:not([multiple]), input[type="tel"] {
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 0;
+    height: 34px;
+    margin-bottom: 5px;
+    padding: 5px;
+}
+
+.item input[type="text"], .item input[type="email"], .item input[type="password"], .item textarea, .item select, .item input[type="tel"] {
+    width: 100%;
+}
+
+textarea {
+    height: 80px;
+}
+
+label {
+    padding-right: 7px;
+    padding-bottom: 3px;
+}
+
+.req {
+    font-size: 13px;
+}
+
+.actions {
+    padding: 10px 0;
+}
+
+/* For inputs that shouldn't be 100% wide but you also don't want in a grid-like structure */
+.short-input label {
+    display: block;
+}
+
+.short-input input {
+    max-width: 350px;
+    width: 100%;
+}
+
+/* Placeholder styling */
+::-webkit-input-placeholder {
+    color: #ccc;
+    opacity: 1;
+}
+
+::-moz-placeholder {
+    color: #ccc;
+    opacity: 1;
+}
+
+:-ms-input-placeholder {
+    color: #ccc;
+    opacity: 1;
+}
+
+:-moz-placeholder {
+    color: #ccc;
+    opacity: 1;
+}
+
+/* Styling classes for forms, can be used for other things that need similar formatting */
+/*
+    "item" = class name of element you wrap a row in, so say you have 2 halfi you need in a row, you wrap it in an element called "item".
+    There's no styles for "item" in particular, but some of the forms stylings below require the form elements to be wrapped in an element named "item" to work.
+    Each field needs a clearfix as this method uses floats.
+*/
+@media only screen and (min-width : 500px) and (max-width : 700px) {
+    .item > .halfi, .item > .onethirdi, .item > .twothirdi, .item > .fifteeni, .item > .eightyfivei {
+        float: left;
+        width: calc(100% / 2 - 11px);
+    }
+
+        .item > .halfi:nth-of-type(2n + 1), .item > .onethirdi:nth-of-type(2n + 1), .item > .twothirdi:nth-of-type(2n + 1), .item > .fifteeni:nth-of-type(2n + 1), .item > .eightyfivei:nth-of-type(2n + 1) {
+            margin-right: 10px;
+        }
+
+        .item > .halfi:nth-of-type(2n + 2), .item > .onethirdi:nth-of-type(2n + 2), .item > .twothirdi:nth-of-type(2n + 2), .item > .fifteeni:nth-of-type(2n + 2), .item > .eightyfivei:nth-of-type(2n + 2) {
+            margin-left: 10px;
+        }
+}
+
+@media only screen and (min-width : 701px) {
+    .halfi, .onethirdi, .twothirdi, .fifteeni, .eightyfivei {
+        float: left;
+    }
+
+        .halfi:nth-of-type(2n + 1), .onethirdi:nth-of-type(2n + 1), .twothirdi:nth-of-type(2n + 1), .fifteeni:nth-of-type(2n + 1), .eightyfivei:nth-of-type(2n + 1) {
+            margin-right: 10px; /* every second item starting from the first has a right margin */
+        }
+
+        .halfi:nth-of-type(2n + 2), .onethirdi:nth-of-type(2n + 2), .twothirdi:nth-of-type(2n + 2), .fifteeni:nth-of-type(2n + 2), .eightyfivei:nth-of-type(2n + 2) {
+            margin-left: 10px; /* every second item starting from the second has a left margin */
+        }
+
+    .halfi {
+        width: calc(100% / 2 - 11px); /* 1/2 column - 11px for the margin */
+    }
+
+    .onethirdi, .fifteeni {
+        width: calc(100% * 1/3 - 11px); /* 1/3 column - 11px for the margin */
+    }
+
+    .twothirdi, .eightyfivei {
+        width: calc(100% * 2/3 - 11px); /* 2/3 column - 11px for the margin */
+    }
+}
+
+@media only screen and (min-width : 1100px) {
+    .fifteeni {
+        width: calc(100% * 3/20 - 11px); /* 3/20 column - 11px for the margin */
+    }
+
+    .eightyfivei {
+        width: calc(100% * 17/20 - 11px); /* 17/20 column - 11px for the margin */
+    }
+}
+
+/* "checki" and "radioi" = classes to use with checkboxes and radio buttons for styling */
+.checki, .radioi {
+    margin-bottom: 5px;
+}

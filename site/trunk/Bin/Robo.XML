@@ -1,0 +1,2191 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Robo</name>
+    </assembly>
+    <members>
+        <member name="T:Robo.ApplyButton">
+            <summary>
+            Inherits from <see cref="T:System.Web.UI.WebControls.Button"/> to easily create an Insert/Save button
+            </summary>
+        </member>
+        <member name="P:Robo.ApplyButton.InsertMode">
+            <summary>
+            <see langword="true"/> to display "Insert" or <see langword="false"/> to display "Save"
+            </summary>
+        </member>
+        <member name="M:Robo.ApplyButton.OnInit(System.EventArgs)">
+            <summary>
+            Overrides <see cref="M:System.Web.UI.Control.OnInit(System.EventArgs)"/>
+            </summary>
+            <param name="e">Event arguments</param>
+        </member>
+        <member name="T:Robo.AutoSizeImage">
+            <summary>
+            Control to create an automatically resized version of the given image
+            </summary>
+            <remarks>
+            <para>This control will cause a constant page reload if <see cref="P:System.Web.UI.WebControls.Image.ImageUrl"/> is not specified. To prevent this behavior, always specify a URL to an image.</para>
+            </remarks>
+        </member>
+        <member name="F:Robo.AutoSizeImage.TemplateImageUrl">
+            <summary>
+            Gets or sets the TemplateImageUrl
+            </summary>
+        </member>
+        <member name="P:Robo.AutoSizeImage.LoadedImageUrl">
+            <summary>
+            Gets or sets the LoadedImageUrl
+            </summary>
+        </member>
+        <member name="M:Robo.AutoSizeImage.OnPreRender(System.EventArgs)">
+            <summary>
+            Overrides <see cref="M:System.Web.UI.Control.OnPreRender(System.EventArgs)"/>
+            </summary>
+            <param name="e">Event arguments to be passed</param>
+        </member>
+        <member name="T:Robo.ConfirmLinkButton">
+            <summary>
+            Control which inherits from <see cref="T:System.Web.UI.WebControls.LinkButton"/> that makes confirmation messages easy
+            </summary>
+        </member>
+        <member name="F:Robo.ConfirmLinkButton._ConfirmHash">
+            <summary>
+            Gets or sets the value used to generate the client-side function
+            </summary>
+        </member>
+        <member name="F:Robo.ConfirmLinkButton._ConfirmText">
+            <summary>
+            Gets or sets the text used in the confirmation message
+            </summary>
+        </member>
+        <member name="P:Robo.ConfirmLinkButton.ConfirmHash">
+            <summary>
+            Gets or sets the value used to generate the client-side function
+            </summary>
+        </member>
+        <member name="P:Robo.ConfirmLinkButton.ConfirmText">
+            <summary>
+            Gets or sets the text used in the confirmation message
+            </summary>
+        </member>
+        <member name="M:Robo.ConfirmLinkButton.OnInit(System.EventArgs)">
+            <summary>
+            Overrides <see cref="M:System.Web.UI.Control.OnInit(System.EventArgs)"/>
+            </summary>
+            <param name="e">Event arguments</param>
+        </member>
+        <member name="T:Robo.CAProvince">
+            <summary>
+            Static class for getting a list of Canada Provinces
+            </summary>
+        </member>
+        <member name="M:Robo.CAProvince.CodeToName(System.String)">
+            <summary>
+            Static method to return a Province name based on the two-letter abbreviation
+            </summary>
+            <param name="code">The abbreviation that represents the Province</param>
+            <returns>Name of the Province</returns>
+        </member>
+        <member name="M:Robo.CAProvince.NameToCode(System.String)">
+            <summary>
+            Static method to return a two-character abbreviation based on the name
+            </summary>
+            <param name="name">Name of the Province to get the code</param>
+            <returns>Two-letter abbreviation as a string</returns>
+        </member>
+        <member name="P:Robo.CAProvince.List">
+            <summary>
+            Static member containing list of Canada Provinces
+            </summary>
+        </member>
+        <member name="T:Robo.CAProvinceDropDownList">
+            <summary>
+            Class representing a drop down pre-populated with Canada Provinces
+            </summary>
+        </member>
+        <member name="P:Robo.CAProvinceDropDownList.Value">
+            <summary>
+            Return the selected province abbreviation
+            </summary>
+        </member>
+        <member name="M:Robo.CAProvinceDropDownList.OnInit(System.EventArgs)">
+            <summary>
+            Override method
+            </summary>
+            <param name="e">Event Arguments</param>
+        </member>
+        <member name="T:Robo.Country">
+            <summary>
+            List of Countries
+            </summary>
+        </member>
+        <member name="P:Robo.Country.List">
+            <summary>
+            List of countries, retrievable by the two letter abbreviation
+            </summary>
+        </member>
+        <member name="M:Robo.Country.CodeToName(System.String)">
+            <summary>
+            Converts the two letter abbreviation to the country name
+            </summary>
+            <param name="code">Appreviation to check for</param>
+            <returns>Country name</returns>
+        </member>
+        <member name="M:Robo.Country.NameToCode(System.String)">
+            <summary>
+            Converts the country name to the two letter abbreviation
+            </summary>
+            <param name="name">Country name to check for</param>
+            <returns>Country abbreviation</returns>
+        </member>
+        <member name="T:Robo.CountryDropDownList">
+            <summary>
+            Control which inherits from <see cref="T:System.Web.UI.WebControls.DropDownList"/> to create a list of countries
+            </summary>
+        </member>
+        <member name="P:Robo.CountryDropDownList.Value">
+            <summary>
+            Gets or sets the value of the drop down list
+            </summary>
+        </member>
+        <member name="M:Robo.CountryDropDownList.Compare(System.Collections.Generic.KeyValuePair{System.String,System.String},System.Collections.Generic.KeyValuePair{System.String,System.String})">
+            <summary>
+            Compares the values of two <c>System.Collections.Generic.KeyValuePair&lt;string, string&gt;</c> objects. Used for sorting the country list by name.
+            </summary>
+            <param name="a">The first object to compare</param>
+            <param name="b">The second object to compare</param>
+            <returns>Returns 0 when equal, negative numbers when <c>a</c> &lt; <c>b</c>, positive numbers when <c>a</c> &gt; <c>b</c></returns>
+        </member>
+        <member name="M:Robo.CountryDropDownList.OnInit(System.EventArgs)">
+            <summary>
+            Overrides <c>System.Web.UI.WebControls.DropDownList.OnInit(EventArgs)</c>
+            </summary>
+            <param name="e">Event arguments</param>
+        </member>
+        <member name="T:Robo.CustomButton">
+            <summary>
+            A standard push button.
+            </summary>
+        </member>
+        <member name="M:Robo.CustomButton.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Robo.CustomButton"/> class.
+            </summary>
+        </member>
+        <member name="E:Robo.CustomButton.Click">
+            <summary>
+            Fires when the button is clicked.
+            </summary>
+        </member>
+        <member name="E:Robo.CustomButton.Command">
+            <summary>
+            Fires when the button is clicked and an associated command is defined.
+            </summary>
+        </member>
+        <member name="M:Robo.CustomButton.OnClick(System.EventArgs)">
+            <summary>
+            Called when button is clicked.
+            </summary>
+            <param name="args">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:Robo.CustomButton.OnCommand(System.Web.UI.WebControls.CommandEventArgs)">
+            <summary>
+            Called when button is clicked and an associated command is defined..
+            </summary>
+            <param name="args">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="P:Robo.CustomButton.CausesValidation">
+            <summary>
+            Whether the button causes validation to fire
+            </summary>
+        </member>
+        <member name="P:Robo.CustomButton.CommandArgument">
+            <summary>
+            The command argument associated with the button
+            </summary>
+        </member>
+        <member name="P:Robo.CustomButton.CommandName">
+            <summary>
+            The command associated with the button
+            </summary>
+        </member>
+        <member name="P:Robo.CustomButton.OnClientClick">
+            <summary>
+            The client-side script that is executed on client-side OnClick
+            </summary>
+        </member>
+        <member name="P:Robo.CustomButton.PostBackUrl">
+            <summary>
+            The URL to post when the button is clicked
+            </summary>
+        </member>
+        <member name="P:Robo.CustomButton.Text">
+            <summary>
+            The text of the button control.
+            </summary>
+        </member>
+        <member name="P:Robo.CustomButton.UseSubmitBehavior">
+            <summary>
+            Indicates whether the button render as a submit button
+            </summary>
+        </member>
+        <member name="P:Robo.CustomButton.ValidationGroup">
+            <summary>
+            The group that should be validated when the control causes a postback
+            </summary>
+        </member>
+        <member name="P:Robo.CustomButton.AutoPostBack">
+            <summary>
+            Gets or sets a value indicating whether the button automatically posts back to the server when clicked.
+            </summary>
+        </member>
+        <member name="M:Robo.CustomButton.AddAttributesToRender(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            
+            </summary>
+            <param name="writer"></param>
+        </member>
+        <member name="P:Robo.CustomButton.TagKey">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Robo.CustomButton.RenderContents(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            
+            </summary>
+            <param name="writer"></param>
+        </member>
+        <member name="M:Robo.CustomButton.GetPostBackOptions">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Robo.CustomButton.RaisePostBackEvent(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="eventArgument"></param>
+        </member>
+        <member name="T:Robo.DataTableUtil">
+            <summary>
+            Class for working with DataTable objects
+            </summary>
+        </member>
+        <member name="M:Robo.DataTableUtil.CloneAndFilter(System.Data.DataTable,System.String,System.Object)">
+            <summary>
+            Creates a copy of a DataTable object filtered by column and value
+            </summary>
+            <param name="source">The source DataTable to filter</param>
+            <param name="fieldName">Column name to filter by</param>
+            <param name="value">Column value to filter by</param>
+            <returns>Filtered copy of <c>source</c> DataTable</returns>
+        </member>
+        <member name="M:Robo.DataTableUtil.CloneAndFilter(System.Data.DataTable,System.String,System.Object,System.String,System.Object)">
+            <summary>
+            Creates a copy of a DataTable object filtered by column and value
+            </summary>
+            <param name="source">The source DataTable to filter</param>
+            <param name="fieldName1">Column name to filter by</param>
+            <param name="value1">Column value to filter by</param>
+            <param name="fieldName2">Column name to filter by</param>
+            <param name="value2">Column value to filter by</param>
+            <returns>Filtered copy of <c>source</c> DataTable</returns>
+        </member>
+        <member name="M:Robo.DataTableUtil.CloneAndGetRow(System.Data.DataTable,System.String,System.Object)">
+            <summary>
+            <para>Creates a copy of a DataTable object filtered by column and value and returns the matched row.</para>
+            <para>Special note: This method will return the first matched row only. To return multiple rows, use the <c>CloneAndFilter</c> method</para>
+            </summary>
+            <param name="source">The source DataTable to filter</param>
+            <param name="fieldName">Column name to filter by</param>
+            <param name="value">Column value to filter by</param>
+            <returns>First matched <c>DataRow</c></returns>
+        </member>
+        <member name="T:Robo.DateDropDownList">
+            <summary>
+            Creates a combination of controls to specify a date
+            </summary>
+        </member>
+        <member name="F:Robo.DateDropDownList.CustomValidator">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Robo.DateDropDownList.Day">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Robo.DateDropDownList.Month">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Robo.DateDropDownList.Year">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Robo.DateDropDownList.YearRangeValidator">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Robo.DateDropDownList.YearRequiredValidator">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Robo.DateDropDownList.YearValidator">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Robo.DateDropDownList.AllowNull">
+            <summary>
+            Specifies whether an optional, <see langword="null"/> value is allowed
+            </summary>
+        </member>
+        <member name="P:Robo.DateDropDownList.DayClientId">
+            <summary>
+            Client ID of the Day drop down (useful for custom client-side JavaScript)
+            </summary>
+        </member>
+        <member name="P:Robo.DateDropDownList.MonthClientId">
+            <summary>
+            Client ID of the Month drop down (useful for custom client-side JavaScript)
+            </summary>
+        </member>
+        <member name="P:Robo.DateDropDownList.ValidationGroup">
+            <summary>
+            Specifies the validation group used for the internal validators
+            </summary>
+        </member>
+        <member name="P:Robo.DateDropDownList.Value">
+            <summary>
+            Gets or sets the <see cref="T:System.DateTime"/> value
+            </summary>
+        </member>
+        <member name="P:Robo.DateDropDownList.ValueNullable">
+            <summary>
+            Gets or sets the optional <see cref="T:System.Nullable`1"/> <see cref="T:System.DateTime"/> value
+            </summary>
+        </member>
+        <member name="P:Robo.DateDropDownList.YearClientId">
+            <summary>
+            Client ID of the Year text box (useful for custom client-side JavaScript)
+            </summary>
+        </member>
+        <member name="M:Robo.DateDropDownList.Custom_ServerValidate(System.Object,System.Web.UI.WebControls.ServerValidateEventArgs)">
+            <summary>
+            
+            </summary>
+            <param name="source"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Robo.DateDropDownList.FrameworkInitialize">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Robo.DateMonthDayDropDownList">
+            <summary>
+            Control to display drop down lists for month and day
+            </summary>
+        </member>
+        <member name="F:Robo.DateMonthDayDropDownList.DayC">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Robo.DateMonthDayDropDownList.MonthC">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Robo.DateMonthDayDropDownList.AllowNull">
+            <summary>
+            Specifies whether empty values are allowed.
+            </summary>
+        </member>
+        <member name="P:Robo.DateMonthDayDropDownList.Day">
+            <summary>
+            Gets or sets the day value
+            </summary>
+        </member>
+        <member name="P:Robo.DateMonthDayDropDownList.DayClientId">
+            <summary>
+            Gets the client ID for the day drop down list
+            </summary>
+        </member>
+        <member name="P:Robo.DateMonthDayDropDownList.DayNullable">
+            <summary>
+            Gets or sets the optional day value
+            </summary>
+        </member>
+        <member name="P:Robo.DateMonthDayDropDownList.Month">
+            <summary>
+            Gets or sets the month value
+            </summary>
+        </member>
+        <member name="P:Robo.DateMonthDayDropDownList.MonthClientId">
+            <summary>
+            Gets the client ID of the month drop down list
+            </summary>
+        </member>
+        <member name="P:Robo.DateMonthDayDropDownList.MonthNullable">
+            <summary>
+            Gets or sets the optional month value
+            </summary>
+        </member>
+        <member name="M:Robo.DateMonthDayDropDownList.CreateChildControls">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Robo.DateMonthDayDropDownList.SetFromDateTime(System.Nullable{System.DateTime})">
+            <summary>
+            Sets the day and month from an optional <see cref="T:System.DateTime"/> object
+            </summary>
+            <param name="d">An optional <see cref="T:System.DateTime"/> value. Use <see langword="null"/> to specify there is no value.</param>
+        </member>
+        <member name="T:Robo.DateTimeLabel">
+            <summary>
+            Control for easily displaying a DateTime object in a <see cref="T:System.Web.UI.WebControls.Label"/> control
+            </summary>
+        </member>
+        <member name="F:Robo.DateTimeLabel._Format">
+            <summary>
+            <see cref="T:System.DateTime"/> Format to use when displaying the date object
+            </summary>
+        </member>
+        <member name="P:Robo.DateTimeLabel.Format">
+            <summary>
+            <see cref="T:System.DateTime"/> Format to use when displaying the date object
+            </summary>
+        </member>
+        <member name="P:Robo.DateTimeLabel.ShowTime">
+            <summary>
+            Whether to show the time. Overrides <see cref="P:Robo.DateTimeLabel.Format"/> if set
+            </summary>
+        </member>
+        <member name="P:Robo.DateTimeLabel.Value">
+            <summary>
+            The <see cref="T:System.DateTime"/> value to display
+            </summary>
+        </member>
+        <member name="P:Robo.DateTimeLabel.ValueNullable">
+            <summary>
+            Can be assigned an object to convert to a <see cref="T:System.DateTime"/> object such as a <see cref="T:System.Data.DataRow"/> value
+            </summary>
+        </member>
+        <member name="T:Robo.DateYearMonthDownList">
+            <summary>
+            Control to handle selecting a month and year
+            </summary>
+        </member>
+        <member name="F:Robo.DateYearMonthDownList.Month">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Robo.DateYearMonthDownList.Year">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Robo.DateYearMonthDownList.YearRangeValidator">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Robo.DateYearMonthDownList.YearRequiredValidator">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Robo.DateYearMonthDownList.YearValidator">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Robo.DateYearMonthDownList.AllowNull">
+            <summary>
+            Specifies whether empty values are allowed
+            </summary>
+        </member>
+        <member name="P:Robo.DateYearMonthDownList.MonthClientId">
+            <summary>
+            Gets the client ID of the month drop down list
+            </summary>
+        </member>
+        <member name="P:Robo.DateYearMonthDownList.ValidationGroup">
+            <summary>
+            Sets the validation group for the internal validators
+            </summary>
+        </member>
+        <member name="P:Robo.DateYearMonthDownList.Value">
+            <summary>
+            Gets or sets the <see cref="T:System.DateTime"/> value of the selected month and year
+            </summary>
+        </member>
+        <member name="P:Robo.DateYearMonthDownList.ValueNullable">
+            <summary>
+            Gets or sets the optional <see cref="T:System.DateTime"/> value of the selected month and year
+            </summary>
+        </member>
+        <member name="P:Robo.DateYearMonthDownList.YearClientId">
+            <summary>
+            Gets the client ID of the year text box
+            </summary>
+        </member>
+        <member name="M:Robo.DateYearMonthDownList.FrameworkInitialize">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Robo.DBConvert">
+            <summary>
+            Static class with basic conversions
+            </summary>
+        </member>
+        <member name="M:Robo.DBConvert.ToDateTimeNullable(System.Object)">
+            <summary>
+            Returns Nullable&lt;DateTime&gt; conversion of <c>object</c>
+            </summary>
+            <param name="o">Object to convert</param>
+            <returns></returns>
+        </member>
+        <member name="M:Robo.DBConvert.ToDecimalNullable(System.Object)">
+            <summary>
+            Returns Nullable&lt;decimal&gt; conversion of <c>object</c>
+            </summary>
+            <param name="o">Object to convert</param>
+            <returns></returns>
+        </member>
+        <member name="M:Robo.DBConvert.ToDecimalNullableMoneyString(System.Object)">
+            <summary>
+            Parse a decimal value to a currency string or empty string if null
+            </summary>
+            <param name="o">Object to parse</param>
+            <returns>Currency formatted string or empty if null</returns>
+        </member>
+        <member name="M:Robo.DBConvert.ToDecimalNullableString(System.Object)">
+            <summary>
+            Parse a decimal value to a string or empty string if null
+            </summary>
+            <param name="o">Object to parse</param>
+            <returns>string or empty if null</returns>
+        </member>
+        <member name="M:Robo.DBConvert.ToEnum``1(System.Object)">
+            <summary>
+            Parse object to Enum value
+            </summary>
+            <typeparam name="T">Enum Type to parse to</typeparam>
+            <param name="o">Object to parse</param>
+            <returns>Enum object of type T with the parsed value</returns>
+        </member>
+        <member name="M:Robo.DBConvert.ToEnum``1(System.Object,``0)">
+            <summary>
+            Parse object to Enum value, using default value if it fails
+            </summary>
+            <typeparam name="T">Enum Type to parse to</typeparam>
+            <param name="o">Object to parse</param>
+            <param name="defaultValue">T value to use if parse fails</param>
+            <returns>Enum object of type T with the parsed value</returns>
+        </member>
+        <member name="M:Robo.DBConvert.ToIntNullable(System.Object)">
+            <summary>
+            Returns Nullable&lt;int&gt; conversion of <c>object</c>
+            </summary>
+            <param name="o">Object to convert</param>
+            <returns></returns>
+        </member>
+        <member name="M:Robo.DBConvert.ToIntNullableString(System.Object)">
+            <summary>
+            Parse an Int32 to string
+            </summary>
+            <param name="o">Object to parse</param>
+            <returns>Int32 as string or empty if object is null</returns>
+        </member>
+        <member name="M:Robo.DBConvert.ToStringNullable(System.Object)">
+            <summary>
+            Returns string or null
+            </summary>
+            <param name="o">Object to parse</param>
+            <returns>String value or null</returns>
+        </member>
+        <member name="M:Robo.DBConvert.ToStringOrEmpty(System.Object)">
+            <summary>
+            Returns string value of an object
+            </summary>
+            <param name="o">Object to parse</param>
+            <returns>String value of object or an empty string</returns>
+        </member>
+        <member name="T:Robo.DecimalTextBox">
+            <summary>
+            Control to handle validation of decimal input values
+            </summary>
+        </member>
+        <member name="P:Robo.DecimalTextBox.AllowNull">
+            <summary>
+            Determines if an empty value is allowed in the field. If true, disables the Required Fielf Validator.
+            </summary>
+        </member>
+        <member name="P:Robo.DecimalTextBox.RegexText">
+            <summary>
+            Gets or sets the text displayed in the Regular Expression Validator control when validation fails.
+            </summary>
+        </member>
+        <member name="P:Robo.DecimalTextBox.RegexErrorMessage">
+            <summary>
+            Gets or sets the text for the error message in a <see cref="T:System.Web.UI.WebControls.ValidationSummary"/> when validation fails.
+            </summary>
+        </member>
+        <member name="P:Robo.DecimalTextBox.RequiredText">
+            <summary>
+            Gets or sets the text displayed in the Required Field Validator control when validation fails.
+            </summary>
+        </member>
+        <member name="P:Robo.DecimalTextBox.RequiredErrorMessage">
+            <summary>
+            Gets or sets the text for the error message in a <see cref="T:System.Web.UI.WebControls.ValidationSummary"/> when validation fails.
+            </summary>
+        </member>
+        <member name="P:Robo.DecimalTextBox.Attributes">
+            <summary>
+            Attributes for the TextBox
+            </summary>
+        </member>
+        <member name="P:Robo.DecimalTextBox.TextBoxClientId">
+            <summary>
+            Gets the client ID of the TextBox
+            </summary>
+        </member>
+        <member name="P:Robo.DecimalTextBox.ValidationGroup">
+            <summary>
+            Sets the validation group for the validators
+            </summary>
+        </member>
+        <member name="P:Robo.DecimalTextBox.Value">
+            <summary>
+            Gets or sets the decimal value
+            </summary>
+        </member>
+        <member name="P:Robo.DecimalTextBox.ValueNullable">
+            <summary>
+            Gets or sets the Nullable decimal value.
+            </summary>
+        </member>
+        <member name="P:Robo.DecimalTextBox.ValueObject">
+            <summary>
+            Sets the Value from an DB object such as a <see cref="T:System.Data.DataRow"/> value.
+            </summary>
+        </member>
+        <member name="P:Robo.DecimalTextBox.Width">
+            <summary>
+            Sets the width of the TextBox
+            </summary>
+        </member>
+        <member name="M:Robo.DecimalTextBox.FrameworkInitialize">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Robo.EnumDropdownList">
+            <summary>
+            Creates a dropdown list containing the values of a class inherited from <see cref="T:System.Enum"/>
+            </summary>
+            <example>
+            <code language="html" title="ASP.NET">
+            <![CDATA[
+            <robo:EnumDropDownList runat="server" ID="EnumValues" UseIntValues="true"></robo:EnumDropDownList>]]>
+            </code>
+            <code language="csharp" title="C#">
+            public enum YesNo
+            {
+                Yes = 0,
+                No = 1,
+                Maybe = 2
+            }
+            
+            EnumValues.EnumValue = typeof(YesNo);
+            </code>
+            <code language="html" title="Rendered HTML">
+            <![CDATA[
+            <select id="EnumValues" name="EnumValues">
+                <option value="0">Yes</option>
+                <option value="1">No</option>
+                <option value="2">Maybe</option>
+            </select>]]>
+            </code>
+            <remarks>
+            The option values are used in the same order as they are defined in the object definition. If <see cref="P:Robo.EnumDropdownList.UseIntValues"/> is set to <see langword="false"/> then the example option would look like <c>&lt;option value="Yes"&gt;Yes&lt;/option&gt;</c>, instead using the name. This would also be the case if the options did not have values assigned to them.
+            </remarks>
+            </example>
+        </member>
+        <member name="P:Robo.EnumDropdownList.UseIntValues">
+            <summary>
+            When <see langword="true"/>, uses specified values instead of names as the <see cref="T:System.Web.UI.WebControls.ListItem"/> value. When <see langword="false"/> (default), uses the names as the values.
+            </summary>
+        </member>
+        <member name="P:Robo.EnumDropdownList.AddEmpty">
+            <summary>
+            When <see langword="true"/>, adds empty <see cref="T:System.Web.UI.WebControls.ListItem"/> that allows required validation. When <see langword="false"/> (default), no additional item is added.
+            </summary>
+        </member>
+        <member name="P:Robo.EnumDropdownList.ReverseOrder">
+            <summary>
+            Whether to reverse the order of the dropdown
+            </summary>
+        </member>
+        <member name="P:Robo.EnumDropdownList.EnumValue">
+            <summary>
+            The Enum object to parse through
+            </summary>
+        </member>
+        <member name="T:Robo.EnumUtil">
+            <summary>
+            Static Class for handling Enumerations
+            </summary>
+        </member>
+        <member name="M:Robo.EnumUtil.GetValues``1">
+            <summary>
+            Method for getting the values of an enumeration
+            </summary>
+            <typeparam name="T">The enumeration type to get values from</typeparam>
+            <example>
+            <code language="CSharp" Title="C#">
+            public enum Suit
+            {
+                Spade,
+                Heart,
+                Diamond,
+                Club
+            }
+            var eValues = EnumUtil.GetValues&lt;Suit&gt;();
+            foreach (Suit s in eValues)
+            {
+                Console.WriteLine(s.ToString());
+            }
+            </code>
+            </example>
+            <returns><see cref="T:System.Collections.Generic.IEnumerable`1"/> object of items</returns>
+        </member>
+        <member name="T:Robo.ExcDetails">
+            <summary>
+            Class to parse out and retrieve full details of a given <see cref="T:System.Exception"/> object
+            </summary>
+        </member>
+        <member name="M:Robo.ExcDetails.Get(System.Exception)">
+            <summary>
+            Retrieve the full details of the <see cref="T:System.Exception"/>
+            </summary>
+            <param name="ex">The <see cref="T:System.Exception"/> to iterate through</param>
+            <returns>String value as a message</returns>
+        </member>
+        <member name="M:Robo.ExcDetails.IsConnectivityWebException(System.Exception)">
+            <summary>
+            Checks to seeif the provided <see cref="T:System.Exception"/> is related to database connection
+            </summary>
+            <param name="ex">The Exception to check</param>
+            <returns><see langword="true"/> or <see langword="false"/></returns>
+        </member>
+        <member name="M:Robo.ExcDetails.IsInfrastructureWebException(System.Exception)">
+            <summary>
+            Checks to see if the provided <see cref="T:System.Exception"/> is infrastructure related
+            </summary>
+            <param name="ex">The exception to check</param>
+            <returns><see langword="true"/> or <see langword="false"/></returns>
+        </member>
+        <member name="T:Robo.Extensions">
+            <summary>
+            This class is used to store class extensions. By specifying 'this' before the first parameter it marks it as an extension of that parameter type
+            </summary>
+        </member>
+        <member name="M:Robo.Extensions.Replace(System.String,System.String[],System.String)">
+            <summary>
+            <para>This method takes a string array of characters to replace in a specified string with a specified value.</para>
+            <para>This method will replace all instances of all values in the array with <c>replacementValue</c>.</para>
+            </summary>
+            <example>
+            <code language="CSharp" title="C#">
+            string val = "abcdefghiabc";
+            string[] sArr = { "a", "b", "c" };
+            string newVal = "x";
+            Console.Write(val.Replace(sArr, newVal);
+            
+            // Returns: xxxdefghixxx
+            </code>
+            </example>
+            <param name="value">string to process</param>
+            <param name="symbols">Array of strings to find</param>
+            <param name="replacementValue">Replacement value for all found strings</param>
+            <returns>String with values replaced</returns>
+        </member>
+        <member name="M:Robo.Extensions.Replace(System.String,System.String[],System.String[])">
+            <summary>
+            <para>This method takes a string array of characters to replace in a specified string with a specified value</para>
+            <para>This method replaces <c>symbols[i]</c> with <c>replacementValue[i]</c></para>
+            </summary>
+            <example>
+            <code language="CSharp" title="C#">
+            string val = "abcdefghiabc";
+            string[] sArr = { "a", "b", "c" };
+            string[] newVal = { "x", "y", "z" };
+            Console.Write(val.Replace(sArr, newVal);
+            
+            // Replaces "a" with "x", "b" with "y", and "c" with "z"
+            // Returns: xyzdefghixyz
+            </code>
+            </example>
+            <param name="value">string to process</param>
+            <param name="symbols">Array of strings to find</param>
+            <param name="replacementValue">Array of strings to be replaced</param>
+            <returns>String with values replaced</returns>
+        </member>
+        <member name="M:Robo.Extensions.StripPunctuation(System.String)">
+            <summary>
+            Removes punctuation from a given string
+            </summary>
+            <param name="s">String value to process</param>
+            <returns>String with punctuation removed</returns>
+        </member>
+        <member name="M:Robo.Extensions.Nl2Br(System.String)">
+            <summary>
+            Changes <see cref="P:System.Environment.NewLine"/> to the HTML &lt;br /&gt; line break
+            </summary>
+            <param name="s">The string to process</param>
+            <returns>String with line endings converted to HTML &lt;br /&gt; tags</returns>
+        </member>
+        <member name="M:Robo.Extensions.PreviousControl(System.Web.UI.Control,System.Type)">
+            <summary>
+            Get the previous control of the given type (<see cref="T:System.Web.UI.WebControls.TextBox"/>, for example). Skips <see cref="T:System.Web.UI.LiteralControl"/>
+            </summary>
+            <example>
+            <code language="html" title="ASP.NET">
+            <![CDATA[
+            <asp:Label runat="server" Text="Name: "></asp:Label>
+            <asp:TextBox runat="server" ID="txtName"></asp:TextBox>]]>
+            </code>
+            <code language="CSharp" title="C#">
+            Label ctl = txtName.PreviousControl(typeof(Label)) as Label;
+            if (ctl != null)
+            {
+                // Further processing on the sibling control
+            }
+            </code>
+            </example>
+            <param name="control">Control to reference</param>
+            <param name="OfType">The type of control to get</param>
+            <returns><see cref="T:System.Web.UI.Control"/> base type to be cast</returns>
+        </member>
+        <member name="M:Robo.Extensions.NextControl(System.Web.UI.Control,System.Type)">
+            <summary>
+            Get the next control of the given type (<see cref="T:System.Web.UI.WebControls.TextBox"/>, for example). Skips <see cref="T:System.Web.UI.LiteralControl"/>
+            </summary>
+            <example>
+            <code language="html" title="ASP.NET">
+            <![CDATA[
+            <asp:Label runat="server" Text="Name: "></asp:Label>
+            <asp:TextBox runat="server" ID="txtName"></asp:TextBox><br />
+            <asp:Label runat="server" Text="State: "></asp:Label>]]>
+            </code>
+            <code language="CSharp" title="C#">
+            Label ctl = txtName.NextControl(typeof(Label)) as Label;
+            if (ctl != null)
+            {
+                // Further processing on the sibling control
+            }
+            </code>
+            </example>
+            <param name="control">Control to reference</param>
+            <param name="OfType">The type of control to get</param>
+            <returns><see cref="T:System.Web.UI.Control"/> base type to be cast</returns>
+        </member>
+        <member name="M:Robo.Extensions.Toggle(System.Web.UI.Control)">
+            <summary>
+            Toggles visibility of the <see cref="T:System.Web.UI.Control"/>.
+            </summary>
+            <param name="control">The <see cref="T:System.Web.UI.Control"/> to toggle.</param>
+        </member>
+        <member name="M:Robo.Extensions.ToDelimitedFile(System.Data.DataTable,System.String)">
+            <summary>
+            Copy a <see cref="T:System.Data.DataTable"/> to a delimited string
+            </summary>
+            <param name="table">The DataTable from which the delimited string will be created</param>
+            <param name="delimiter">The delimiter used to separate columns in the output string (comma (<c>,</c>) or tab (<c>\t</c>) are most often used)</param>
+            <returns>String of <c>delimiter</c> delimited text representing the given <see cref="T:System.Data.DataTable"/></returns>
+        </member>
+        <member name="M:Robo.Extensions.ToStream(System.String)">
+            <summary>
+            Create a <see cref="T:System.IO.Stream"/> object from a <see cref="T:System.String"/>
+            </summary>
+            <param name="str">String from which to create the Stream</param>
+            <returns><see cref="T:System.IO.Stream"/> which represents the given <see cref="T:System.String"/></returns>
+        </member>
+        <member name="M:Robo.Extensions.ToDelimitedFile``2(System.Collections.Generic.Dictionary{``0,``1},System.String,System.String,System.String)">
+            <summary>
+            Creates delimited string from <see cref="T:System.Collections.Generic.Dictionary`2"/>. Must be a primitive type.
+            </summary>
+            <typeparam name="TKey">Primitive Type (int, string)</typeparam>
+            <typeparam name="TValue">Primitive Type (int, string)</typeparam>
+            <param name="List">The <see cref="T:System.Collections.Generic.Dictionary`2"/> object to create a string from</param>
+            <param name="delimiter">The delimiter to use in the string</param>
+            <param name="keyName">The key name in the first column of the delimited string</param>
+            <param name="valueName">The value name in the second column of the delimited string</param>
+            <returns>String of <c>delimiter</c> delimited text representing a <see cref="T:System.Data.DataTable"/> with <c>keyName</c> and <c>valueName</c> as columns</returns>
+        </member>
+        <member name="M:Robo.Extensions.ToTable``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Copies <see cref="T:System.Collections.Generic.IEnumerable`1"/> to DataTable. Must be a primitive data type such as int or string.
+            </summary>
+            <typeparam name="T">Primitive Type (int, decimal) or string</typeparam>
+            <param name="Val"><see cref="T:System.Collections.Generic.IEnumerable`1"/> to copy</param>
+            <returns><see cref="T:System.Data.DataTable"/> with a single column consisting of the <see cref="T:System.Collections.Generic.IEnumerable`1"/> values</returns>
+        </member>
+        <member name="M:Robo.Extensions.ToTable``2(System.Collections.Generic.Dictionary{``0,``1},System.String,System.String)">
+            <summary>
+            Copies a <see cref="T:System.Collections.Generic.Dictionary`2"/> to a <see cref="T:System.Data.DataTable"/>. Must be a primitive data type such as int or string.
+            </summary>
+            <typeparam name="TKey">Primitive Type (int, string)</typeparam>
+            <typeparam name="TValue">Primitive Type (int, string)</typeparam>
+            <param name="Dictionary">The <see cref="T:System.Collections.Generic.Dictionary`2"/> object to copy</param>
+            <param name="keyName">Name of the column which will contain the <c>TKey</c> value</param>
+            <param name="valueName">Name of the column which will contain the <c>TValue</c> value</param>
+            <returns><see cref="T:System.Data.DataTable"/> containing two columns representing the <see cref="T:System.Collections.Generic.Dictionary`2"/> object</returns>
+        </member>
+        <member name="T:Robo.GridViewUtilities">
+            <summary>
+            Class containing utility methods specific for working with a <see cref="T:System.Web.UI.WebControls.GridView"/> object
+            </summary>
+        </member>
+        <member name="M:Robo.GridViewUtilities.GetCellByName(System.Web.UI.WebControls.GridViewRow,System.String)">
+            <summary>
+            Return a <see cref="T:System.Web.UI.WebControls.DataControlFieldCell"/> by the cell name
+            </summary>
+            <param name="Row">The <see cref="T:System.Web.UI.WebControls.GridViewRow"/> to retrieve the cell from</param>
+            <param name="CellName">The cell name</param>
+            <returns><see cref="T:System.Web.UI.WebControls.DataControlFieldCell"/> or <see langword="null"/> if not found</returns>
+        </member>
+        <member name="M:Robo.GridViewUtilities.GetColumnIndexByHeaderText(System.Web.UI.WebControls.GridView,System.String)">
+            <summary>
+            Retrieve the zero-based index of the column based on the header text
+            </summary>
+            <param name="aGridView">The <see cref="T:System.Web.UI.WebControls.GridView"/> object to search</param>
+            <param name="ColumnText">The header text to use to find the column</param>
+            <returns>Column index or -1 if not found</returns>
+        </member>
+        <member name="M:Robo.GridViewUtilities.GetColumnIndexByDBName(System.Web.UI.WebControls.GridView,System.String)">
+            <summary>
+            Retrieve the zero-based index of the column based on the <see cref="P:System.Web.UI.WebControls.BoundField.DataField"/> name of a <see cref="T:System.Web.UI.WebControls.BoundField"/> control
+            </summary>
+            <param name="aGridView">The <see cref="T:System.Web.UI.WebControls.GridView"/> object to search</param>
+            <param name="ColumnText">The <see cref="T:System.String"/> of the <see cref="P:System.Web.UI.WebControls.BoundField.DataField"/> value</param>
+            <returns>Column index or -1 if not found</returns>
+        </member>
+        <member name="T:Robo.GridView">
+            <summary>
+            Control inheriting from <see cref="T:System.Web.UI.WebControls.GridView"/> which handles some common functions such as paging and sorting
+            </summary>
+        </member>
+        <member name="E:Robo.GridView.LoadDataSource">
+            <summary>
+            Allows a datasource to be loaded
+            </summary>
+        </member>
+        <member name="M:Robo.GridView.OnPageIndexChanging(System.Web.UI.WebControls.GridViewPageEventArgs)">
+            <summary>
+            
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:Robo.GridView.OnPreRender(System.EventArgs)">
+            <summary>
+            
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:Robo.GridView.OnSorting(System.Web.UI.WebControls.GridViewSortEventArgs)">
+            <summary>
+            
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="T:Robo.GroupedDropDownList">
+            <summary>
+            Control inheriting from <see cref="T:System.Web.UI.WebControls.DropDownList"/> which allows for grouping <see cref="T:System.Web.UI.WebControls.ListItem"/> objects
+            </summary>
+            <remarks>
+            Items are grouped by using the <c>Attributes</c> collection to set an <c>OptionGroup</c>
+            <example>
+            <code lang="C#">
+            ListItem li1 = new ListItem("1", "1");
+            ListItem li2 = new ListItem("2", "2");
+            ListItem li3 = new ListItem("3", "3");
+            ListItem li4 = new ListItem("4", "4");
+            
+            li1.Attributes.Add("OptionGroup", "Group 1"); // To modify use li1.Attributes["OptionGroup"] = "Group 1";
+            li2.Attributes.Add("OptionGroup", "Group 1");
+            li3.Attributes.Add("OptionGroup", "Group 2");
+            li4.Attributes.Add("OptionGroup", "Group 2");
+            </code>
+            </example>
+            </remarks>
+        </member>
+        <member name="M:Robo.GroupedDropDownList.RenderContents(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            
+            </summary>
+            <param name="writer"></param>
+        </member>
+        <member name="T:Robo.HtmlSafeLabel">
+            <summary>
+            Control for displaying a string value with HTML tags converted
+            </summary>
+        </member>
+        <member name="P:Robo.HtmlSafeLabel.ConvertCR">
+            <summary>
+            Specifies whether new lines should be converted to the HTML line break (&lt;br /&gt;)
+            </summary>
+        </member>
+        <member name="M:Robo.HtmlSafeLabel.RenderContents(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            
+            </summary>
+            <param name="writer"></param>
+        </member>
+        <member name="T:Robo.Http">
+            <summary>
+            Static class for retrieving values from the Request
+            </summary>
+        </member>
+        <member name="P:Robo.Http.Prm">
+            <summary>
+            Return a collection of URL parameters
+            </summary>
+        </member>
+        <member name="P:Robo.Http.PrmInt">
+            <summary>
+            Return a collection of URL parameters converted to <see cref="T:System.Int32"/>
+            </summary>
+        </member>
+        <member name="P:Robo.Http.PrmIntOrZero">
+            <summary>
+            Returns a collection of optional URL <see cref="T:System.Int32"/> parameters returning 0 if empty
+            </summary>
+        </member>
+        <member name="P:Robo.Http.PrmOrEmpty">
+            <summary>
+            Returns a collection of optional URL parameters
+            </summary>
+        </member>
+        <member name="M:Robo.Http.GetLastCookie(System.Web.HttpRequest,System.String)">
+            <summary>
+            Return the value of the specified <see cref="T:System.Web.HttpCookie"/> from the request
+            </summary>
+            <param name="request">The request to search for the cookie</param>
+            <param name="sName">The name of the cookie</param>
+            <returns>Value of the specified cookie or an empty string if the cookie is not found</returns>
+        </member>
+        <member name="M:Robo.Http.KillHtml(System.String)">
+            <summary>
+            Clean up HTML from an input string. Converts &amp; to &amp;amp;, &lt; to &amp;lt;, etc.
+            </summary>
+            <param name="sPrm">The string to clean</param>
+            <returns>The string value with special characters converted to HTML entities</returns>
+        </member>
+        <member name="M:Robo.Http.RedirectByPost(System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.Web.UI.Page)">
+            <summary>
+            Redirect a page using a POST method to retain values
+            </summary>
+            <param name="url">URL to POST data to</param>
+            <param name="fields">The list of fields and values to POST to the specified URL</param>
+            <param name="page">The page object to write to</param>
+        </member>
+        <member name="M:Robo.Http.RelativeToAbsoluteUrl(System.String)">
+            <summary>
+            Converts a relative URL to an absolute URL using the current request host value.
+            </summary>
+            <param name="url">The relative URL to convert</param>
+            <returns>The converted relavtive URL prepended with the current hostname</returns>
+        </member>
+        <member name="T:Robo.HttpCulture">
+            <summary>
+            Provides methods changing the culture of a given HTTP Request and HTTP Response.
+            </summary>
+        </member>
+        <member name="M:Robo.HttpCulture.GetCulture">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Robo.HttpCulture.Set(System.Web.HttpRequest,System.Web.HttpResponse)">
+            <summary>
+            
+            </summary>
+            <param name="request"></param>
+            <param name="response"></param>
+        </member>
+        <member name="M:Robo.HttpCulture.SetCulture(System.Web.HttpRequest,System.Web.HttpResponse,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="request"></param>
+            <param name="response"></param>
+            <param name="sNewCulture"></param>
+        </member>
+        <member name="T:Robo.HttpPrm">
+            <summary>
+            Return a collection of URL parameters
+            </summary>
+        </member>
+        <member name="F:Robo.HttpPrm.IsOptional">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Robo.HttpPrm.Item(System.String)">
+            <summary>
+            Return value of the given URL parameter
+            </summary>
+            <param name="sName">The key associated to the value</param>
+            <returns>URL parameter value as a <see cref="T:System.String"/></returns>
+            <exception cref="T:Robo.HttpPrmExc">
+            If the URL parameter is not given but is not an optional parameter
+            </exception>
+        </member>
+        <member name="T:Robo.HttpPrmExc">
+            <summary>
+            Exception raised from an invalid access of a URL parameter
+            </summary>
+        </member>
+        <member name="M:Robo.HttpPrmExc.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the HttpPrmExc class with a specified error message.
+            </summary>
+            <param name="sMsg">The message that describes the error.</param>
+        </member>
+        <member name="M:Robo.HttpPrmExc.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the HttpPrmExc class with a specified error message and a reference to the inner exception that is the cause of this exception.
+            </summary>
+            <param name="sMsg">The error message that explains the reason for the exception.</param>
+            <param name="innerException">The exception that is the cause of the current exception, or a null reference if no inner exception is specified.</param>
+        </member>
+        <member name="T:Robo.HttpPrmInt">
+            <summary>
+            Return a collection of URL parameters converted to <see cref="T:System.Int32"/>
+            </summary>
+        </member>
+        <member name="P:Robo.HttpPrmInt.Item(System.String)">
+            <summary>
+            Return value of the given URL parameter
+            </summary>
+            <param name="sName">The key associated to the value</param>
+            <returns>URL parameter value as a <see cref="T:System.Int32"/></returns>
+            <exception cref="T:Robo.HttpPrmExc">
+            If the URL parameter is not given or cannot be parsed as a valid <see cref="T:System.Int32"/> value but is not an optional parameter
+            </exception>
+        </member>
+        <member name="T:Robo.HyperlinkButton">
+            <summary>
+            Control to simplify the creation of a button which redirects the user.
+            </summary>
+        </member>
+        <member name="P:Robo.HyperlinkButton.NavigateUrl">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Robo.HyperlinkButton.OnClick(System.EventArgs)">
+            <summary>
+            Raises the Button.Click event of teh Button control.
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:Robo.HyperlinkButton.OnInit(System.EventArgs)">
+            <summary>
+            
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="T:Robo.ImageProcessor">
+            <summary>
+            Class for various image processing methods
+            </summary>
+        </member>
+        <member name="M:Robo.ImageProcessor.FromArray(System.Byte[])">
+            <summary>
+            Return a <c>System.Drawing.Image</c> object from a byte array.
+            </summary>
+            <param name="imgBuffer">The byte array to create the Image from</param>
+            <returns>Image representing the byte array</returns>
+        </member>
+        <member name="M:Robo.ImageProcessor.GetEncoderInfo(System.String)">
+            <summary>
+            Returns <see cref="T:System.Drawing.Imaging.ImageCodecInfo"/> based on the MIME Type string
+            </summary>
+            <param name="mimeType">String of the MIME Type</param>
+            <returns><see cref="T:System.Drawing.Imaging.ImageCodecInfo"/></returns>
+        </member>
+        <member name="M:Robo.ImageProcessor.ResizeToExactSize(System.Drawing.Image,System.Int32,System.Int32,System.Boolean,System.Drawing.Color)">
+            <summary>
+            Resizes an image to the given size.
+            </summary>
+            <param name="img">Image object to resize</param>
+            <param name="width">Width in pixels</param>
+            <param name="height">Heigh in pixels</param>
+            <param name="crop">Whether to crop or to use the full original</param>
+            <param name="bgColor">The background color of the image canvas when the resized image is a different aspect ration than the original image</param>
+            <returns>Resized image</returns>
+        </member>
+        <member name="M:Robo.ImageProcessor.ResizeToExactSize(System.Drawing.Image,System.Int32,System.Int32,System.Boolean,System.Drawing.Color,System.Boolean)">
+            <summary>
+            Resizes an image to the given size
+            </summary>
+            <param name="img">Image object to resize</param>
+            <param name="width">Width in pixels</param>
+            <param name="height">Heigh in pixels</param>
+            <param name="crop">Whether to crop or to use the full original</param>
+            <param name="bgColor">The background color of the image canvas when the resized image is a different aspect ration than the original image</param>
+            <param name="alignLeftTop">False to leave in the center, True to align it in the top left corner</param>
+            <returns>Resized image</returns>
+        </member>
+        <member name="M:Robo.ImageProcessor.ResizeWithFixedAspectRatio(System.Drawing.Image,System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            Resizes an image to the given size, keeping the original aspect ratio.
+            </summary>
+            <param name="img">Image object to resize</param>
+            <param name="width">Width in pixels</param>
+            <param name="height">Height in pixels</param>
+            <param name="useMinDimension">Whether to use the smallest dimension or the biggest dimension</param>
+            <returns>Resized image</returns>
+        </member>
+        <member name="M:Robo.ImageProcessor.ToJpegArray(System.Drawing.Image,System.Int32)">
+            <summary>
+            Returns a byte array of a JPEG image based on an Image object
+            </summary>
+            <param name="img">Image to convert</param>
+            <param name="quality">Quality percentage</param>
+            <returns>byte array based on JPEG image</returns>
+        </member>
+        <member name="M:Robo.ImageProcessor.ToPngArray(System.Drawing.Image)">
+            <summary>
+            Returns a byte array of PNG image based on an Image object
+            </summary>
+            <param name="img">Image to convert</param>
+            <returns>byte array based on PNG image</returns>
+        </member>
+        <member name="T:Robo.IntDropDownList">
+            <summary>
+            DropDownList to show int values
+            </summary>
+            <example>
+            <code language="html" title="ASP.NET">
+            <![CDATA[<robo:IntDropDownList runat="server" MaxValue="10" MinValue="1" AllowEmpty="true"></robo:IntDropDownList>]]>
+            </code>
+            <code language="CSharp" title="C#">
+            Robo.IntDropDownList ddl = new Robo.IntDropDownList();
+            ddl.MaxValue = 10;
+            ddl.MinValue = 1;
+            ddl.AllowEmpty = true;
+            Nullable&lt;int&gt; value = ddl.SelectedInt;
+            </code>
+            </example>
+        </member>
+        <member name="P:Robo.IntDropDownList.MinValue">
+            <summary>
+            The minimum value to display (inclusive, does not include the empty value). If not specified, the default value of 1 will be used.
+            </summary>
+        </member>
+        <member name="P:Robo.IntDropDownList.MaxValue">
+            <summary>
+            The maximum value to display (inclusive). If not specified, the default value of 10 will be used.
+            </summary>
+        </member>
+        <member name="P:Robo.IntDropDownList.AllowEmpty">
+            <summary>
+            If <see langword="true"/>, an empty list item will be added and <see langword="null"/> will be allowed
+            </summary>
+        </member>
+        <member name="P:Robo.IntDropDownList.SelectedInt">
+            <summary>
+            Gets or sets the selected value based on the integer value
+            </summary>
+            <exception cref="T:System.ArgumentNullException"><see cref="P:Robo.IntDropDownList.AllowEmpty"/> is <see langword="false"/> and <c>value</c> is <see langword="null"/></exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><c>value</c> is less than <see cref="P:Robo.IntDropDownList.MinValue"/> or greater than <see cref="P:Robo.IntDropDownList.MaxValue"/></exception>
+        </member>
+        <member name="M:Robo.IntDropDownList.OnInit(System.EventArgs)">
+            <summary>
+            Overrides the base OnInit event to populate values
+            </summary>
+            <param name="e">Event Arguments</param>
+        </member>
+        <member name="T:Robo.IntTextBox">
+            <summary>
+            Creates a text box which validates input as an integer.
+            </summary>
+        </member>
+        <member name="P:Robo.IntTextBox.AllowNull">
+            <summary>
+            Specifies whether the value should be optional and allow a <see langword="null"/>
+            </summary>
+        </member>
+        <member name="P:Robo.IntTextBox.ValidationGroup">
+            <summary>
+            Specifies the validation group for the internal validators
+            </summary>
+        </member>
+        <member name="P:Robo.IntTextBox.RequiredCssClass">
+            <summary>
+            Specifies the CSS class for the <see cref="T:System.Web.UI.WebControls.RequiredFieldValidator"/>
+            </summary>
+        </member>
+        <member name="P:Robo.IntTextBox.RequiredMessage">
+            <summary>
+            Specifies the <see cref="P:System.Web.UI.WebControls.BaseValidator.ErrorMessage"/> of the <see cref="T:System.Web.UI.WebControls.RequiredFieldValidator"/>
+            </summary>
+        </member>
+        <member name="P:Robo.IntTextBox.RegexCssClass">
+            <summary>
+            Specifies the CSS class for the <see cref="T:System.Web.UI.WebControls.RegularExpressionValidator"/>
+            </summary>
+        </member>
+        <member name="P:Robo.IntTextBox.RegexMessage">
+            <summary>
+            Specifies the <see cref="P:System.Web.UI.WebControls.BaseValidator.ErrorMessage"/> of the <see cref="T:System.Web.UI.WebControls.RegularExpressionValidator"/>
+            </summary>
+        </member>
+        <member name="P:Robo.IntTextBox.ForeColor">
+            <summary>
+            Specify the text color of the validator messages
+            </summary>
+        </member>
+        <member name="P:Robo.IntTextBox.Value">
+            <summary>
+            Gets or sets the value of the text box
+            </summary>
+        </member>
+        <member name="P:Robo.IntTextBox.ValueNullable">
+            <summary>
+            Gets or sets the optional value of the text box
+            </summary>
+        </member>
+        <member name="P:Robo.IntTextBox.ValueObject">
+            <summary>
+            Sets the value based on an object (such as from a <see cref="T:System.Data.DataRow"/>)
+            </summary>
+        </member>
+        <member name="P:Robo.IntTextBox.Width">
+            <summary>
+            Specifies the width of the text box
+            </summary>
+        </member>
+        <member name="M:Robo.IntTextBox.ApplyStyleSheetSkin(System.Web.UI.Page)">
+            <summary>
+            Applies the style properties defined in the page style sheet to the control.
+            </summary>
+            <param name="page">The <see cref="T:System.Web.UI.Page"/> containing the control.</param>
+        </member>
+        <member name="M:Robo.IntTextBox.FrameworkInitialize">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Robo.ListControlUtil">
+            <summary>
+            Static class for handling some methods of working with ListControl controls.
+            </summary>
+        </member>
+        <member name="M:Robo.ListControlUtil.SetByValue(System.Web.UI.WebControls.ListControl,System.String)">
+            <summary>
+            Attempt to select an item based on a value.
+            </summary>
+            <param name="c">The ListControl whose item will be selected</param>
+            <param name="value">The value of the ListItem to find.</param>
+            <returns>True if the item was found and could be selected. False otherwise.</returns>
+        </member>
+        <member name="T:Robo.Luhn">
+            <summary>
+            This class provide static methods for validation checking of Luhn formula numbers.
+            </summary>
+        </member>
+        <member name="M:Robo.Luhn.IsValid(System.String)">
+            <summary>
+            The greek social id, uses the Luhn formula.<br />
+            The last digit is the validation digit using the Luhn check digit algorithm.<ul><li>
+             1 - Counting from the check digit, which is the rightmost, and moving left, double the value of every second digit.</li><li>
+             2 - Sum the digits of the products (e.g., 10: 1 + 0 = 1, 14: 1 + 4 = 5) together with the undoubled digits from the original number.</li><li>
+             3 - If the total modulo 10 is equal to 0 (if the total ends in zero) then the number is valid according to the Luhn formula; else it is not valid.</li></ul>
+            </summary>
+            <param name="id">The id number in string</param>
+            <returns>True if pass the Luhn validation, else false</returns>
+        </member>
+        <member name="T:Robo.MimeTypeDetector">
+            <summary>
+            Class for determining a MIME type for a file
+            </summary>
+        </member>
+        <member name="M:Robo.MimeTypeDetector.FindMimeFromData(System.UInt32,System.String,System.Byte[],System.UInt32,System.String,System.UInt32,System.UInt32@,System.UInt32)">
+            <summary>
+            Determine the MIME type from provided data
+            </summary>
+            <param name="pBC">Pointer to <c>IBindCtx</c> interface. Can be set to null.</param>
+            <param name="pwzUrl">Pointer to a string value that contains the URL of the data. Can be null if <c>byte[]</c> data is being passed in</param>
+            <param name="pBuffer">Buffer data to be checked</param>
+            <param name="cbSize">Size of the buffer</param>
+            <param name="pwzMimeProposed">Proposed MIME type. If type cannot be found, this value is used.</param>
+            <param name="dwMimeFlags">See http://msdn.microsoft.com/en-us/library/ms775107(v=vs.85).aspx</param>
+            <param name="ppwzMimeOut">The MIME type detected</param>
+            <param name="dwReserverd">Reserved, must be set to 0</param>
+            <returns>S_OK, E_FAIL, E_INVALIDARG, or E_OUTOFMEMORY</returns>
+        </member>
+        <member name="M:Robo.MimeTypeDetector.getMimeFromFile(System.String)">
+            <summary>
+            Get MIME type from a file
+            </summary>
+            <param name="filename">The file path to read</param>
+            <returns>Type as a string value</returns>
+        </member>
+        <member name="M:Robo.MimeTypeDetector.getMimeFromFile(System.Byte[])">
+            <summary>
+            Get MIME type from file data
+            </summary>
+            <param name="filedata"><c>Byte</c> array representing the file to check</param>
+            <returns>Type as a string value</returns>
+        </member>
+        <member name="T:Robo.MoneyLabel">
+            <summary>
+            Label for showing currency values
+            </summary>
+        </member>
+        <member name="P:Robo.MoneyLabel.Value">
+            <summary>
+            Nullable decimal value
+            </summary>
+        </member>
+        <member name="P:Robo.MoneyLabel.ValueObject">
+            <summary>
+            Object to set
+            </summary>
+        </member>
+        <member name="T:Robo.OleDbCmd">
+            <summary>
+            Wrapper class for the <see cref="T:System.Data.OleDb.OleDbCommand"/> class for interacting with OLE Databases (such as Microsoft Access databases)
+            </summary>
+        </member>
+        <member name="F:Robo.OleDbCmd.m_cmd">
+            <summary>
+            Stores the internal <see cref="T:System.Data.OleDb.OleDbCommand"/> object
+            </summary>
+        </member>
+        <member name="P:Robo.OleDbCmd.Command">
+            <summary>
+            Public accessor for the private <see cref="F:Robo.OleDbCmd.m_cmd"/> property
+            </summary>
+        </member>
+        <member name="P:Robo.OleDbCmd.Parameters">
+            <summary>
+            Public accessor of the <see cref="T:System.Data.OleDb.OleDbParameterCollection"/> class
+            </summary>
+        </member>
+        <member name="M:Robo.OleDbCmd.#ctor(System.String,System.Boolean)">
+            <summary>
+            Creates a new <see cref="T:Robo.OleDbCmd"/> object
+            </summary>
+            <param name="sql">The command text to be executed</param>
+            <param name="isSp">Set to <see langword="true"/> for a stored procedure, <see langword="false"/> for inline SQL</param>
+        </member>
+        <member name="M:Robo.OleDbCmd.#ctor(System.String,System.String,System.Boolean)">
+            <summary>
+            Creates a new <see cref="T:Robo.OleDbCmd"/> object
+            </summary>
+            <param name="connectionString">The connection string to use when connecting to the database</param>
+            <param name="sql">The command text to be executed</param>
+            <param name="isSp">Set to <see langword="true"/> for a stored procedure, <see langword="false"/> for inline SQL</param>
+        </member>
+        <member name="M:Robo.OleDbCmd.AddIBinary(System.String,System.Byte[])">
+            <summary>
+            Add input parameter of type <c>varbinary</c>
+            </summary>
+            <param name="name">The parameter name</param>
+            <param name="data">The parameter value</param>
+        </member>
+        <member name="M:Robo.OleDbCmd.AddIBinary(System.String,System.Int32,System.Byte[])">
+            <summary>
+            Add input parameter of type <c>varbinary</c>
+            </summary>
+            <param name="name">The parameter name</param>
+            <param name="length">Length of the parameter (this will truncate data that is longer). Use -1 for varbinary(max) fields.</param>
+            <param name="data">The parameter value</param>
+        </member>
+        <member name="T:Robo.Serializer">
+            <summary>
+            Static class for serialization methods
+            </summary>
+        </member>
+        <member name="T:Robo.Serializer.CustomXmlTextWriter">
+            <summary>
+            Class to generate custom XML
+            </summary>
+        </member>
+        <member name="M:Robo.Serializer.DeserializeFromXml``1(System.String)">
+            <summary>
+            Create an object of type <c>T</c> from an XML string
+            </summary>
+            <typeparam name="T">Type to convert to</typeparam>
+            <param name="s">Serialized XML string</param>
+            <returns><c>T</c></returns>
+            <exception>System.InvalidOperationException</exception>
+            <exception>System.Xml.XmlException</exception>
+        </member>
+        <member name="M:Robo.Serializer.SerializeToXmlString(System.Object)">
+            <summary>
+            Serialize object to XML string
+            </summary>
+            <param name="o">Object to serialize</param>
+            <returns>XML string</returns>
+        </member>
+        <member name="M:Robo.Serializer.SerializeToJsonString(System.Object)">
+            <summary>
+            Serialize an object to a JSON string
+            </summary>
+            <param name="o">Object to serialize</param>
+            <returns>Serialized JSON string</returns>
+        </member>
+        <member name="M:Robo.Serializer.DeserializeFromJsonString``1(System.String)">
+            <summary>
+            Create an object of type <c>T</c> from a JSON string
+            </summary>
+            <typeparam name="T">Type to create</typeparam>
+            <param name="o">JSON string to deserialize</param>
+            <returns><c>T</c></returns>
+        </member>
+        <member name="T:Robo.SqlCmd">
+            <summary>
+            Wrapper class for <see cref="T:System.Data.SqlClient.SqlCommand"/> for interacting with a database
+            </summary>
+            <remarks>
+            <para>Additionally, if the App.config or web.config file includes an &lt;appSettings&gt; key of <c>Robo.SqlCmd.LogFileName</c> then the time taken for each query will be recorded.</para>
+            <para>If <c>Robo.SqlCmd.MinMilisecondsToLog</c> is specified with a number, only queries that take longer than that are recorded.</para>
+            <code language="xml" title="Config">
+            &lt;appSettings&gt;
+               &lt;add key="Robo.SqlCmd.LogFileName" value="~/App_Data/Log/SqlCmdLog_dd-mm-yyyy.log"/&gt;
+               &lt;add key="Robo.SqlCmd.MinMilisecondsToLog" value="500"/&gt;
+            &lt;/appSettings&gt;
+            </code>
+            <para>Note that in the log file name "dd" will be automatically replaced with the current day, "mm" with the current month, and "yyyy" with the current year.</para>
+            <code language="text">
+            ...
+            114	2014-12-30T13:31:44	SnippetImage_List
+            115	2014-12-30T13:31:44	SnippetImage_List
+            116	2014-12-30T13:31:45	ConfigSettings_List
+            116	2014-12-30T13:31:48	Splash_GetSplashSettings
+            122	2014-12-30T13:31:49	SELECT * FROM SnippetContent WHERE ContentId = @Id
+            116	2014-12-30T13:31:49	SELECT * FROM SnippetContent WHERE ContentId = @Id
+            ...
+            </code>
+            </remarks>
+            <example>
+            <code language="CSharp" title="C#">
+            using (SqlCmd cmd = SqlCmd.Procedure("sp_name"))
+            {
+                cmd.AddIInt("@Var1", 1);
+                cmd.Execute();
+            }
+            
+            // Standard .NET method:
+            using (SqlConnection conn = new SqlConnection("FULL CONNECTION STRING"))
+            {
+                using (SqlCommand cmd = new SqlCommand("sp_name", conn))
+                {
+                    cmd.CommandType = CommandType.Procedure;
+                    SqlParameter sp = new SqlParameter("@Var1", SqlDbType.Int);
+                    sp.Direction = ParameterDirection.Input;
+                    sp.Value = 1;
+                    cmd.Parameters.Add(sp);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            </code>
+            </example>
+        </member>
+        <member name="F:Robo.SqlCmd._cmd">
+            <summary>
+            Stores the internal <see cref="T:System.Data.SqlClient.SqlCommand"/> object
+            </summary>
+        </member>
+        <member name="F:Robo.SqlCmd._connectionString">
+            <summary>
+            Stores the connection string being used to connect to the database
+            </summary>
+        </member>
+        <member name="F:Robo.SqlCmd._useLocalConnectionString">
+            <summary>
+            Determines if the <c>ConnectionStringLocal</c> is used
+            </summary>
+        </member>
+        <member name="P:Robo.SqlCmd.Command">
+            <summary>
+            Public read-only accessor of the internal underlying <see cref="T:System.Data.SqlClient.SqlCommand"/> object
+            </summary>
+            <remarks>
+            <para>This property is useful when it is necessary to do more complex operations (such as passing a table value into a stored procedure).</para>
+            <code language="CSharp">
+            DataTable dt = GetData();
+            using (SqlCmd cmd = SqlCmd.Procedure("sp_name"))
+            {
+                cmd.AddIInt("@Id", 1);
+                cmd.Command.Parameters.Add("@TableValue", SqlDbType.Structured);
+                cmd.Command.Parameters.["@TableValue"].Value = dt;
+                cmd.Execute();
+            }
+            </code>
+            </remarks>
+        </member>
+        <member name="P:Robo.SqlCmd.ConnectionString">
+            <summary>
+            Contains the connection string used to connect to the database engine
+            </summary>
+        </member>
+        <member name="M:Robo.SqlCmd.SetLocalHost">
+            <summary>
+            Private method to set whether the local connection string is used
+            </summary>
+        </member>
+        <member name="M:Robo.SqlCmd.#ctor(System.String,System.Boolean)">
+            <summary>
+            Creates a new SqlCmd object. Uses default connection string named "ConnectionString"
+            </summary>
+            <param name="sql">Command Text to execute</param>
+            <param name="isSp">Set to true if text is a stored procedure</param>
+        </member>
+        <member name="M:Robo.SqlCmd.#ctor(System.String,System.String,System.Boolean)">
+            <summary>
+            Creates a new SqlCmd object using a custom connection string, defined by name
+            </summary>
+            <param name="connectionStringName">Name of the custom connection string as defined in the web.config</param>
+            <param name="sql">The text of the command to execute</param>
+            <param name="isSp">Set to true if the command is stored procedure</param>
+        </member>
+        <member name="M:Robo.SqlCmd.AddIBinary(System.String,System.Byte[])">
+            <summary>
+            Add a binary parameter
+            </summary>
+            <param name="name">Parameter name</param>
+            <param name="data">Parameter value</param>
+        </member>
+        <member name="M:Robo.SqlCmd.AddIBinary(System.String,System.Int32,System.Byte[])">
+            <summary>
+            Add a binary parameter
+            </summary>
+            <param name="name">Parameter name</param>
+            <param name="length">Parameter length</param>
+            <param name="data">Parameter value</param>
+        </member>
+        <member name="M:Robo.SqlCmd.AddIBool(System.String,System.Nullable{System.Boolean})">
+            <summary>
+            Add a boolean (bit) parameter
+            </summary>
+            <param name="name">Parameter name</param>
+            <param name="bData">Parameter Value</param>
+        </member>
+        <member name="M:Robo.SqlCmd.AddIByte(System.String,System.Byte)">
+            <summary>
+            Add a byte parameter
+            </summary>
+            <param name="name">Parameter name</param>
+            <param name="nValue">Parameter value</param>
+        </member>
+        <member name="M:Robo.SqlCmd.AddIDateTime(System.String,System.Nullable{System.DateTime})">
+            <summary>
+            Add a <see cref="T:System.Nullable`1"/> <see cref="T:System.DateTime"/> parameter
+            </summary>
+            <param name="name"></param>
+            <param name="val"></param>
+        </member>
+        <member name="M:Robo.SqlCmd.AddIDateTime(System.String,System.DateTime)">
+            <summary>
+            Add a <see cref="T:System.DateTime"/> parameter
+            </summary>
+            <param name="name"></param>
+            <param name="val"></param>
+        </member>
+        <member name="M:Robo.SqlCmd.AddIDecimal(System.String,System.Byte,System.Byte,System.Nullable{System.Decimal})">
+            <summary>
+            Add a <c>decimal</c> parameter
+            </summary>
+            <param name="name">Parameter name</param>
+            <param name="size">Size (max number of digits)</param>
+            <param name="scale">Scale (max number of decimal places)</param>
+            <param name="value"><c>Nullable&lt;decimal&gt;</c> value</param>
+        </member>
+        <member name="M:Robo.SqlCmd.AddIDecimal(System.String,System.Byte,System.Byte,System.Decimal)">
+            <summary>
+            Add a <c>decimal</c> parameter
+            </summary>
+            <param name="name">Parameter name</param>
+            <param name="size">Size (max number of digits)</param>
+            <param name="scale">Scale (max number of decimal places)</param>
+            <param name="value"><c>decimal</c> value</param>
+        </member>
+        <member name="M:Robo.SqlCmd.AddIFloat(System.String,System.Nullable{System.Single})">
+            <summary>
+            Add a float parameter
+            </summary>
+            <param name="name">Parameter name</param>
+            <param name="nValue">Parameter value (accepts <c>null</c>)</param>
+        </member>
+        <member name="M:Robo.SqlCmd.AddIFloat(System.String,System.Single)">
+            <summary>
+            Add a float parameter
+            </summary>
+            <param name="name">Parameter name</param>
+            <param name="nValue">Parameter value (does not accept <c>null</c>)</param>
+        </member>
+        <member name="M:Robo.SqlCmd.AddIGuid(System.String,System.Nullable{System.Guid})">
+            <summary>
+            Add a Guid parameter
+            </summary>
+            <param name="name">Parameter name</param>
+            <param name="guid">Parameter value (accepts <c>null</c> value)</param>
+        </member>
+        <member name="M:Robo.SqlCmd.AddIImage(System.String,System.Byte[])">
+            <summary>
+            Add a Transact-SQL Image type parameter
+            </summary>
+            <param name="name">Parameter name</param>
+            <param name="data">Parameter value (<c>byte</c> array from image, accepts <c>null</c> value)</param>
+        </member>
+        <member name="M:Robo.SqlCmd.AddIInt(System.String,System.Int32)">
+            <summary>
+            Add an Int parameter
+            </summary>
+            <param name="name">Parameter name</param>
+            <param name="nValue">Parameter Value</param>
+        </member>
+        <member name="M:Robo.SqlCmd.AddIInt(System.String,System.Nullable{System.Int32})">
+            <summary>
+            Add a nullable Int parameter
+            </summary>
+            <param name="name">Parameter name</param>
+            <param name="nValue">Parameter Value</param>
+        </member>
+        <member name="M:Robo.SqlCmd.AddIInt16(System.String,System.Int16)">
+            <summary>
+            Add a SmallInt parameter
+            </summary>
+            <param name="name">Parameter name</param>
+            <param name="nValue">Parameter Value</param>
+        </member>
+        <member name="M:Robo.SqlCmd.AddIInt64(System.String,System.Int64)">
+            <summary>
+            Add a BigInt parameter
+            </summary>
+            <param name="name">Parameter name</param>
+            <param name="nValue">Parameter Value</param>
+        </member>
+        <member name="M:Robo.SqlCmd.AddIMoney(System.String,System.Nullable{System.Decimal})">
+            <summary>
+            Add a nullable Money parameter
+            </summary>
+            <param name="name">Parameter name</param>
+            <param name="nValue">Parameter Value</param>
+        </member>
+        <member name="M:Robo.SqlCmd.AddIMoney(System.String,System.Decimal)">
+            <summary>
+            Add a Money parameter
+            </summary>
+            <param name="name">Parameter name</param>
+            <param name="nValue">Parameter Value</param>
+        </member>
+        <member name="M:Robo.SqlCmd.AddIString(System.String,System.Int32,System.String)">
+            <summary>
+            Add a string parameter
+            </summary>
+            <param name="name">Parameter name</param>
+            <param name="length">Parameter datatype length (-1 for length of max)</param>
+            <param name="value">Parameter value</param>
+        </member>
+        <member name="M:Robo.SqlCmd.AddIText(System.String,System.String)">
+            <summary>
+            Add a text parameter
+            </summary>
+            <param name="name"></param>
+            <param name="s"></param>
+        </member>
+        <member name="M:Robo.SqlCmd.AddIVarBinary(System.String,System.Int32,System.Byte[])">
+            <summary>
+            Add a binary parameter using varbinary
+            </summary>
+            <param name="name">Parameter name</param>
+            <param name="length">Parameter datatype length (-1 for length of max)</param>
+            <param name="data">Parameter value</param>
+        </member>
+        <member name="M:Robo.SqlCmd.AddOBinary(System.String,System.Int32)">
+            <summary>
+            Add output binary parameter
+            </summary>
+            <param name="name">Parameter name</param>
+            <param name="length">Parameter datatype length (-1 for length of max)</param>
+        </member>
+        <member name="M:Robo.SqlCmd.AddOBool(System.String)">
+            <summary>
+            Add output boolean parameter
+            </summary>
+            <param name="name">Parameter name</param>
+        </member>
+        <member name="M:Robo.SqlCmd.AddOByte(System.String)">
+            <summary>
+            Add output tinyint parameter (byte, 8-bit integer)
+            </summary>
+            <param name="name">Parameter name</param>
+        </member>
+        <member name="M:Robo.SqlCmd.AddODateTime(System.String)">
+            <summary>
+            Add output DateTime parameter
+            </summary>
+            <param name="name">Parameter name</param>
+        </member>
+        <member name="M:Robo.SqlCmd.AddODecimal(System.String,System.Byte,System.Byte)">
+            <summary>
+            Add output decimal parameter
+            </summary>
+            <param name="name">Parameter name</param>
+            <param name="nSize">Size: Total number of digits to be stored</param>
+            <param name="nScale">Scale: Number of decimal digits to the right of the decimal point</param>
+        </member>
+        <member name="M:Robo.SqlCmd.AddOFloat(System.String)">
+            <summary>
+            Add output float parameter
+            </summary>
+            <param name="name">Parameter name</param>
+        </member>
+        <member name="M:Robo.SqlCmd.AddOGuid(System.String)">
+            <summary>
+            Add output uniqueidentifier parameter
+            </summary>
+            <param name="name">Parameter name</param>
+        </member>
+        <member name="M:Robo.SqlCmd.AddOInt(System.String)">
+            <summary>
+            Add output int parameter (32-bit integer)
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="M:Robo.SqlCmd.AddOInt16(System.String)">
+            <summary>
+            Add output smallint parameter (short, 16-bit integer)
+            </summary>
+            <param name="name">Parameter name</param>
+        </member>
+        <member name="M:Robo.SqlCmd.AddOMoney(System.String)">
+            <summary>
+            Add output money parameter
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="M:Robo.SqlCmd.AddOString(System.String,System.Int32)">
+            <summary>
+            Add output string parameter
+            </summary>
+            <param name="name">Parameter name</param>
+            <param name="length">Parameter datatype length (-1 for length of max)</param>
+        </member>
+        <member name="M:Robo.SqlCmd.Dispose">
+            <summary>
+            Garbage collection, closes connections
+            </summary>
+        </member>
+        <member name="M:Robo.SqlCmd.Execute">
+            <summary>
+            Executes the command without returning any data
+            </summary>
+        </member>
+        <member name="M:Robo.SqlCmd.ExecuteSingleRow">
+            <summary>
+            Executes the command and returns a single DataRow object
+            </summary>
+            <returns><c>System.Data.DataRow</c> object</returns>
+        </member>
+        <member name="M:Robo.SqlCmd.ExecuteSingleRowOrNull">
+            <summary>
+            Executes the command and returns a since DataRow object. If the result set is empty returns null
+            </summary>
+            <returns><c>System.Data.DataRow</c> object or <c>null</c> if no result</returns>
+        </member>
+        <member name="M:Robo.SqlCmd.ExecuteTable">
+            <summary>
+            Executes the command and returns a <c>DataTable</c> from the result set
+            </summary>
+            <returns><c>System.Data.DataTable</c> object representing the result set</returns>
+        </member>
+        <member name="M:Robo.SqlCmd.GetBinary(System.String)">
+            <summary>
+            Returns the required binary value of specified parameter
+            </summary>
+            <param name="name">Parameter name</param>
+            <returns><see cref="T:System.Byte"/> array containing the binary data</returns>
+        </member>
+        <member name="M:Robo.SqlCmd.GetBinaryOptional(System.String)">
+            <summary>
+            Returns the optional binary value of specified parameter
+            </summary>
+            <param name="name">Parameter name</param>
+            <returns><see cref="T:System.Byte"/> array containing the binary data or null</returns>
+        </member>
+        <member name="M:Robo.SqlCmd.GetBool(System.String)">
+            <summary>
+            Returns the required bool value of specified parameter
+            </summary>
+            <param name="name">Parameter name</param>
+            <returns><see cref="T:System.Boolean"/> representing the bit value</returns>
+        </member>
+        <member name="M:Robo.SqlCmd.GetByte(System.String)">
+            <summary>
+            Returns the required <see cref="T:System.Byte"/> value of specified parameter
+            </summary>
+            <param name="name">Parameter name</param>
+            <returns><see cref="T:System.Byte"/></returns>
+        </member>
+        <member name="M:Robo.SqlCmd.GetDateTime(System.String)">
+            <summary>
+            Returns the required <see cref="T:System.DateTime"/> value of specified parameter
+            </summary>
+            <param name="name">Parameter name</param>
+            <returns><see cref="T:System.DateTime"/></returns>
+        </member>
+        <member name="M:Robo.SqlCmd.GetDateTimeNullable(System.String)">
+            <summary>
+            Returns the optional <see cref="T:System.DateTime"/> value of specified parameter
+            </summary>
+            <param name="name">Parameter name</param>
+            <returns><see cref="T:System.DateTime"/> or null</returns>
+        </member>
+        <member name="M:Robo.SqlCmd.GetDecimal(System.String)">
+            <summary>
+            Returns the required decimal value of specified parameter
+            </summary>
+            <param name="name">Parameter name</param>
+            <returns><see cref="T:System.Decimal"/></returns>
+        </member>
+        <member name="M:Robo.SqlCmd.GetDecimalNullable(System.String)">
+            <summary>
+            Returns the optional decimal value of specified parameter
+            </summary>
+            <param name="name">Parameter name</param>
+            <returns><see cref="T:System.Decimal"/> or null</returns>
+        </member>
+        <member name="M:Robo.SqlCmd.GetFloat(System.String)">
+            <summary>
+            Returns the required float value of specified parameter
+            </summary>
+            <param name="name">Parameter name</param>
+            <returns><see cref="T:System.Single"/></returns>
+        </member>
+        <member name="M:Robo.SqlCmd.GetFloatNullable(System.String)">
+            <summary>
+            Returns the optional float value of specified parameter
+            </summary>
+            <param name="name">Parameter name</param>
+            <returns><see cref="T:System.Single"/> or null</returns>
+        </member>
+        <member name="M:Robo.SqlCmd.GetGuid(System.String)">
+            <summary>
+            Returns the required uniqueidentifier value of specified parameter
+            </summary>
+            <param name="name">Parameter name</param>
+            <returns><see cref="T:System.Guid"/></returns>
+        </member>
+        <member name="M:Robo.SqlCmd.GetInt(System.String)">
+            <summary>
+            Returns the required int value of specified parameter
+            </summary>
+            <param name="name">Parameter name</param>
+            <returns><see cref="T:System.Int32"/></returns>
+        </member>
+        <member name="M:Robo.SqlCmd.GetInt16(System.String)">
+            <summary>
+            Returns the required smallint value of specified parameter
+            </summary>
+            <param name="name">Parameter name</param>
+            <returns><see cref="T:System.Int16"/></returns>
+        </member>
+        <member name="M:Robo.SqlCmd.GetInt64(System.String)">
+            <summary>
+            Returns the required bigint value of specified parameter
+            </summary>
+            <param name="name">Parameter name</param>
+            <returns><see cref="T:System.Int64"/></returns>
+        </member>
+        <member name="M:Robo.SqlCmd.GetIntNullable(System.String)">
+            <summary>
+            Return a <see cref="T:System.Nullable`1"/> <see cref="T:System.Int32"/> from the specified output parameter
+            </summary>
+            <param name="name">Parameter name for which to retrieve the value</param>
+            <returns>Optional <see cref="T:System.Int32"/> value</returns>
+        </member>
+        <member name="M:Robo.SqlCmd.GetString(System.String)">
+            <summary>
+            Return a string from the specified output parameter
+            </summary>
+            <param name="name">Name of the output parameter</param>
+            <returns><c>System.String</c></returns>
+        </member>
+        <member name="M:Robo.SqlCmd.GetStringNullable(System.String)">
+            <summary>
+            Return a string or null from the specified output parameter
+            </summary>
+            <param name="name">Parameter name</param>
+            <returns><see cref="T:System.String"/> or <see langword="null"/></returns>
+        </member>
+        <member name="M:Robo.SqlCmd.IsNull(System.String)">
+            <summary>
+            Determine if an output parameter is null
+            </summary>
+            <param name="name">Name of output parameter</param>
+            <returns><see langword="true"/> if parameter is <see langword="null"/>, otherwise <see langword="false"/></returns>
+        </member>
+        <member name="M:Robo.SqlCmd.LogTimeTaken(System.Int64)">
+            <summary>
+            Log the time taken by an executed command
+            </summary>
+            <param name="ticks">The time taken as a <see cref="T:System.Int64"/></param>
+        </member>
+        <member name="M:Robo.SqlCmd.Procedure(System.String)">
+            <summary>
+            Creates a new <see cref="T:Robo.SqlCmd"/> object configured to execute a stored procedure using default connection string
+            </summary>
+            <param name="spName">Name of the stored procedure to execute</param>
+            <returns>Instance of <see cref="T:Robo.SqlCmd"/></returns>
+        </member>
+        <member name="T:Robo.USState">
+            <summary>
+            Static class for getting a list of US States
+            </summary>
+        </member>
+        <member name="M:Robo.USState.CodeToName(System.String)">
+            <summary>
+            Static method to return a State name based on the two-letter abbreviation
+            </summary>
+            <param name="code">The abbreviation that represents the State</param>
+            <returns>Name of the State</returns>
+        </member>
+        <member name="M:Robo.USState.NameToCode(System.String)">
+            <summary>
+            Static method to return a two-character abbreviation based on the name
+            </summary>
+            <param name="name">Name of the State to get the code</param>
+            <returns>Two-letter abbreviation as a string</returns>
+        </member>
+        <member name="P:Robo.USState.List">
+            <summary>
+            Static member containing list of US States
+            </summary>
+        </member>
+        <member name="T:Robo.USStateDropDownList">
+            <summary>
+            Create a DropDownList pre-populated with US State names
+            </summary>
+        </member>
+        <member name="P:Robo.USStateDropDownList.Value">
+            <summary>
+            Gets or sets the SelectedValue property of the DropDownList
+            </summary>
+        </member>
+        <member name="P:Robo.USStateDropDownList._IncludeTerritories">
+            <summary>
+            Whether or not to include US territories
+            </summary>
+        </member>
+        <member name="P:Robo.USStateDropDownList.IncludeTerritories">
+            <summary>
+            Whether or not to include US territories
+            </summary>
+        </member>
+        <member name="P:Robo.USStateDropDownList._IncludeArmedForces">
+            <summary>
+            Whether or not to include APO States
+            </summary>
+        </member>
+        <member name="P:Robo.USStateDropDownList.IncludeArmedForces">
+            <summary>
+            Whether or not to include APO States
+            </summary>
+        </member>
+        <member name="M:Robo.USStateDropDownList.OnInit(System.EventArgs)">
+            <summary>
+            Event handler for control initialization
+            </summary>
+            <param name="e">Event Arguments</param>
+        </member>
+        <member name="T:Robo.Watermark">
+            <summary>
+            Class for adding watermarks to images.
+            </summary>
+            <example>
+            <para>This example uses an image that has already been loaded into memory.</para>
+            <code language="C#">
+            byte[] watermarkedImg = null;
+            byte[] imgByte = Image.FromFile();
+            using (Watermark wm = new Watermark(imgByte, "c:\\path\\to\\watermark.png"))
+            {
+                wm.SaveAsFile = false;
+                wm.AddWatermark(); // if SaveAsFile is set to true, this will attempt to save it
+                watermarkedImg = wm.WatermarkImage;
+            }
+            </code>
+            <para>This example passes in the location of an image to apply a watermark to.</para>
+            <code language="C#">
+            using (Watermark wm = new Watermark("C:\\path\\to\\working\\directory", "file.jpg", "C:\\path\\to\\watermark.png"))
+            {
+                wm.SaveAsFile = true;
+                wm.AddWatermark();
+                // If further processing is required
+                imgByte = wm.WatermarkImage;
+            }
+            </code>
+            </example>
+        </member>
+        <member name="F:Robo.Watermark.SaveAsFile">
+            <summary>
+            Whether to save as a file
+            </summary>
+        </member>
+        <member name="P:Robo.Watermark.WatermarkImage">
+            <summary>
+            Byte array representing the final watermarked image
+            </summary>
+        </member>
+        <member name="M:Robo.Watermark.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Create new instance of the Watermark class in preparation of adding a watermark to an image
+            </summary>
+            <param name="directory">Location of the source file, also where the new file will be saved</param>
+            <param name="file">The file that the watermark is being added to</param>
+            <param name="watermark">Path to watermark image</param>
+        </member>
+        <member name="M:Robo.Watermark.#ctor(System.Byte[],System.String)">
+            <summary>
+            Create new instance of the Watermark class in preparation of adding a watermark to an image
+            </summary>
+            <param name="file">byte array of the file being processed</param>
+            <param name="watermark">Path to watermark image</param>
+        </member>
+        <member name="M:Robo.Watermark.AddWatermark">
+            <summary>
+            Apply the watermark to the image
+            </summary>
+        </member>
+        <member name="M:Robo.Watermark.Dispose">
+            <summary>
+            Garbage Cleanup, releasing resources
+            </summary>
+        </member>
+    </members>
+</doc>
