@@ -48,7 +48,7 @@
                         <label>Content:</label>
                     </div>
                     <div class="eightyfivei mdEditor">
-                        <asp:TextBox runat="server" ID="txtContent" TextMode="MultiLine" ClientIDMode="Static" />
+                        <asp:TextBox runat="server" ID="txtContent" TextMode="MultiLine" ClientIDMode="Static" ValidateRequestMode="Disabled" />
                     </div>
                 </div>
                 <div class="actions cf">
