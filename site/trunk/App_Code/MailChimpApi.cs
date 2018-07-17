@@ -13,8 +13,8 @@ namespace kpfw
     /// </summary>
     public static class MailChimpApi
     {
-        private const string ApiKey = "4f8145390e12af92a9b558e541ce9df5-us18";
-        private const string ListID = "a798d8f7e1";
+        private const string ApiKey = "";
+        private const string ListID = "";
         static public bool CheckIfSubscribed(string email)
         {
             MailChimpManager manager = new MailChimpManager(ApiKey);

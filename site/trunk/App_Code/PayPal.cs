@@ -13,21 +13,21 @@ namespace EShop
         {
             get
             {
-                return "paypal_api1.thescripters.com";
+                return "";
             }
         }
         static string APIPassword
         {
             get
             {
-                return "WSEQXUMA4B7TECDG";
+                return "";
             }
         }
         static string APISignature
         {
             get
             {
-                return "AFcWxV21C7fd0v3bYYYRCpSSRl31AJvOo.eq480zEDCNY6SOhZq73So3";
+                return "";
             }
         }
         static string EndpointUrl

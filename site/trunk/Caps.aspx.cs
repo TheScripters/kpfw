@@ -142,7 +142,7 @@ namespace kpfw
                     IEnumerable<S3Object> caps = new List<S3Object>();
                     if (ep.Count == -1)
                     {
-                        BasicAWSCredentials cred = new BasicAWSCredentials("AKIAI4LADECOPGCT3Y2Q", "L8sJ33fiPvDkiXlDnTHZMHIVqvEjGxJenyC78f7r");
+                        BasicAWSCredentials cred = new BasicAWSCredentials("", "");
                         AmazonS3Client c = new AmazonS3Client(cred, Amazon.RegionEndpoint.USWest2);
                         List<S3Object> objs = new List<S3Object>();
                         var items = c.ListObjectsV2(new ListObjectsV2Request() { BucketName = "kpfw", Prefix = $"caps/{ep.CDNPath}/thumbs/" });
