@@ -112,7 +112,7 @@ namespace kpfw
                 NumTries = NumTries + 1;
                 return;
             }
-            if (u.Value.TwoFactorAuth != null)
+            if (!String.IsNullOrWhiteSpace(u.Value.TwoFactorAuth))
             {
                 // user has 2FA enabled so show that before logging them in.
                 ViewState["2FAUser"] = u.Value.userId + "|" + u.Value.userName + "|" + u.Value.displayName + "|" + u.Value.TwoFactorAuth + "|" + md5 + "|" + u.Value.isActive + "|" + auth.GetNewHash();
