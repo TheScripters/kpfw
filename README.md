@@ -1,6 +1,6 @@
 # Kim Possible Fan World
 
-This project is the open source development arm of the website. Those wanting to help in development are encouraged to contribute.
+This project is the open source development arm of the website [https://www.kpfanworld.com](https://www.kpfanworld.com). Those wanting to help in development are encouraged to contribute.
 
 ## Building/Running
 
