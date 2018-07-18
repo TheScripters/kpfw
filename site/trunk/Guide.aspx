@@ -143,7 +143,7 @@
                         <p>
                             <%# Markdig.Markdown.ToHtml(Robo.Extensions.Nl2Br((string)Eval("Note")), pipeline) %>
                         </p>
-                        <asp:PlaceHolder runat="server" ID="plhEditCast">
+                        <asp:PlaceHolder runat="server" ID="plhEditCast" Visible="false">
                             <p>
                                 <asp:Button runat="server" ID="Button1" Text="Edit Cast" OnClick="btnEdit_Click" />
                             </p>
@@ -157,7 +157,7 @@
                         <p>
                             <%# Markdig.Markdown.ToHtml(Robo.Extensions.Nl2Br((string)Eval("QuoteText")), pipeline) %>
                         </p>
-                        <asp:PlaceHolder runat="server" ID="plhEditCast">
+                        <asp:PlaceHolder runat="server" ID="plhEditCast" Visible="false">
                             <p>
                                 <asp:Button runat="server" ID="Button1" Text="Edit Cast" OnClick="btnEdit_Click" />
                             </p>
