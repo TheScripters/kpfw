@@ -103,9 +103,17 @@
         routes.Ignore("{*allgif}", new { allgif = @".*\.gif(/.*)?" });
         routes.Ignore("{*alltif}", new { alltif = @".*\.tif(/.*)?" });
         routes.Ignore("{*allhtml}", new { allhtml = @".*\.html(/.*)?" });
-        routes.Ignore("{*allhtml}", new { allhtml = @".*\.ico(/.*)?" });
-        routes.Ignore("{*allhtml}", new { allhtml = @".*\.pdf(/.*)?" });
-        routes.Ignore("{*allhtml}", new { allhtml = @".*\.aspx(/.*)?" });
+        routes.Ignore("{*allico}", new { allico = @".*\.ico(/.*)?" });
+        routes.Ignore("{*allpdf}", new { allpdf = @".*\.pdf(/.*)?" });
+        routes.Ignore("{*allaspx}", new { allaspx = @".*\.aspx(/.*)?" });
+        routes.Ignore("{*allwoff}", new { allwoff = @".*\.woff(/.*)?" });
+        routes.Ignore("{*allwoff2}", new { allwoff2 = @".*\.woff2(/.*)?" });
+        routes.Ignore("{*allmp3}", new { allmp3 = @".*\.mp3(/.*)?" });
+        routes.Ignore("{*alladmin}", new { alladmin = @"admin(/.*)?" });
+
+        // Handle "pages" used at the locations of physical directories
+        routes.AppendTrailingSlash = false;
+        routes.RouteExistingFiles = true;
 
         routes.MapPageRoute(
            "Home",               // Route name
@@ -190,7 +198,7 @@
         //   "News/{Year}/{Month}/{UrlLabel}",  // Route URL
         //   "~/Article.aspx"      // Web page to handle route
         //);
-
+        
         routes.MapPageRoute(
            "Pages",               // Route name
            "{*PageUrl}",  // Route URL
