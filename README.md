@@ -6,7 +6,7 @@ This project is the open source development arm of the website [https://www.kpfa
 
 This project is written in ASP.NET Webforms in C#. You will need Visual Studio running on Windows to run it.
 
-The database backup file is SQL Server 2016 (Developer Edition or Express can be downloaded for free)
+The database backup file is SQL Server 2016 (Developer Edition or Express can be downloaded for free can be installed)
 
 ### Requirements
 
