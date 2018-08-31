@@ -67,6 +67,8 @@ namespace kpfw
 
         protected void btnLogin_Click(object sender, EventArgs e)
         {
+			if (NumTries > 4)
+				return;
             // need to start displaying a CAPTCHA (ReCAPTCHA?) if number of attempts reaches a certain threshold
             FailureText.Visible = false;
             if (!Page.IsValid)
@@ -74,7 +76,7 @@ namespace kpfw
                 ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "LoginError", "$.magnificPopup.open({ items: { src: '#loginModalPopup' }, prependTo:'form#aspnetForm', closeOnBgClick: false });", true);
                 return;
             }
-            if (NumTries > 3)
+            if (NumTries > 2)
             {
                 if (!VerifyReCaptcha())
                 {
@@ -83,7 +85,7 @@ namespace kpfw
                     return;
                 }
             }
-            plhLoginCaptcha.Visible = NumTries >= 3;
+            plhLoginCaptcha.Visible = NumTries >= 2;
             if (!new Regex(@"^[a-zA-Z0-9_]+$").IsMatch(txtUserName.Text) && !new Regex(@"^(([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6}$").IsMatch(txtUserName.Text))
             {
                 ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "LoginError", "$.magnificPopup.open({ items: { src: '#loginModalPopup' }, prependTo:'form#aspnetForm', closeOnBgClick: false });", true);
