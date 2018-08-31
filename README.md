@@ -6,7 +6,7 @@ This project is the open source development arm of the website [https://www.kpfa
 
 This project is written in ASP.NET Webforms in C#. You will need Visual Studio running on Windows to run it.
 
-The database backup file is SQL Server 2016 (Developer Edition or Express can be downloaded for free can be installed)
+The database backup file is SQL Server 2016 (Developer Edition or Express can be downloaded and installed for free)
 
 ### Requirements
 
@@ -17,9 +17,3 @@ The database backup file is SQL Server 2016 (Developer Edition or Express can be
 ## Contributing
 
 All contributions are welcome. Start with creating an issue and go from there. Explain what the issue is. If you want to submit a pull request, reference the issue and explain what's being fixed and how. Be sure to include comments in your code.
-
-## Notes
-
-The kpfanworld.com domain is preloaded in the HSTS lists and so you will need to run it on localhost or get redirected to a secure version automatically.
-
-There are rules in the web.config to handle localhost and not redirect.
