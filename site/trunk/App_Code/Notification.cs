@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Mail;
 using System.Web;
 
@@ -20,7 +21,10 @@ namespace kpfw
                 IsBodyHtml = true
             };
 
-            SmtpClient c = new SmtpClient();
+            SmtpClient c = new SmtpClient()
+            {
+                Credentials = new NetworkCredential(SiteConfiguration.SESAccessKey, SiteConfiguration.SmtpPassword)
+            };
             try
             {
                 c.Send(m);
@@ -40,9 +44,12 @@ namespace kpfw
             m.Subject = "[KP Fan World] Web application error" + (note.Length > 0 ? " (" + note + ")" : "");
             m.Body = GetFullError(ex);
 
+            SmtpClient c = new SmtpClient()
+            {
+                Credentials = new NetworkCredential(SiteConfiguration.SESAccessKey, SiteConfiguration.SmtpPassword)
+            };
             try
             {
-                SmtpClient c = new SmtpClient();
                 c.Send(m);
             }
             catch (Exception)

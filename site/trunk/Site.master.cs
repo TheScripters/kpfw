@@ -18,7 +18,6 @@ namespace kpfw
 {
     public partial class Site : System.Web.UI.MasterPage
     {
-        private const string reCaptchaSecret = "6LcgoVQUAAAAAOC0-qGtIp-qvFcWYEeLAsW0Z8p0";
         private int NumTries
         {
             get
@@ -35,13 +34,13 @@ namespace kpfw
                 {
                     c = new HttpCookie("InvalidTries");
                     c.Value = value.ToString();
-                    c.Expires = DateTime.UtcNow.AddDays(30);
+                    c.Expires = DateTime.UtcNow.AddHours(1);
                     Response.Cookies.Add(c);
                 }
                 else
                 {
                     c.Value = value.ToString();
-                    c.Expires = DateTime.UtcNow.AddDays(30);
+                    c.Expires = DateTime.UtcNow.AddHours(1);
                     Response.Cookies.Add(c);
                 }
             }
@@ -213,7 +212,8 @@ namespace kpfw
 
             // send email for confirmation
             Notification.SendEmail(u.Email, "[KPFanWorld] Sign Up Confirmation", body);
-            MailChimpApi.Subscribe(u.Email);
+            if (chkSubscribe.Checked)
+                MailChimpApi.Subscribe(u.Email);
 
             // bring up the signup screen again, but display success message telling them to check their email.
             plhSignUp.Visible = false;
@@ -301,11 +301,14 @@ namespace kpfw
 
         private bool VerifyReCaptcha()
         {
+            if (Request["g-recaptcha-response"] == null)
+                return false;
+
             HttpWebRequest req = (HttpWebRequest)WebRequest.Create("https://www.google.com/recaptcha/api/siteverify");
             req.Method = "POST";
             req.ContentType = "application/x-www-form-urlencoded";
 
-            string postData = $"secret={reCaptchaSecret}&response={Request["g-recaptcha-response"]}&remoteip={Request.UserHostAddress}";
+            string postData = $"secret={SiteConfiguration.ReCaptchaSecretKey}&response={Request["g-recaptcha-response"]}&remoteip={Request.UserHostAddress}";
             byte[] send = System.Text.Encoding.Default.GetBytes(postData);
             req.ContentLength = send.Length;
 

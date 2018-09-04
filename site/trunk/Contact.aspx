@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Kim Possible Fan World .:::. Contact Us" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="Contact.aspx.cs" Inherits="Contact" %>
+﻿<%@ Page Title="Kim Possible Fan World .:::. Contact Us" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="Contact.aspx.cs" Inherits="kpfw.Contact" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
@@ -39,7 +39,7 @@
                         <asp:TextBox runat="server" ID="txtMessage" TextMode="MultiLine" />
                     </div>
                     <div class="item r" style="margin-top:10px;">
-                        <div class="g-recaptcha" data-sitekey="6LcgoVQUAAAAAAERY2Q5exPExMh2TYZoSKfGnNHt"></div>
+                        <div class="g-recaptcha" data-sitekey="<%= kpfw.SiteConfiguration.ReCaptchaSiteKey %>"></div>
                     </div>
                     <div class="actions r">
                         <asp:Button runat="server" ID="btnSubmit" Text="Submit" OnClick="btnSubmit_Click" />

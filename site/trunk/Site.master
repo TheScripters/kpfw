@@ -173,7 +173,7 @@
             </div>
             <asp:PlaceHolder runat="server" ID="plhLoginCaptcha" Visible="false">
                 <div class="item" style="margin-top:10px;">
-                    <div class="g-recaptcha" data-sitekey="6LcgoVQUAAAAAAERY2Q5exPExMh2TYZoSKfGnNHt" data-theme="dark"></div>
+                    <div class="g-recaptcha" data-sitekey="<%= kpfw.SiteConfiguration.ReCaptchaSiteKey %>" data-theme="dark"></div>
                 </div>
             </asp:PlaceHolder>
             <div class="btn actions"><asp:Button runat="server" ID="btnLogin" Text="Login" OnClick="btnLogin_Click" ValidationGroup="Login" /></div>
@@ -207,7 +207,7 @@
                 <asp:TextBox runat="server" ID="txtUserEmail" ClientIDMode="Static" />
             </div>
             <div class="item" style="margin-top:10px;">
-                <div class="g-recaptcha" data-sitekey="6LcgoVQUAAAAAAERY2Q5exPExMh2TYZoSKfGnNHt" data-theme="dark"></div>
+                <div class="g-recaptcha" data-sitekey="<%= kpfw.SiteConfiguration.ReCaptchaSiteKey %>" data-theme="dark"></div>
             </div>
             <div class="btn actions"><asp:Button runat="server" ID="btnResetPassword" Text="Send Reset Information" OnClick="btnResetPassword_Click" ValidationGroup="Reset" /></div>
             </asp:PlaceHolder>
@@ -270,7 +270,7 @@
                     <asp:CheckBox runat="server" ID="chkSubscribe" Text="Subscribe for updates and announcements" />
                 </div>
                 <div class="item" style="margin-top:10px;">
-                    <div class="g-recaptcha" data-sitekey="6LcgoVQUAAAAAAERY2Q5exPExMh2TYZoSKfGnNHt" data-theme="dark"></div>
+                    <div class="g-recaptcha" data-sitekey="<%= kpfw.SiteConfiguration.ReCaptchaSiteKey %>" data-theme="dark"></div>
                 </div>
                 <div class="btn actions"><asp:Button runat="server" ID="btnSignUp" Text="Sign Up" OnClick="btnSignUp_Click" ValidationGroup="SignUp" /></div>
                 <p style="display:none;"><asp:TextBox runat="server" ID="FavoriteColor" /></p>

@@ -10,74 +10,82 @@ using System.Web.Script.Serialization;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class Contact : System.Web.UI.Page
+namespace kpfw
 {
-    private const string reCaptchaSecret = "6LcgoVQUAAAAAOC0-qGtIp-qvFcWYEeLAsW0Z8p0";
-    protected void Page_Load(object sender, EventArgs e)
+    public partial class Contact : System.Web.UI.Page
     {
-
-    }
-
-    protected void btnSubmit_Click(object sender, EventArgs e)
-    {
-        if (!IsValid)
-            return;
-        if (!VerifyReCaptcha())
-            return;
-        if (ContactReason.Text != "")
-            return;
-
-        MailMessage m = new MailMessage("contact@kpfanworld.com", "contact@kpfanworld.com");
-        m.ReplyToList.Add(new MailAddress(txtEmail.Text));
-        m.Subject = "[KPFanWorld] " + txtSubject.Text;
-        m.Body = GetBody();
-        m.IsBodyHtml = true;
-
-        SmtpClient c = new SmtpClient();
-        try
+        protected void Page_Load(object sender, EventArgs e)
         {
-            c.Send(m);
+
         }
-        catch { }
 
-        plhContact.Visible = false;
-        plhSuccess.Visible = true;
+        protected void btnSubmit_Click(object sender, EventArgs e)
+        {
+            if (!IsValid)
+                return;
+            if (!VerifyReCaptcha())
+                return;
+            if (ContactReason.Text != "")
+                return;
 
-        //ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "formSubmitted", "dataLayer.push({'event': 'formSubmitted', 'category': 'forms', 'action': 'Submission', 'label': 'Contact Form'});", true);
-    }
+            MailMessage m = new MailMessage("contact@kpfanworld.com", "contact@kpfanworld.com");
+            m.ReplyToList.Add(new MailAddress(txtEmail.Text));
+            m.Subject = "[KPFanWorld] " + txtSubject.Text;
+            m.Body = GetBody();
+            m.IsBodyHtml = true;
 
-    private string GetBody()
-    {
-        string val = $"<p><strong>Name:</strong> {txtName.Text}<br />";
-        val += $"<strong>Email:</strong> {txtEmail.Text}<br />";
-        val += $"<strong>Message:</strong><br />{txtMessage.Text.Nl2Br()}</p><br /><br />";
+            SmtpClient c = new SmtpClient()
+            {
+                Credentials = new NetworkCredential(SiteConfiguration.SESAccessKey, SiteConfiguration.SmtpPassword)
+            };
+            try
+            {
+                c.Send(m);
+            }
+            catch { }
 
-        val += "--<br />KPFW Staff<br />contact@kpfanworld.com";
+            plhContact.Visible = false;
+            plhSuccess.Visible = true;
 
-        return val;
-    }
+            //ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "formSubmitted", "dataLayer.push({'event': 'formSubmitted', 'category': 'forms', 'action': 'Submission', 'label': 'Contact Form'});", true);
+        }
 
-    private bool VerifyReCaptcha()
-    {
-        HttpWebRequest req = (HttpWebRequest)WebRequest.Create("https://www.google.com/recaptcha/api/siteverify");
-        req.Method = "POST";
-        req.ContentType = "application/x-www-form-urlencoded";
+        private string GetBody()
+        {
+            string val = $"<p><strong>Name:</strong> {txtName.Text}<br />";
+            val += $"<strong>Email:</strong> {txtEmail.Text}<br />";
+            val += $"<strong>Message:</strong><br />{txtMessage.Text.Nl2Br()}</p><br /><br />";
 
-        string postData = $"secret={reCaptchaSecret}&response={Request["g-recaptcha-response"]}&remoteip={Request.UserHostAddress}";
-        byte[] send = System.Text.Encoding.Default.GetBytes(postData);
-        req.ContentLength = send.Length;
+            val += "--<br />KPFW Staff<br />contact@kpfanworld.com";
 
-        Stream stream = req.GetRequestStream();
-        stream.Write(send, 0, send.Length);
-        stream.Flush();
-        stream.Close();
+            return val;
+        }
 
-        HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
-        StreamReader sr = new StreamReader(resp.GetResponseStream());
-        string returnValue = sr.ReadToEnd();
+        private bool VerifyReCaptcha()
+        {
+            if (Request["g-recaptcha-response"] == null)
+                return false;
 
-        Dictionary<string, object> val = new JavaScriptSerializer().Deserialize<Dictionary<string, object>>(returnValue);
+            HttpWebRequest req = (HttpWebRequest)WebRequest.Create("https://www.google.com/recaptcha/api/siteverify");
+            req.Method = "POST";
+            req.ContentType = "application/x-www-form-urlencoded";
 
-        return (bool)val["success"];
+            string postData = $"secret={SiteConfiguration.ReCaptchaSecretKey}&response={Request["g-recaptcha-response"]}&remoteip={Request.UserHostAddress}";
+            byte[] send = System.Text.Encoding.Default.GetBytes(postData);
+            req.ContentLength = send.Length;
+
+            Stream stream = req.GetRequestStream();
+            stream.Write(send, 0, send.Length);
+            stream.Flush();
+            stream.Close();
+
+            HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
+            StreamReader sr = new StreamReader(resp.GetResponseStream());
+            string returnValue = sr.ReadToEnd();
+
+            Dictionary<string, object> val = new JavaScriptSerializer().Deserialize<Dictionary<string, object>>(returnValue);
+
+            return (bool)val["success"];
+        }
     }
 }
