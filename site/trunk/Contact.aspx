@@ -39,7 +39,7 @@
                         <asp:TextBox runat="server" ID="txtMessage" TextMode="MultiLine" />
                     </div>
                     <div class="item r" style="margin-top:10px;">
-                        <div class="g-recaptcha" data-sitekey="<%= kpfw.SiteConfiguration.ReCaptchaSiteKey %>"></div>
+                        <div class="g-recaptcha" data-sitekey="<%= kpfw.SiteConfiguration.ReCaptchaSiteKey %>" data-theme="dark"></div>
                     </div>
                     <div class="actions r">
                         <asp:Button runat="server" ID="btnSubmit" Text="Submit" OnClick="btnSubmit_Click" />

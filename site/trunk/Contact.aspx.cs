@@ -70,7 +70,7 @@ namespace kpfw
             req.Method = "POST";
             req.ContentType = "application/x-www-form-urlencoded";
 
-            string postData = $"secret={SiteConfiguration.ReCaptchaSecretKey}&response={Request["g-recaptcha-response"]}&remoteip={Request.UserHostAddress}";
+            string postData = $"secret={SiteConfiguration.ReCaptchaSecretKey}&response={Request["g-recaptcha-response"].Trim(',')}&remoteip={Request.UserHostAddress}";
             byte[] send = System.Text.Encoding.Default.GetBytes(postData);
             req.ContentLength = send.Length;
 

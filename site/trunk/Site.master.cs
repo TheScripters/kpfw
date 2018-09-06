@@ -66,8 +66,8 @@ namespace kpfw
 
         protected void btnLogin_Click(object sender, EventArgs e)
         {
-			if (NumTries > 4)
-				return;
+            if (NumTries > 4)
+                return;
             // need to start displaying a CAPTCHA (ReCAPTCHA?) if number of attempts reaches a certain threshold
             FailureText.Visible = false;
             if (!Page.IsValid)
@@ -308,7 +308,7 @@ namespace kpfw
             req.Method = "POST";
             req.ContentType = "application/x-www-form-urlencoded";
 
-            string postData = $"secret={SiteConfiguration.ReCaptchaSecretKey}&response={Request["g-recaptcha-response"]}&remoteip={Request.UserHostAddress}";
+            string postData = $"secret={SiteConfiguration.ReCaptchaSecretKey}&response={Request["g-recaptcha-response"].Trim(',')}&remoteip={Request.UserHostAddress}";
             byte[] send = System.Text.Encoding.Default.GetBytes(postData);
             req.ContentLength = send.Length;
 
@@ -348,7 +348,7 @@ namespace kpfw
             }
             else
             {
-                var client = new AuthyClient(ConfigurationManager.AppSettings["AuthyApiKey"]);
+                var client = new AuthyClient(SiteConfiguration.AuthyApiKey);
                 if (client.VerifyToken(Convert.ToInt32(u[3]), Convert.ToInt32(txt2FACode.Text)))
                     tfaValid = true;
             }
