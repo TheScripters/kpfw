@@ -19,3 +19,5 @@ The database backup file is SQL Server 2016 (Developer Edition or Express can be
 All contributions are welcome. Start with creating an issue and go from there. Explain what the issue is. If you want to submit a pull request, reference the issue and explain what's being fixed and how. Be sure to include comments in your code.
 
 Come chat with us: [https://kpfw.me/chat](https://kpfw.me/chat)
+
+Check out announcements in the #announcement channel. We will be announcing changes there.
