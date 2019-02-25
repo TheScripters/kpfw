@@ -212,12 +212,20 @@ namespace kpfw
                     int startNum = 0;
                     if (Page.RouteData.Values["StartNum"] != null)
                     {
-                        startNum = Convert.ToInt32(Page.RouteData.Values["StartNum"]);
-                        int diff = startNum % 100;
-                        if (diff != 0)
+                        try
                         {
-                            startNum -= diff;
-                            Response.Redirect($"/Caps/{ep.UrlLabel}/{startNum}");
+                            startNum = Convert.ToInt32(Page.RouteData.Values["StartNum"]);
+                            int diff = startNum % 100;
+                            if (diff != 0)
+                            {
+                                startNum -= diff;
+                                Response.Redirect($"/Caps/{ep.UrlLabel}/{startNum}");
+                                return;
+                            }
+                        }
+                        catch (FormatException)
+                        {
+                            Response.RedirectPermanent($"/Caps/{ep.UrlLabel}");
                             return;
                         }
                     }
@@ -270,7 +278,15 @@ namespace kpfw
                 int curr = 1;
                 if (Page.RouteData.Values["StartNum"] != null)
                 {
-                    curr = Convert.ToInt32(Page.RouteData.Values["StartNum"]);
+                    try
+                    {
+                        curr = Convert.ToInt32(Page.RouteData.Values["StartNum"]);
+                    }
+                    catch (FormatException)
+                    {
+                        Response.RedirectPermanent($"/Caps/{Page.RouteData.Values["Episode"]}");
+                        return;
+                    }
                 }
                 anc.HRef = item;
                 string[] items = item.Trim('/').Split('/');
@@ -282,14 +298,22 @@ namespace kpfw
                 }
                 else
                 {
-                    int start = Int32.Parse(items[2]);
-                    int max = (int)ViewState["maxNum"];
-                    int end = start + 100;
-                    if (end > max)
-                        end = max;
-                    anc.InnerText = ltl.Text = start + "-" + end;
-                    anc.Visible = curr != start;
-                    ltl.Visible = curr == start;
+                    try
+                    {
+                        int start = Int32.Parse(items[2]);
+                        int max = (int)ViewState["maxNum"];
+                        int end = start + 100;
+                        if (end > max)
+                            end = max;
+                        anc.InnerText = ltl.Text = start + "-" + end;
+                        anc.Visible = curr != start;
+                        ltl.Visible = curr == start;
+                    }
+                    catch (FormatException)
+                    {
+                        Response.RedirectPermanent($"/Caps/{items[1]}");
+                        return;
+                    }
                 }
             }
         }

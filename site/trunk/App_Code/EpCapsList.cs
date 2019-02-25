@@ -119,7 +119,8 @@ namespace kpfw
         {
             // Movies and stuff
             new EpisodeTitle() { Title = "A Sitch in Time", UrlLabel = "a-sitch-in-time", CDNPath = "A Sitch in Time", Count = 3795 },
-            new EpisodeTitle() { Title = "So the Drama", UrlLabel = "so-the-drama", CDNPath = "std", Count = 2700 }
+            new EpisodeTitle() { Title = "So the Drama", UrlLabel = "so-the-drama", CDNPath = "std", Count = 2700 },
+			new EpisodeTitle() { Title = "Kim Possible (2019)", UrlLabel = "kim-possible-2019", CDNPath = "Kim Possible 2019", Count = 5117 }
         };
         public static List<EpisodeTitle> MiscList = new List<EpisodeTitle>()
         {

@@ -27,7 +27,7 @@
                 <li>
                     <h4>Admin</h4>
                     Wayne Simons<br />
-                    <a href="http://http://wayne.webdesignbywayne.com/" target="_blank">Website</a><br />
+                    <a href="http://memoriesbywayne.com/" target="_blank">Website</a><br />
                     <strong>Location:</strong> Illinois
                 </li>
             </ul>
@@ -43,9 +43,9 @@
                 <li>Wallaceb/Brian Wallace -- Episode List Population, Transcripts</li>
                 <li>Quin Separable -- ASiT Transcript</li>
                 <li>J -- Trvia, Chronology, Cover Art</li>
-                <li><a href="http://ronstoppable.proboards.com/index.cgi?action=viewprofile&amp;user=ashleybenlove" target="_blank">ashleybenlove</a> -- Supplied triva for Trivia Quiz Game</li>
-                <li>Commander Argus, <a href="http://ronstoppable.proboards.com/index.cgi?action=viewprofile&amp;user=dracko19" target="_blank">dracko19</a> -- Userbar creation</li>
-                <li><a href="http://ronstoppable.proboards.com/index.cgi?action=viewprofile&amp;user=missshego" target="_blank">TheBlackFairy</a> -- Organized Images for KP's outfit guide</li>
+                <li><a href="http://ronstoppable.proboards.com/index.cgi?action=viewprofile&amp;user=ashleybenlove" target="_blank" rel="nofollow">ashleybenlove</a> -- Supplied triva for Trivia Quiz Game</li>
+                <li>Commander Argus, <a href="http://ronstoppable.proboards.com/index.cgi?action=viewprofile&amp;user=dracko19" target="_blank" rel="nofollow">dracko19</a> -- Userbar creation</li>
+                <li><a href="http://ronstoppable.proboards.com/index.cgi?action=viewprofile&amp;user=missshego" target="_blank" rel="nofollow">TheBlackFairy</a> -- Organized Images for KP's outfit guide</li>
             </ul>
         </div>
     </div>
