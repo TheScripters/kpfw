@@ -21,3 +21,5 @@ All contributions are welcome. Start with creating an issue and go from there. E
 Come chat with us: [https://kpfw.me/chat](https://kpfw.me/chat)
 
 Check out announcements in the #announcement channel. We will be announcing changes there.
+
+[[Become a backer](https://opencollective.com/kp-fan-world)]
