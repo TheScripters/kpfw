@@ -1,0 +1,38 @@
+[
+  {
+    "outputFileName": "wwwroot/css/bundle.css",
+    "inputFiles": [
+      "wwwroot/css/reset.css",
+      "wwwroot/css/forms.css",
+      "wwwroot/css/Site.css",
+      "wwwroot/css/magnific-popup.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/fa/font-awesome.min.css",
+    "inputFiles": [
+      "wwwroot/css/fa/font-awesome.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/noty/noty.bundle.css",
+    "inputFiles": [
+      "wwwroot/css/noty/noty.css",
+      "wwwroot/css/noty/relax.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/bundle.js",
+    "inputFiles": [
+      "wwwroot/js/modernizr.js",
+      "wwwroot/js/jquery.magnific-popup.min.js",
+      "wwwroot/js/double-tap.js",
+      "wwwroot/js/mobile-menu.js",
+      "wwwroot/js/webfontloader/webfontloader.js",
+      "wwwroot/js/load-universal.js",
+      "wwwroot/js/footer/sticky-footer.js",
+      "wwwroot/js/noty/noty.min.js",
+      "wwwroot/js/CustomLock.js"
+    ]
+  }
+]
