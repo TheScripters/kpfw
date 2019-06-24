@@ -1,4 +1,4 @@
-jQuery(document).ready(function ($) {
+$(document).ready(function ($) {
     //Variables
     var $wrapper = $('.full'),
         $nav = $('#main-nav > ul').clone(), //Clone just the ul directly after #main-nav

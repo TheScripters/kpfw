@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
+using kpfw.Services;
 
 namespace kpfw
 {
@@ -40,6 +41,7 @@ namespace kpfw
                 app.UseHsts();
             }
 
+            app.UseHttpModule();
             app.UseStaticFiles();
             app.UseCookiePolicy(new CookiePolicyOptions { MinimumSameSitePolicy = SameSiteMode.Strict, Secure = CookieSecurePolicy.Always });
             app.UseAuthentication();
@@ -49,6 +51,11 @@ namespace kpfw
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}");
+
+                routes.MapRoute(
+                    name: "caps",
+                    template: "Caps/{Episode}/{**num}",
+                    defaults: new { controller = "Caps", action = "ViewEpisode" });
             });
         }
     }

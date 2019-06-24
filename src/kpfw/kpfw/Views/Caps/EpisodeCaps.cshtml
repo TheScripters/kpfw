@@ -1,0 +1,83 @@
+﻿@model EpisodeTitle
+@using System.Web;
+@{
+    ViewData["Title"] = $"{Model.Title} Screen Captures";
+    Layout = "~/Views/Master.cshtml";
+    int num = 0;
+    if (ViewContext.RouteData.Values["num"] != null)
+    {
+        num = Convert.ToInt32(ViewContext.RouteData.Values["num"]);
+    }
+    int maxNum = num + 100;
+    if (maxNum > Model.Count)
+    {
+        maxNum = Model.Count;
+    }
+    string fmt = "D4";
+    if (CDNService.d3.Contains(Model.UrlLabel))
+    {
+        fmt = "D3";
+    }
+    if (Model.UrlLabel == "so-the-drama")
+    {
+        fmt = "D";
+    }
+}
+@section Meta {
+
+}
+
+    <div class="interior cf">
+        <div class="inner">
+            <h1>Kim Possible Screen Caps</h1>
+            <h2 style="text-align: center;">@Model.Title</h2>
+            <p>{DESCRIPTION}</p>
+            <partial name="~/Views/Partials/CapsMenu.cshtml">
+            <div id="thumbList" style="max-width:900px;margin:0 auto;">
+                <ul class="lr cf">
+                    @for(int i = num + 1; i <= maxNum; i++)
+                    {
+                        <li>
+                            <a href="https://cdn.kpfanworld.com/caps/@Model.CDNPath/Image@(String.Format($"{{0:{fmt}}}", i)).jpg" class="image-popup" title="@Model.Title, https://cdn.kpfanworld.com/caps/@HttpUtility.UrlEncode(Model.CDNPath)/Image@(String.Format($"{{0:{fmt}}}", i)).jpg">
+                                <img src="https://cdn.kpfanworld.com/caps/@Model.CDNPath/thumbs/Image@(String.Format($"{{0:{fmt}}}", i))_thumb.jpg" />
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+            <partial name="~/Views/Partials/CapsMenu.cshtml">
+        </div>
+    </div>
+
+@section Scripts {
+    <script>
+            $(function () {
+                $('.image-popup').magnificPopup({
+                    type: 'image',
+                    gallery: {
+                        enabled: true,
+                        navigateByImgClick: true,
+                        preload: [1, 1] // Will preload 0 - before current, and 1 after the current image
+                    },
+                    image: {
+                        tError: '<a href="%url%">The image #%curr%</a> could not be loaded.',
+                        titleSrc: function (item) {
+                            return item.el.attr('title') + '<small>by Kim Possible Fan World</small>';
+                        }
+                    },
+                    callbacks: {
+                        open: function () {
+                            console.log(this.currItem.el[0].children[0].src);
+                            dataLayer.push({ 'event': 'OpenModal', 'category': 'Caps', 'action': 'OpenModal', 'label': this.currItem.src, 'value' : this.currItem.el[0].children[0].src });
+                            //ga('send', 'event', 'Caps', 'OpenModal', this.currItem.src, this.currItem.el[0].children[0].src);
+                        },
+                        change: function () {
+                            console.log(this.currItem.el[0].children[0].src);
+                            dataLayer.push({ 'event': 'ChangeModal', 'category': 'Caps', 'action': 'ChangeModal', 'label': this.currItem.src, 'value' : this.currItem.el[0].children[0].src });
+                            //ga('send', 'event', 'Caps', 'ChangeModal', this.currItem.src, this.currItem.el[0].children[0].src);
+                        }
+                    }
+                });
+            });
+        </script>
+}
