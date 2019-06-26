@@ -69,7 +69,7 @@
                 <nav aria-label="Primary Navigation" class="main-nav lr" id="main-nav">
                     <ul>
                         <li>@Html.RouteLink("Home", "default", new { controller = "Home", action = "Index" })</li>
-                        <li><a href="/Guides">Guides</a></li>
+                        <li>@Html.RouteLink("Guides", "guides", new { controller = "Episode", action = "Index" })</li>
                         <li>@Html.RouteLink("Caps", "default", new { controller = "Caps", action = "Index" })</li>
                         <li><a href="/Chat">Chat</a></li>
                         <li><a href="/About">About</a></li>
