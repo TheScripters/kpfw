@@ -1,4 +1,4 @@
-﻿
+﻿@model HomeViewModel
 @{
     ViewData["Title"] = "Home";
     Layout = "~/Views/Master.cshtml";
@@ -45,22 +45,21 @@
                         <h2>This Day in KP History</h2>
                         <h4>@String.Format("{0:MMM dd}", DateTime.UtcNow)</h4>
                     </hgroup>
-                    @*<asp:Repeater runat="server" ID="rptToday">
-                        <HeaderTemplate>
-                            <ul>
-                        </HeaderTemplate>
-                        <ItemTemplate>
-                            <li>
-                                <%# String.Format("{0: yyyy}", Eval("Date")) %></span> -- <%# Eval("Message") %>
-                            </li>
-                        </ItemTemplate>
-                        <FooterTemplate>
-                            </ul>
-                        </FooterTemplate>
-                    </asp:Repeater>*@
+                    @if (Model.Timeline != null && Model.Timeline.Count > 0)
+                    {
+                        <ul>
+                        @foreach (TimelineViewModel item in Model.Timeline)
+                        {
+                            <li>@item.Year -- @item.Message</li>
+                        }
+                        </ul>
+                    }
+                    else
+                    {
                     <div class="no-details">
-                        <p runat="server" id="pNoEvents">There are no KP events today.</p>
+                        <p>There are no KP events today.</p>
                     </div>
+                    }
                 </div>
                 <div class="news lr cf">
                     <h2>News &amp; Media</h2>

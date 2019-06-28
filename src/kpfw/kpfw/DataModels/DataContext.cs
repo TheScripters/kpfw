@@ -12,5 +12,8 @@ namespace kpfw.DataModels
         { }
 
         public DbSet<Episode> Episodes { get; set; }
+
+        public DbSet<Timeline> Timeline { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }
