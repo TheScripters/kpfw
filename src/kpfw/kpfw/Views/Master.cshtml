@@ -1,6 +1,11 @@
-﻿
+﻿@using Newtonsoft.Json;
 @{
     Layout = null;
+    LoginModel login = new LoginModel();
+    if (TempData["LoginModel"] != null)
+    {
+        login = JsonConvert.DeserializeObject<LoginModel>((string)TempData["LoginModel"]);
+    }
 }
 
 <!DOCTYPE html>
@@ -130,6 +135,8 @@
     <script type="text/javascript">
         window.jQuery || document.write('<script src="/js/jquery-1.12.4.min.js"><\/script>')
     </script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js" type="text/javascript"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js" type="text/javascript"></script>
     
     <environment exclude="Development">
         <link href="/css/fa/font-awesome.min.css" rel="stylesheet" />
@@ -140,8 +147,8 @@
     <environment include="Development">
         <link href="~/css/magnific-popup.css" rel="stylesheet" />
         <link href="~/css/reset.css" rel="stylesheet" />
-        <link href="~/css/Site.css" rel="stylesheet" />
         <link href="~/css/forms.css" rel="stylesheet" />
+        <link href="~/css/Site.css" rel="stylesheet" />
         <link href="~/css/noty/noty.css" rel="stylesheet" />
         <link href="~/css/noty/relax.css" rel="stylesheet" />
 
@@ -179,57 +186,92 @@
     </script>
     @RenderSection("Scripts")
     <script>
-        $('.sign-in').magnificPopup({
-            type: 'inline',
-            preloader: false,
-            focus: '#txtUserName',
-            prependTo: 'form',
-            closeOnBgClick: false,
+        $(function () {
+            $('.sign-in').magnificPopup({
+                type: 'inline',
+                preloader: false,
+                focus: '#txtUserName',
+                closeOnBgClick: false,
 
-            // When element is focused, some mobile browsers in some cases zoom in
-            // It looks not nice, so we disable it:
-            callbacks: {
-                beforeOpen: function () {
-                    if ($(window).width() < 700) {
-                        this.st.focus = false;
-                    } else {
-                        this.st.focus = '#txtUserName';
+                // When element is focused, some mobile browsers in some cases zoom in
+                // It looks not nice, so we disable it:
+                callbacks: {
+                    beforeOpen: function () {
+                        if ($(window).width() < 700) {
+                            this.st.focus = false;
+                        } else {
+                            this.st.focus = '#txtUserName';
+                        }
                     }
                 }
-            }
-        });
-        $('.sign-up').magnificPopup({
-            type: 'inline',
-            preloader: false,
-            focus: '#txtSignUpUser',
-            prependTo: 'form',
-            closeOnBgClick: false,
-            callbacks: {
-                beforeOpen: function () {
-                    if ($(window).width() < 700) {
-                        this.st.focus = false;
-                    } else {
-                        this.st.focus = '#txtSignUpUser';
+            });
+            $('.sign-up').magnificPopup({
+                type: 'inline',
+                preloader: false,
+                focus: '#txtSignUpUser',
+                closeOnBgClick: false,
+                callbacks: {
+                    beforeOpen: function () {
+                        if ($(window).width() < 700) {
+                            this.st.focus = false;
+                        } else {
+                            this.st.focus = '#txtSignUpUser';
+                        }
                     }
                 }
-            }
-        });
-        $('.reset-password').magnificPopup({
-            type: 'inline',
-            preloader: false,
-            focus: '#txtUserEmail',
-            prependTo: 'form',
-            closeOnBgClick: false,
-            callbacks: {
-                beforeOpen: function () {
-                    if ($(window).width() < 700) {
-                        this.st.focus = false;
-                    } else {
-                        this.st.focus = '#txtUserEmail';
+            });
+            $('.reset-password').magnificPopup({
+                type: 'inline',
+                preloader: false,
+                focus: '#txtUserEmail',
+                closeOnBgClick: false,
+                callbacks: {
+                    beforeOpen: function () {
+                        if ($(window).width() < 700) {
+                            this.st.focus = false;
+                        } else {
+                            this.st.focus = '#txtUserEmail';
+                        }
                     }
                 }
+            });
+            @if (TempData["LoginError"] != null && (bool)TempData["LoginError"])
+            {
+                <text>
+            $.magnificPopup.open({
+                items: {
+                    src: '#loginModalPopup'
+                },
+                type: 'inline',
+                preloader: false,
+                focus: '#txtUserName',
+                closeOnBgClick: false,
+
+                // When element is focused, some mobile browsers in some cases zoom in
+                // It looks not nice, so we disable it:
+                callbacks: {
+                    beforeOpen: function () {
+                        if ($(window).width() < 700) {
+                            this.st.focus = false;
+                        } else {
+                            this.st.focus = '#txtUserName';
+                        }
+                    }
+                }
+            });
+                </text>
             }
         });
     </script>
+
+    <div id="signupModalPopup" class="mfp-hide white-popup-block">
+        <h1 style="text-align:center;font-style:italic;">SIGN UP</h1>
+    </div>
+    <div id="loginModalPopup" class="mfp-hide white-popup-block">
+        <h1 style="text-align:center;font-style:italic;">LOGIN</h1>
+        <partial name="~/Views/Partials/LoginForm.cshtml" model="login"/>
+        <div>Don't have an account? <a href="#signupModalPopup" class="sign-up">Sign Up</a></div>
+        <div>Forgot your login info? <a href="#resetPasswordModal" class="reset-password">Reset Password</a></div>
+    </div>
 </body>
 </html>

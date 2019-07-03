@@ -11,6 +11,8 @@ using kpfw.Services;
 using kpfw.DataModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Identity;
+using kpfw.Models.Identity;
 
 namespace kpfw
 {
@@ -35,15 +37,27 @@ namespace kpfw
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddDbContext<DataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ConnectionString")));
+            services.AddIdentity<User, UserRole>()
+            .AddDefaultTokenProviders();
+            services.AddTransient<IUserStore<User>, UserStore>();
+            services.AddTransient<IRoleStore<UserRole>, RoleStore>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, DataContext db, SignInManager<User> s)
         {
             UpdateDatabase(app);
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                //if (s.UserManager.FindByNameAsync("dev").Result == null)
+                //{
+                //    var result = s.UserManager.CreateAsync(new User
+                //    {
+                //        UserName = "dev",
+                //        UserEmail = "dev@app.com",
+                //    }, "Aut94L#G-a").Result;
+                //}
             }
             else
             {

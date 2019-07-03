@@ -1,0 +1,18 @@
+﻿@model LoginModel
+
+@using (Html.BeginForm("Login", "Account", FormMethod.Post))
+{
+    <div asp-validation-summary="All" class="error"></div>
+    <div class="item">
+        <label>Username <span class="req"><span asp-validation-for="UserName"></span></span></label>
+        <input asp-for="UserName"/>
+    </div>
+    <div class="item">
+        <label>Password <span class="req"><span asp-validation-for="Password"></span></span></label>
+        <input asp-for="Password" type="password" />
+    </div>
+    <div class="btn actions">
+        <button type="submit">Login</button>
+    </div>
+    <input type="hidden" name="loginPage" id="loginPage" value="@Context.Request.Path" />
+}

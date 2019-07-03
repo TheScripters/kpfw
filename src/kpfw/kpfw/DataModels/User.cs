@@ -21,12 +21,14 @@ namespace kpfw.DataModels
         public string UserPassword { get; set; }
         public DateTime JoinDate { get; set; }
         [Required]
-        public string TimeZone { get; set; }
+        public string TimeZone { get; set; } = "UTC";
         public bool ShowEmail { get; set; }
         public string DisplayName { get; set; }
         public string IPAddress { get; set; }
         public bool IsActive { get; set; }
         public Guid? EmailConfirmation { get; set; }
         public string TwoFactor { get; set; }
+
+        public virtual ICollection<UserRole> UserRoles { get; set; }
     }
 }
