@@ -261,6 +261,17 @@
             });
                 </text>
             }
+            @if (TempData["Show2FA"] != null && (bool)TempData["Show2FA"])
+            {
+                <text>
+            $.magnificPopup.open({
+                items: {
+                    src: '#twoFAModal'
+                },
+                closeOnBgClick: false
+            });
+                </text>
+            }
         });
     </script>
 
@@ -272,6 +283,9 @@
         <partial name="~/Views/Partials/LoginForm.cshtml" model="login"/>
         <div>Don't have an account? <a href="#signupModalPopup" class="sign-up">Sign Up</a></div>
         <div>Forgot your login info? <a href="#resetPasswordModal" class="reset-password">Reset Password</a></div>
+    </div>
+    <div id="twoFAModal" class="mfp-hide white-popup-block">
+        <h1 style="text-align:center;font-style:italic;">VERIFY IDENTITY</h1>
     </div>
 </body>
 </html>

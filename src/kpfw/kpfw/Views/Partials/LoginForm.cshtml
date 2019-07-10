@@ -3,6 +3,10 @@
 @using (Html.BeginForm("Login", "Account", FormMethod.Post))
 {
     <div asp-validation-summary="All" class="error"></div>
+    @if (TempData["ErrorMessage"] != null && (TempData["LoginError"] as bool? ?? false))
+    {
+        <p class="error">@Html.Raw(TempData["ErrorMessage"])</p>
+    }
     <div class="item">
         <label>Username <span class="req"><span asp-validation-for="UserName"></span></span></label>
         <input asp-for="UserName"/>
