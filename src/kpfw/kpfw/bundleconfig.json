@@ -2,10 +2,10 @@
   {
     "outputFileName": "wwwroot/css/bundle.css",
     "inputFiles": [
+      "wwwroot/css/magnific-popup.css",
       "wwwroot/css/reset.css",
       "wwwroot/css/forms.css",
-      "wwwroot/css/Site.css",
-      "wwwroot/css/magnific-popup.css"
+      "wwwroot/css/Site.css"
     ]
   },
   {

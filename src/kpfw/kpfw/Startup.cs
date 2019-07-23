@@ -32,15 +32,27 @@ namespace kpfw
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
                 options.CheckConsentNeeded = context => true;
-                options.MinimumSameSitePolicy = SameSiteMode.None;
+                options.MinimumSameSitePolicy = SameSiteMode.Strict;
+            });
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.Cookie.Name = "kpfw";
+                options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+                options.SlidingExpiration = true;
             });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddAntiforgery(opts => opts.Cookie.Name = "kpfw.Antiforgery");
             services.AddDbContext<DataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ConnectionString")));
-            services.AddIdentity<User, UserRole>()
-            .AddDefaultTokenProviders();
+            services.AddIdentity<User, UserRole>().AddDefaultTokenProviders();
             services.AddTransient<IUserStore<User>, UserStore>();
             services.AddTransient<IRoleStore<UserRole>, RoleStore>();
+            services.AddHsts(options =>
+            {
+                options.Preload = true;
+                options.IncludeSubDomains = true;
+                options.MaxAge = TimeSpan.FromDays(730);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -68,7 +80,7 @@ namespace kpfw
 
             app.UseHttpModule();
             app.UseStaticFiles();
-            app.UseCookiePolicy(new CookiePolicyOptions { MinimumSameSitePolicy = SameSiteMode.Strict, Secure = CookieSecurePolicy.Always });
+            app.UseCookiePolicy(new CookiePolicyOptions { MinimumSameSitePolicy = SameSiteMode.Strict, Secure = CookieSecurePolicy.Always, HttpOnly = Microsoft.AspNetCore.CookiePolicy.HttpOnlyPolicy.Always });
             app.UseAuthentication();
 
             app.UseMvc(routes =>
