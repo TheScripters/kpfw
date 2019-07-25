@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Identity;
 using kpfw.Models.Identity;
+using kpfw.Models;
 
 namespace kpfw
 {
@@ -43,7 +44,8 @@ namespace kpfw
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddAntiforgery(opts => opts.Cookie.Name = "kpfw.Antiforgery");
-            services.AddDbContext<DataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ConnectionString")));
+            var settings = Configuration.GetSection("Kpfw").Get<KpfwSettings>();
+            services.AddDbContext<DataContext>(options => options.UseSqlServer(settings.ConnectionString));
             services.AddIdentity<User, UserRole>().AddDefaultTokenProviders();
             services.AddTransient<IUserStore<User>, UserStore>();
             services.AddTransient<IRoleStore<UserRole>, RoleStore>();

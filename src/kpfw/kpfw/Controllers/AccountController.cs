@@ -18,7 +18,7 @@ namespace kpfw.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly IConfiguration Configuration;
+        //private readonly IConfiguration Configuration;
         private int NumTries
         {
             get
@@ -42,11 +42,12 @@ namespace kpfw.Controllers
             }
         }
         private DataContext _context;
+        private readonly KpfwSettings settings;
         private readonly SignInManager<User> _signInManager;
         private readonly UserManager<User> _userManager;
         public AccountController(DataContext context, UserManager<User> u, SignInManager<User> s, IConfiguration configuration)
         {
-            Configuration = configuration;
+            settings = configuration.GetSection("Kpfw").Get<KpfwSettings>();
             _context = context;
             _userManager = u;
             _signInManager = s;
@@ -61,6 +62,8 @@ namespace kpfw.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginModel m)
         {
+            if (TempData["Show2FA"] != null)
+                TempData.Remove("Show2FA");
             if (!ModelState.IsValid)
             {
                 TempData["LoginModel"] = JsonConvert.SerializeObject(m);
@@ -135,7 +138,7 @@ namespace kpfw.Controllers
             }
             else
             {
-                var client = new AuthyClient(Configuration.GetSection("AppSettings")["AuthyApiKey"]);
+                var client = new AuthyClient(settings.AuthyApiKey);
                 if (client.VerifyToken(Convert.ToInt32(u[3]), Convert.ToInt32(Request.Form["TwoFactorCode"][0])))
                     tfaValid = true;
             }
