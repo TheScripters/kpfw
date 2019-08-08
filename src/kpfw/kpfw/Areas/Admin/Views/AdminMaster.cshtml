@@ -1,24 +1,12 @@
-﻿@using Newtonsoft.Json;
+﻿
 @{
     Layout = null;
-    LoginModel login = new LoginModel();
-    if (TempData["LoginModel"] != null)
-    {
-        login = JsonConvert.DeserializeObject<LoginModel>((string)TempData["LoginModel"]);
-    }
 }
 
 <!DOCTYPE html>
 
 <html>
 <head>
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-KD24RVZ');</script>
-    <!-- End Google Tag Manager -->
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="robots" content="noindex">
@@ -28,25 +16,8 @@
     </style>
     <!--[if lt IE 9]><script type="text/javascript" src="/js/html5shiv/html5shiv.js"></script><![endif]-->
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script>
-        (function (i, s, o, g, r, a, m) {
-            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
-                (i[r].q = i[r].q || []).push(arguments)
-            }, i[r].l = 1 * new Date(); a = s.createElement(o),
-                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
-        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
-
-        ga('create', 'UA-96443023-1', 'auto');
-        ga('send', 'pageview');
-
-/**/</script>
-    @RenderSection("Meta", false)
 </head>
 <body>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KD24RVZ"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
     <div id="skip"><a href="#content">Skip to Main Content</a></div>
     <div class="toggle-menu lr">
         <ul>
@@ -71,13 +42,13 @@
                 <div class="left"></div>
                 <nav aria-label="Primary Navigation" class="main-nav lr" id="main-nav">
                     <ul>
-                        <li>@Html.RouteLink("Home", "default", new { controller = "Home", action = "Index" })</li>
+                        <li>@Html.RouteLink("Home", "default", new { controller = "AdminHome", action = "Index" })</li>
                         <li>@Html.RouteLink("Guides", "guides", new { controller = "Episode", action = "Index" })</li>
                         <li>@Html.RouteLink("Caps", "default", new { controller = "Caps", action = "Index" })</li>
-                        <li><a href="/Chat">Chat</a></li>
-                        <li><a href="/About">About</a></li>
-                        <li><a href="/Contact">Contact Us</a></li>
-                        <li><a href="/Donate" class="donate-nav-btn">Donate</a></li>
+                        <li><a href="#">Blah</a></li>
+                        <li><a href="#">Blah</a></li>
+                        <li><a href="#">Blah</a></li>
+                        <li><a href="#">Donate</a></li>
                     </ul>
                 </nav>
                 @if (!User.Identity.IsAuthenticated)
@@ -184,107 +155,5 @@
     });
     </script>
     @RenderSection("Scripts", false)
-    <script>
-        $(function () {
-            $('.sign-in').magnificPopup({
-                type: 'inline',
-                preloader: false,
-                focus: '#txtUserName',
-                closeOnBgClick: false,
-
-                // When element is focused, some mobile browsers in some cases zoom in
-                // It looks not nice, so we disable it:
-                callbacks: {
-                    beforeOpen: function () {
-                        if ($(window).width() < 700) {
-                            this.st.focus = false;
-                        } else {
-                            this.st.focus = '#txtUserName';
-                        }
-                    }
-                }
-            });
-            $('.sign-up').magnificPopup({
-                type: 'inline',
-                preloader: false,
-                focus: '#txtSignUpUser',
-                closeOnBgClick: false,
-                callbacks: {
-                    beforeOpen: function () {
-                        if ($(window).width() < 700) {
-                            this.st.focus = false;
-                        } else {
-                            this.st.focus = '#txtSignUpUser';
-                        }
-                    }
-                }
-            });
-            $('.reset-password').magnificPopup({
-                type: 'inline',
-                preloader: false,
-                focus: '#txtUserEmail',
-                closeOnBgClick: false,
-                callbacks: {
-                    beforeOpen: function () {
-                        if ($(window).width() < 700) {
-                            this.st.focus = false;
-                        } else {
-                            this.st.focus = '#txtUserEmail';
-                        }
-                    }
-                }
-            });
-            @if (TempData["LoginError"] != null && (bool)TempData["LoginError"])
-            {
-                <text>
-            $.magnificPopup.open({
-                items: {
-                    src: '#loginModalPopup'
-                },
-                type: 'inline',
-                preloader: false,
-                focus: '#txtUserName',
-                closeOnBgClick: false,
-
-                // When element is focused, some mobile browsers in some cases zoom in
-                // It looks not nice, so we disable it:
-                callbacks: {
-                    beforeOpen: function () {
-                        if ($(window).width() < 700) {
-                            this.st.focus = false;
-                        } else {
-                            this.st.focus = '#txtUserName';
-                        }
-                    }
-                }
-            });
-                </text>
-            }
-            @if (TempData["Show2FA"] != null && (bool)TempData["Show2FA"])
-            {
-                <text>
-            $.magnificPopup.open({
-                items: {
-                    src: '#twoFAModal'
-                },
-                closeOnBgClick: false
-            });
-                </text>
-            }
-        });
-    </script>
-
-    <div id="signupModalPopup" class="mfp-hide white-popup-block">
-        <h1 style="text-align:center;font-style:italic;">SIGN UP</h1>
-    </div>
-    <div id="loginModalPopup" class="mfp-hide white-popup-block">
-        <h1 style="text-align:center;font-style:italic;">LOGIN</h1>
-        <partial name="~/Views/Partials/LoginForm.cshtml" model="login"/>
-        <div>Don't have an account? <a href="#signupModalPopup" class="sign-up">Sign Up</a></div>
-        <div>Forgot your login info? <a href="#resetPasswordModal" class="reset-password">Reset Password</a></div>
-    </div>
-    <div id="twoFAModal" class="mfp-hide white-popup-block">
-        <h1 style="text-align:center;font-style:italic;">VERIFY IDENTITY</h1>
-    </div>
 </body>
 </html>

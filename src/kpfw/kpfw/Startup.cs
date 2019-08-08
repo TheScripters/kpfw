@@ -29,6 +29,7 @@ namespace kpfw
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            var settings = Configuration.GetSection("Kpfw").Get<KpfwSettings>();
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -37,24 +38,27 @@ namespace kpfw
             });
             services.ConfigureApplicationCookie(options =>
             {
-                options.Cookie.Name = "kpfw";
+                options.Cookie.Name = settings.CookieName;
                 options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
                 options.SlidingExpiration = true;
             });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            services.AddAntiforgery(opts => opts.Cookie.Name = "kpfw.Antiforgery");
-            var settings = Configuration.GetSection("Kpfw").Get<KpfwSettings>();
+            services.AddAntiforgery(opts => opts.Cookie.Name = settings.Antiforgery);
             services.AddDbContext<DataContext>(options => options.UseSqlServer(settings.ConnectionString));
             services.AddIdentity<User, UserRole>().AddDefaultTokenProviders();
             services.AddTransient<IUserStore<User>, UserStore>();
             services.AddTransient<IRoleStore<UserRole>, RoleStore>();
-            services.AddHsts(options =>
+
+            if (settings.UseHsts)
             {
-                options.Preload = true;
-                options.IncludeSubDomains = true;
-                options.MaxAge = TimeSpan.FromDays(730);
-            });
+                services.AddHsts(options =>
+                {
+                    options.Preload = true;
+                    options.IncludeSubDomains = true;
+                    options.MaxAge = TimeSpan.FromDays(730);
+                });
+            }
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -75,7 +79,7 @@ namespace kpfw
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseStatusCodePagesWithReExecute("/Home/Error", "?code={0}");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
@@ -87,6 +91,10 @@ namespace kpfw
 
             app.UseMvc(routes =>
             {
+                routes.MapRoute(
+                    name: "areas",
+                    template: "{area:exists}/{controller=AdminHome}/{action=Index}");
+
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}");
@@ -100,6 +108,12 @@ namespace kpfw
                     name: "guides",
                     template: "Guides/{Episode?}",
                     defaults: new { controller = "Episode", action = "Index" });
+
+                // this is a catch-all. It MUST BE LAST
+                routes.MapRoute(
+                    name: "pages",
+                    template: "{*PageUrl}",
+                    defaults: new { controller = "Page", action = "Index" });
             });
         }
 

@@ -27,5 +27,10 @@ namespace kpfw.Controllers
 
             return View("Home", new HomeViewModel { Timeline = l });
         }
+
+        public IActionResult Error(string code)
+        {
+            return View("Error", code);
+        }
     }
 }
