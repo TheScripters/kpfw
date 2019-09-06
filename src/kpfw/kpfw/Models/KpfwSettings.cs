@@ -19,6 +19,8 @@ namespace kpfw.Models
         public string ReCaptchaSiteKey { get; set; }
         public string SESAccessKey { get; set; }
         public string SESSecret { get; set; }
+        public string StripePublishableKey { get; set; }
+        public string StripeSecretKey { get; set; }
         public bool UseHsts { get; set; }
     }
 }
