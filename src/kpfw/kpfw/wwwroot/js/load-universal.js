@@ -1,4 +1,6 @@
-﻿$(document).ready(function () {
+﻿/*! Load Universal
+ */
+$(document).ready(function () {
     //Init double tap for touch menu
     $('nav li:has(ul)').doubleTapToGo();
 });

@@ -1,3 +1,5 @@
+/*! mobile menu
+ */
 $(document).ready(function ($) {
     //Variables
     var $wrapper = $('.full'),
