@@ -1,0 +1,28 @@
+﻿@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+@{
+    ViewData["Title"] = "Contact Us";
+    Layout = "~/Views/Master.cshtml";
+    var settings = Configuration.GetSection("Kpfw").Get<KpfwSettings>();
+}
+
+    <div class="interior cf">
+        <div class="inner cf">
+            <div class="contact-content">
+                <h1>Contact Us</h1>
+                <p>Yo! Question? Comment? Something we can do better? Drop us a line and let us know!</p>
+                <p>Just as a friendly reminder, we do not represent The Walt Disney Company and we have no influence there. We can't help you with getting <i>Kim Possible</i> in your country, for example. If you want to get a hold of Disney, we recommend you check out <a href="http://www.savedisneyshows.org/help.php" target="_blank">Save Disney Shows</a>. They have all the information you need!</p>
+            </div>
+            <partial name="~/Views/Partials/ContactForm.cshtml" />
+        </div>
+    </div>
+
+@section Scripts {
+<script>
+        grecaptcha.ready(function () {
+            grecaptcha.execute('@settings.ReCaptcha3SiteKey', { action: 'contact' }).then(function (token) {
+                document.getElementById('g-recaptcha-verify').value = token;
+            });
+        });
+    </script>
+}

@@ -1,10 +1,13 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using kpfw.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web;
 
 namespace kpfw
@@ -14,24 +17,43 @@ namespace kpfw
     /// </summary>
     public static class Notification
     {
+        static internal KpfwSettings Settings;
         public static void SendEmail(string to, string subject, string body)
         {
-            MailMessage m = new MailMessage("contact@kpfanworld.com", to)
+            using (MailMessage m = new MailMessage("contact@kpfanworld.com", to)
             {
                 Body = body,
                 Subject = subject,
                 IsBodyHtml = true
-            };
+            })
+            {
 
-            SmtpClient c = new SmtpClient()
-            {
-                Credentials = new NetworkCredential("", "")
-            };
-            try
-            {
-                c.Send(m);
+                string smtpPassword = "";
+                byte[] key = Encoding.UTF8.GetBytes(Settings.SESSecret);
+                using (var sha = new HMACSHA256(key))
+                {
+                    byte[] hash = sha.ComputeHash(Encoding.UTF8.GetBytes("SendRawEmail"));
+                    byte ver = 0x02;
+                    var s = hash.ToList();
+                    s.Insert(0, ver);
+                    smtpPassword = Convert.ToBase64String(s.ToArray());
+                }
+
+                using (SmtpClient c = new SmtpClient()
+                {
+                    Host = "email-smtp.us-west-2.amazonaws.com",
+                    Port = 587,
+                    EnableSsl = true,
+                    Credentials = new NetworkCredential(Settings.SESAccessKey, smtpPassword)
+                })
+                {
+                    try
+                    {
+                        c.Send(m);
+                    }
+                    catch { }
+                }
             }
-            catch { }
         }
 
         static public void SendError(HttpContext context, Exception ex, string note = "")

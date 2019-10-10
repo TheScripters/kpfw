@@ -132,5 +132,17 @@ namespace kpfw.Services
             }
             return value;
         }
+        /// <summary>
+        /// Changes <see cref="System.Environment.NewLine"/> to the HTML &lt;br /&gt; line break
+        /// </summary>
+        /// <param name="s">The string to process</param>
+        /// <returns>String with line endings converted to HTML &lt;br /&gt; tags</returns>
+        public static string Nl2Br(this string s)
+        {
+            if (s == null)
+                return s;
+
+            return s.Replace(System.Environment.NewLine, "<br />"); //.Replace("\n", "<br />").Replace("\r", "<br />");
+        }
     }
 }

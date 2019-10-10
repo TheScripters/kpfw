@@ -1,4 +1,6 @@
 ﻿@using Newtonsoft.Json;
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
 @{
     Layout = null;
     LoginModel login = new LoginModel();
@@ -6,6 +8,7 @@
     {
         login = JsonConvert.DeserializeObject<LoginModel>((string)TempData["LoginModel"]);
     }
+    var settings = Configuration.GetSection("Kpfw").Get<KpfwSettings>();
 }
 
 <!DOCTYPE html>
@@ -19,6 +22,12 @@
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
     })(window,document,'script','dataLayer','GTM-KD24RVZ');</script>
     <!-- End Google Tag Manager -->
+    <script src="https://www.google.com/recaptcha/api.js?render=@settings.ReCaptcha3SiteKey"></script>
+    <script>
+        grecaptcha.ready(function () {
+            grecaptcha.execute('@settings.ReCaptcha3SiteKey', { action: 'pageload' });
+        });
+    </script>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="robots" content="noindex">

@@ -1,0 +1,27 @@
+﻿@model ContactModel
+
+<div class="contact-form">
+    <form asp-controller="Contact" asp-action="Index" method="post">
+        <input type="hidden" name="g-recaptcha-verify" id="g-recaptcha-verify" />
+        <div asp-validation-summary="All" class="error"></div>
+        <div class="item">
+            <label asp-for="Name">Name: <span class="req">Required</span></label>
+            <input asp-for="Name" />
+        </div>
+        <div class="item">
+            <label asp-for="Email">Email: <span class="req">Required</span></label>
+            <input asp-for="Email" />
+        </div>
+        <div class="item">
+            <label asp-for="Subject">Subject: <span class="req">Required</span></label>
+            <input asp-for="Subject" />
+        </div>
+        <div class="item">
+            <label asp-for="Message">Message: <span class="req">Required</span></label>
+            <textarea asp-for="Message"></textarea>
+        </div>
+        <div class="actions r">
+            <input type="submit" value="Submit" />
+        </div>
+    </form>
+</div>
