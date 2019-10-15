@@ -1,14 +1,12 @@
-﻿using kpfw.Models;
+﻿using Amazon;
+using Amazon.Runtime;
+using Amazon.SimpleEmail;
+using Amazon.SimpleEmail.Model;
+using kpfw.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Mail;
-using System.Security.Cryptography;
-using System.Text;
-using System.Web;
 
 namespace kpfw
 {
@@ -18,67 +16,24 @@ namespace kpfw
     public static class Notification
     {
         static internal KpfwSettings Settings;
-        public static void SendEmail(string to, string subject, string body)
+        static public async void SendEmail(string to, string subject, string body)
         {
-            using (MailMessage m = new MailMessage("contact@kpfanworld.com", to)
+            Message msg = new Message(new Content(subject), new Body(new Content(body)));
+            SendEmailRequest req = new SendEmailRequest("contact@kpfanworld.com", new Destination(new List<string> { to }), msg);
+            using (AmazonSimpleEmailServiceClient client = new AmazonSimpleEmailServiceClient(new BasicAWSCredentials(Settings.SESAccessKey, Settings.SESSecret), RegionEndpoint.USWest2))
             {
-                Body = body,
-                Subject = subject,
-                IsBodyHtml = true
-            })
-            {
-
-                string smtpPassword = "";
-                byte[] key = Encoding.UTF8.GetBytes(Settings.SESSecret);
-                using (var sha = new HMACSHA256(key))
-                {
-                    byte[] hash = sha.ComputeHash(Encoding.UTF8.GetBytes("SendRawEmail"));
-                    byte ver = 0x02;
-                    var s = hash.ToList();
-                    s.Insert(0, ver);
-                    smtpPassword = Convert.ToBase64String(s.ToArray());
-                }
-
-                using (SmtpClient c = new SmtpClient()
-                {
-                    Host = "email-smtp.us-west-2.amazonaws.com",
-                    Port = 587,
-                    EnableSsl = true,
-                    Credentials = new NetworkCredential(Settings.SESAccessKey, smtpPassword)
-                })
-                {
-                    try
-                    {
-                        c.Send(m);
-                    }
-                    catch { }
-                }
+                var resp = await client.SendEmailAsync(req);
             }
         }
 
-        static public void SendError(HttpContext context, Exception ex, string note = "")
+        static public async void SendError(HttpContext context, Exception ex, string note = "")
         {
-            MailMessage m = new MailMessage();
-            try
+            Message msg = new Message(new Content("[KP Fan World] Web application error" + (note.Length > 0 ? " (" + note + ")" : "")), new Body(new Content(GetFullError(context, ex))));
+            SendEmailRequest req = new SendEmailRequest("contact@kpfanworld.com", new Destination(new List<string> { "staff@kpfanworld.com" }), msg);
+            using (AmazonSimpleEmailServiceClient client = new AmazonSimpleEmailServiceClient(new BasicAWSCredentials(Settings.SESAccessKey, Settings.SESSecret), RegionEndpoint.USWest2))
             {
-                // that send process does not include default bcc copying
-                m = new MailMessage("contact@kpfanworld.com", "adam@kpfanworld.com");
+                var resp = await client.SendEmailAsync(req);
             }
-            catch { }
-            m.Subject = "[KP Fan World] Web application error" + (note.Length > 0 ? " (" + note + ")" : "");
-            m.Body = GetFullError(context, ex);
-
-            SmtpClient c = new SmtpClient()
-            {
-                Credentials = new NetworkCredential("", "")
-            };
-            try
-            {
-                c.Send(m);
-            }
-            catch (Exception)
-            { }
-            m.Dispose();
         }
 
         static private string GetFullError(HttpContext context, Exception ex)
@@ -110,7 +65,8 @@ namespace kpfw
                 header +
                 "Error Type:  Web Application Error\n" +
                 "Server Name: " + Environment.MachineName + "\n" +
-                "Client Ip:   " + context.Request.GetDisplayUrl() + "\n" +
+                "Client Ip:   " + context.Connection.RemoteIpAddress + "\n"+
+                "Display URL: " + context.Request.GetDisplayUrl() + "\n" +
                 "Request Url: " + context.Request.Path + "\n" +
                 "Headers: \n" + sHeaderList +
                 "Posted Data: \n" + sPostedData +

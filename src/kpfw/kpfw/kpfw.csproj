@@ -15,9 +15,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AWSSDK.Core" Version="3.3.103.47" />
-    <PackageReference Include="AWSSDK.S3" Version="3.3.104.35" />
-    <PackageReference Include="BuildBundlerMinifier" Version="3.0.415" />
+    <PackageReference Include="AWSSDK.Core" Version="3.3.103.48" />
+    <PackageReference Include="AWSSDK.S3" Version="3.3.104.36" />
+    <PackageReference Include="awssdk.simpleemail" Version="3.3.101.55" />
+    <PackageReference Include="AWSSDK.SimpleNotificationService" Version="3.3.101.73" />
+    <PackageReference Include="BuildBundlerMinifier" Version="3.1.430" />
     <PackageReference Include="CryptSharpOfficial" Version="2.1.0" />
     <PackageReference Include="Google.Authenticator" Version="1.3.0" />
     <PackageReference Include="Markdig" Version="0.17.1" />
