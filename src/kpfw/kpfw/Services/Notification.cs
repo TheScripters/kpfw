@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace kpfw
 {
@@ -16,23 +17,41 @@ namespace kpfw
     public static class Notification
     {
         static internal KpfwSettings Settings;
-        static public async void SendEmail(string to, string subject, string body)
+        static public async Task<bool> SendEmail(string to, string replyTo, string subject, string body)
         {
-            Message msg = new Message(new Content(subject), new Body(new Content(body)));
-            SendEmailRequest req = new SendEmailRequest("contact@kpfanworld.com", new Destination(new List<string> { to }), msg);
+            Message msg = new Message(new Content(subject), new Body() { Html = new Content(body) });
+            SendEmailRequest req = new SendEmailRequest("contact@kpfanworld.com", new Destination(new List<string> { to }), msg) { ReturnPath = "staff@kpfanworld.com" };
+            if (!String.IsNullOrWhiteSpace(replyTo))
+                req.ReplyToAddresses.Add(replyTo);
             using (AmazonSimpleEmailServiceClient client = new AmazonSimpleEmailServiceClient(new BasicAWSCredentials(Settings.SESAccessKey, Settings.SESSecret), RegionEndpoint.USWest2))
             {
-                var resp = await client.SendEmailAsync(req);
+                try
+                {
+                    var resp = await client.SendEmailAsync(req);
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
             }
         }
 
-        static public async void SendError(HttpContext context, Exception ex, string note = "")
+        static public async Task<bool> SendError(HttpContext context, Exception ex, string note = "")
         {
             Message msg = new Message(new Content("[KP Fan World] Web application error" + (note.Length > 0 ? " (" + note + ")" : "")), new Body(new Content(GetFullError(context, ex))));
             SendEmailRequest req = new SendEmailRequest("contact@kpfanworld.com", new Destination(new List<string> { "staff@kpfanworld.com" }), msg);
             using (AmazonSimpleEmailServiceClient client = new AmazonSimpleEmailServiceClient(new BasicAWSCredentials(Settings.SESAccessKey, Settings.SESSecret), RegionEndpoint.USWest2))
             {
-                var resp = await client.SendEmailAsync(req);
+                try
+                {
+                    var resp = await client.SendEmailAsync(req);
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
             }
         }
 

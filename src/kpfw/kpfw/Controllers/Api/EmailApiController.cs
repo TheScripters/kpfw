@@ -32,7 +32,7 @@ namespace kpfw.Controllers.Api
                             dynamic b = m.bounce;
                             if (b.bounceSubType != "General" && b.bounceSubType != "Suppressed" && b.bounceSubType != "MailboxFull")
                             {
-                                Notification.SendEmail("staff@kpfanworld.com", "KPFW Unknown Notification", body);
+                                Notification.SendEmail("staff@kpfanworld.com", null, "KPFW Unknown Notification", body).Wait();
                                 goto END;
                             }
                             if (b.bounceType == "Transient") // "Soft" bounce
@@ -43,8 +43,6 @@ namespace kpfw.Controllers.Api
                                     if (emails.Length > 0)
                                         emails += $", {recipient.emailAddress}";
                                     else emails = recipient.emailAddress;
-                                    //if (recipient.emailAddress == "idealcarterrors@manwaringweb.com")
-                                    //    continue;
                                     //int num = 0;
                                     //try
                                     //{
@@ -72,7 +70,7 @@ namespace kpfw.Controllers.Api
                                     //    DB.AddBounce((string)recipient.emailAddress);
                                     //}
                                 }
-                                Notification.SendEmail("staff@kpfanworld.com", "KPFW Transient Bounce Notification", emails + "<br /><br />" + body);
+                                Notification.SendEmail("staff@kpfanworld.com", null, "KPFW Transient Bounce Notification", emails + "<br /><br />" + body).Wait();
                             }
                             else if (b.bounceType == "Permanent")
                             {
@@ -97,7 +95,7 @@ namespace kpfw.Controllers.Api
                                     //    }
                                     //}
                                 }
-                                Notification.SendEmail("staff@kpfanworld.com", "KPFW Permanent Bounce Notification", emails);
+                                Notification.SendEmail("staff@kpfanworld.com", null, "KPFW Permanent Bounce Notification", emails).Wait();
                             }
                         }
                         else if (m.notificationType == "Complaint")
@@ -127,29 +125,31 @@ namespace kpfw.Controllers.Api
                                 complaintBody += "</ul>";
 
 
-                                Notification.SendEmail("staff@kpfanworld.com", "KPFW Complaint Notification", complaintBody);
-                                //Notification.SendEmail(new[] { "customerservice@harrispublishing.com" }, "customerservice@harrispublishing.com", "Email Complaint Notification", complaintBody, true);
-                                //Notification.SendEmail(new[] { "adam@manwaringweb.com", "jarom@manwaringweb.com" }, "customerservice@harrispublishing.com", "Harris SES Complaint Notification", complaintBody, true);
+                                Notification.SendEmail("staff@kpfanworld.com", null, "KPFW Complaint Notification", complaintBody).Wait();
                             }
                             catch (Exception ex)
                             {
-                                Notification.SendError(Request.HttpContext, ex);
+                                Notification.SendError(Request.HttpContext, ex).Wait();
                             }
                         }
                         else
                         {
-                            Notification.SendEmail("staff@kpfanworld.com", "KPFW Non-Bounce Notification", body);
+                            Notification.SendEmail("staff@kpfanworld.com", null, "KPFW Non-Bounce Notification", body).Wait();
                         }
                     }
                     else
                     {
-                        Notification.SendEmail("staff@kpfanworld.com", "KPFW Non-NotificationType", body);
+                        Notification.SendEmail("staff@kpfanworld.com", null, "KPFW Non-NotificationType", body).Wait();
                     }
+                }
+                else
+                {
+                    Notification.SendEmail("staff@kpfanworld.com", null, "KPFW SES Failed Signature Check", body).Wait();
                 }
             }
             catch (Exception ex)
             {
-                Notification.SendError(Request.HttpContext, ex);
+                Notification.SendError(Request.HttpContext, ex).Wait();
             }
         END:
             return;
