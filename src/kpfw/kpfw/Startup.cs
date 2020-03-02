@@ -14,6 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Identity;
 using kpfw.Models.Identity;
 using kpfw.Models;
+using Stripe;
 
 namespace kpfw
 {
@@ -85,7 +86,6 @@ namespace kpfw
             }
 
             app.UseHttpModule();
-            app.UseStaticFiles();
             app.UseCookiePolicy(new CookiePolicyOptions { MinimumSameSitePolicy = SameSiteMode.Strict, Secure = CookieSecurePolicy.Always, HttpOnly = Microsoft.AspNetCore.CookiePolicy.HttpOnlyPolicy.Always });
             app.UseAuthentication();
 
@@ -101,7 +101,7 @@ namespace kpfw
 
                 routes.MapRoute(
                     name: "caps",
-                    template: "Caps/{Episode}/{**num}",
+                    template: "Caps/{Episode}/{num:int?}",
                     defaults: new { controller = "Caps", action = "ViewEpisode" });
 
                 routes.MapRoute(
@@ -112,9 +112,10 @@ namespace kpfw
                 // this is a catch-all. It MUST BE LAST
                 routes.MapRoute(
                     name: "pages",
-                    template: "{*PageUrl}",
+                    template: "{*PageUrl:regex(^[^.]+(?!.[a-z0-9A-Z]{{1,5}})$)}",
                     defaults: new { controller = "Page", action = "Index" });
             });
+            app.UseStaticFiles();
         }
 
         private static void UpdateDatabase(IApplicationBuilder app)
