@@ -81,7 +81,6 @@ namespace kpfw.Controllers
                 }
                 else
                 {
-
                     var user = _context.Users.Where(x => x.UserName == m.UserName).FirstOrDefault();
                     if (user == null)
                     {
@@ -104,10 +103,11 @@ namespace kpfw.Controllers
                         if (!String.IsNullOrWhiteSpace(user.TwoFactor))
                         {
                             // user has 2FA enabled so show that before logging them in.
-                            TempData["2FAUser"] = $"{user.Id}|{user.UserName}|{user.DisplayName}|{user.TwoFactor}|{isMd5}|{user.IsActive}|{auth.GetNewHash()}".ToBase64();
+                            TempData["2FAUser"] = $"{user.Id}|{user.UserName}|{user.DisplayName}|{isMd5}|{user.IsActive}|{auth.GetNewHash()}".ToBase64();
                             TempData["Show2FA"] = true;
                         }
-                        //await _signInManager.SignInAsync(new User(), false);
+                        else
+                            await _signInManager.SignInAsync(user, false);
                     }
                 }
             }
@@ -121,25 +121,25 @@ namespace kpfw.Controllers
             // 0 - userId
             // 1 - userName
             // 2 - displayName
-            // 3 - Authy ID
-            // 4 - md5
-            // 5 - isActive
-            // 6 - NewHash
+            // 3 - md5 (4)
+            // 4 - isActive (5)
+            // 5 - NewHash (6)
             string[] u = Request.Form["2FAUser"][0].FromBase64().Split('|');
-            bool md5 = Convert.ToBoolean(u[4]), isActive = Convert.ToBoolean(u[5]);
+            bool md5 = Convert.ToBoolean(u[3]), isActive = Convert.ToBoolean(u[4]);
+            var user = _context.Users.Where(x => x.Id == Convert.ToInt32(u[0])).Single();
             //var u = User.GetPassword(txtUserName.Text);
             bool tfaValid = false;
 
-            if (!Regex.IsMatch(u[3], @"^[\d]+$"))
+            if (!Regex.IsMatch(user.TwoFactor, @"^[\d]+$"))
             {
                 TwoFactorAuthenticator tfa = new TwoFactorAuthenticator();
-                if (tfa.ValidateTwoFactorPIN(u[3], Request.Form["TwoFactorCode"][0]))
+                if (tfa.ValidateTwoFactorPIN(user.TwoFactor, Request.Form["TwoFactorCode"][0]))
                     tfaValid = true;
             }
             else
             {
                 var client = new AuthyClient(settings.AuthyApiKey);
-                if (client.VerifyToken(Convert.ToInt32(u[3]), Convert.ToInt32(Request.Form["TwoFactorCode"][0])))
+                if (client.VerifyToken(Convert.ToInt32(user.TwoFactor), Convert.ToInt32(Request.Form["TwoFactorCode"][0])))
                     tfaValid = true;
             }
 
@@ -147,7 +147,7 @@ namespace kpfw.Controllers
             {
                 if ((md5 && !isActive) || isActive)
                 {
-                    await _signInManager.SignInAsync(new User(), false);
+                    await _signInManager.SignInAsync(user, false);
                     //FormsAuthentication.RedirectFromLoginPage(u[1], false);
                     if (NumTries > 0)
                     {
@@ -156,14 +156,10 @@ namespace kpfw.Controllers
 
                     if (md5)
                     {
-                        var user = _context.Users.Where(x => x.Id == Convert.ToInt32(u[0])).SingleOrDefault();
-                        if (user != null)
-                        {
-                            user.UserPassword = u[6];
-                            user.EmailConfirmation = Guid.NewGuid();
-                            user.IsActive = true;
-                            _context.Users.Update(user);
-                        }
+                        user.UserPassword = u[5];
+                        user.EmailConfirmation = Guid.NewGuid();
+                        user.IsActive = true;
+                        _context.Users.Update(user);
                     }
                 }
                 else
@@ -185,6 +181,13 @@ namespace kpfw.Controllers
             }
 
             return Redirect(Request.Form["loginPage"]);
+        }
+
+        public async Task<ActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+
+            return Redirect("~/");
         }
     }
 }

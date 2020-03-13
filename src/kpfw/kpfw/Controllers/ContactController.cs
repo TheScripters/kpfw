@@ -42,7 +42,7 @@ namespace kpfw.Controllers
             }
 
             Notification.Settings = Settings;
-            Notification.SendEmail("staff@kpfanworld.com", m.Email, $"[KPFanWorld] {m.Subject}", GetBody(m));
+            _ = Notification.SendEmail("staff@kpfanworld.com", m.Email, $"[KPFanWorld] {m.Subject}", GetBody(m)).Result;
 
             return View("~/Views/Contact/Index.cshtml");
         }

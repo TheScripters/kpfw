@@ -107,6 +107,7 @@
                     <nav aria-label="Account Navigation" class="account-nav lr" id="account-nav">
                         <ul>
                             <li>
+                                <a asp-action="Logout" asp-controller="Account" class="btn">Log Out</a>
                                 <asp:LinkButton runat="server" ID="lbLogout" OnClick="lbLogout_Click" CssClass="btn" Text="Logout" />
                             </li>
                             <li>
