@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using kpfw.Services;
 using kpfw.DataModels;
 using Microsoft.EntityFrameworkCore;
@@ -44,7 +44,7 @@ namespace kpfw
                 options.SlidingExpiration = true;
             });
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddRazorPages();
             services.AddAntiforgery(opts => opts.Cookie.Name = settings.Antiforgery);
             services.AddDbContext<DataContext>(options => options.UseSqlServer(settings.ConnectionString));
             services.AddIdentity<User, UserRole>().AddDefaultTokenProviders();
@@ -63,7 +63,7 @@ namespace kpfw
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, DataContext db, SignInManager<User> s)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, DataContext db, SignInManager<User> s)
         {
             UpdateDatabase(app);
             if (env.IsDevelopment())
@@ -87,35 +87,38 @@ namespace kpfw
 
             app.UseHttpModule();
             app.UseCookiePolicy(new CookiePolicyOptions { MinimumSameSitePolicy = SameSiteMode.Strict, Secure = CookieSecurePolicy.Always, HttpOnly = Microsoft.AspNetCore.CookiePolicy.HttpOnlyPolicy.Always });
+
+            app.UseStaticFiles();
+            app.UseRouting();
             app.UseAuthentication();
 
-            app.UseMvc(routes =>
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapRoute(
-                    name: "areas",
-                    template: "{area:exists}/{controller=AdminHome}/{action=Index}");
+                endpoints.MapAreaControllerRoute(
+                    name: "admin",
+                    areaName: "Admin",
+                    pattern: "{area:exists}/{controller=AdminHome}/{action=Index}");
 
-                routes.MapRoute(
+                endpoints.MapControllerRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}");
+                    pattern: "{controller=Home}/{action=Index}");
 
-                routes.MapRoute(
+                endpoints.MapControllerRoute(
                     name: "caps",
-                    template: "Caps/{Episode}/{num:int?}",
+                    pattern: "Caps/{Episode}/{num:int?}",
                     defaults: new { controller = "Caps", action = "ViewEpisode" });
 
-                routes.MapRoute(
+                endpoints.MapControllerRoute(
                     name: "guides",
-                    template: "Guides/{Episode?}",
+                    pattern: "Guides/{Episode?}",
                     defaults: new { controller = "Episode", action = "Index" });
 
                 // this is a catch-all. It MUST BE LAST
-                routes.MapRoute(
+                endpoints.MapControllerRoute(
                     name: "pages",
-                    template: "{*PageUrl:regex(^[^.]+(?!.[a-z0-9A-Z]{{1,5}})$)}",
+                    pattern: "{*PageUrl:regex(^[^.]+(?!.[a-z0-9A-Z]{{1,5}})$)}",
                     defaults: new { controller = "Page", action = "Index" });
             });
-            app.UseStaticFiles();
         }
 
         private static void UpdateDatabase(IApplicationBuilder app)

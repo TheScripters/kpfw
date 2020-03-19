@@ -108,7 +108,6 @@
                         <ul>
                             <li>
                                 <a asp-action="Logout" asp-controller="Account" class="btn">Log Out</a>
-                                <asp:LinkButton runat="server" ID="lbLogout" OnClick="lbLogout_Click" CssClass="btn" Text="Logout" />
                             </li>
                             <li>
                                 <a class="btn" href="#">My Account</a>
@@ -259,7 +258,7 @@
                 // It looks not nice, so we disable it:
                 callbacks: {
                     beforeOpen: function () {
-                        if ($(window).width() < 700) {
+                        if ($(window).width() @Html.Raw("<") 700) {
                             this.st.focus = false;
                         } else {
                             this.st.focus = '#txtUserName';

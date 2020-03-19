@@ -42,9 +42,8 @@
                 <div class="left"></div>
                 <nav aria-label="Primary Navigation" class="main-nav lr" id="main-nav">
                     <ul>
-                        <li>@Html.RouteLink("Home", "default", new { controller = "AdminHome", action = "Index" })</li>
-                        <li>@Html.RouteLink("Guides", "guides", new { controller = "Episode", action = "Index" })</li>
-                        <li>@Html.RouteLink("Caps", "default", new { controller = "Caps", action = "Index" })</li>
+                        <li><a href="/Admin">Home</a></li>
+                        <li><a asp-action="Index" asp-controller="Pages">Pages</a></li>
                         <li><a href="#">Blah</a></li>
                         <li><a href="#">Blah</a></li>
                         <li><a href="#">Blah</a></li>
@@ -69,7 +68,7 @@
                     <nav aria-label="Account Navigation" class="account-nav lr" id="account-nav">
                         <ul>
                             <li>
-                                <asp:LinkButton runat="server" ID="lbLogout" OnClick="lbLogout_Click" CssClass="btn" Text="Logout" />
+                                <a asp-action="Logout" asp-controller="Account" class="btn">Log Out</a>
                             </li>
                             <li>
                                 <a class="btn" href="#">My Account</a>
