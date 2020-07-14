@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace kpfw.Controllers.Api
 {
@@ -12,13 +13,13 @@ namespace kpfw.Controllers.Api
     {
         // POST: api/EmailApi
         [HttpPost]
-        public void Post()
+        public async Task Post()
         {
             string body = "";
             try
             {
                 using (StreamReader sr = new StreamReader(Request.Body))
-                    body = sr.ReadToEnd();
+                    body = await sr.ReadToEndAsync();
 
                 Message msg = Message.ParseMessage(body);
                 if (msg.IsMessageSignatureValid())

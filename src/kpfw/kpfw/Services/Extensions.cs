@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -143,6 +144,20 @@ namespace kpfw.Services
                 return s;
 
             return s.Replace(System.Environment.NewLine, "<br />"); //.Replace("\n", "<br />").Replace("\r", "<br />");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="domain"></param>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public static string MapPath(this AppDomain domain, string path)
+        {
+            if (!path.StartsWith("~/"))
+                return path;
+
+            return Path.Combine(domain.BaseDirectory, path.Replace("~/", ""));
         }
     }
 }

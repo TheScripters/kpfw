@@ -1,13 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using kpfw.DataModels;
+using kpfw.Models;
+using kpfw.Services;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 
 namespace kpfw.Controllers
 {
     public class CapsController : Controller
     {
+        private DataContext _context;
+        private readonly KpfwSettings settings;
+        public CapsController(DataContext context, IConfiguration configuration)
+        {
+            settings = configuration.GetSection("Kpfw").Get<KpfwSettings>();
+            _context = context;
+        }
         public IActionResult Index()
         {
             return View("EpListing");
@@ -64,17 +77,21 @@ namespace kpfw.Controllers
             }
             if (!isValid)
             {
-                //using (FileStream fs = new FileStream(Server.MapPath("~/App_Data/Urls.txt"), FileMode.Append))
-                //{
-                //    byte[] url = System.Text.Encoding.UTF8.GetBytes(Request.RawUrl + "\r\n");
-                //    fs.Write(url, 0, url.Length);
-                //}
+                using (FileStream fs = new FileStream(AppDomain.CurrentDomain.MapPath("~/App_Data/Urls.txt"), FileMode.Append))
+                {
+                    byte[] url = System.Text.Encoding.UTF8.GetBytes(Request.GetEncodedPathAndQuery() + "\r\n");
+                    fs.Write(url, 0, url.Length);
+                }
                 return Redirect("/Caps");
             }
             if (isValid && epUrl.ToLower().Contains("_"))
             {
                 return RedirectPermanent("/Caps/" + episodeUrl);
             }
+
+            var epData = _context.Episodes.SingleOrDefault(x => x.UrlLabel == epUrl);
+            if (epData != null)
+                ep.Description = epData.Description;
 
             return View("EpisodeCaps", ep);
         }

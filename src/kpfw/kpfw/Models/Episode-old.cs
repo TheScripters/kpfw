@@ -162,6 +162,7 @@ namespace kpfw
     {
         public string Title;
         public string UrlLabel;
+        public string Description;
         public string CDNPath;
         public int Count;
 

@@ -24,14 +24,15 @@
     }
 }
 @section Meta {
-
+    <meta name="description" content="@Model.Description" />
+    <link rel="canonical" href="https://@Context.Request.Host/Caps/@Model.UrlLabel" />
 }
 
     <div class="interior cf">
         <div class="inner">
             <h1>Kim Possible Screen Caps</h1>
             <h2 style="text-align: center;">@Model.Title</h2>
-            <p>{DESCRIPTION}</p>
+            <p>@Model.Description</p>
             <partial name="~/Views/Partials/CapsMenu.cshtml">
             <div id="thumbList" style="max-width:900px;margin:0 auto;">
                 <ul class="lr cf">

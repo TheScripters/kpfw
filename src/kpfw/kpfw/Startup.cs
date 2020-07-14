@@ -97,7 +97,7 @@ namespace kpfw
                 endpoints.MapAreaControllerRoute(
                     name: "admin",
                     areaName: "Admin",
-                    pattern: "{area:exists}/{controller=AdminHome}/{action=Index}");
+                    pattern: "Admin/{controller=AdminHome}/{action=Index}");
 
                 endpoints.MapControllerRoute(
                     name: "default",
