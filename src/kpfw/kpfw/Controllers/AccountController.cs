@@ -112,7 +112,11 @@ namespace kpfw.Controllers
                 }
             }
 
-            return Redirect(Request.Form["loginPage"]);
+            string url = Request.Form["loginPage"];
+            if (Url.IsLocalUrl(url))
+                return Redirect(url);
+            else
+                return Redirect("/");
         }
 
         [HttpPost]
@@ -180,7 +184,11 @@ namespace kpfw.Controllers
                 //ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "changePassword", "$.magnificPopup.open({ items: { src: '#twoFAModal' }, prependTo:'form#aspnetForm', closeOnBgClick: false });", true);
             }
 
-            return Redirect(Request.Form["loginPage"]);
+            string url = Request.Form["loginPage"];
+            if (Url.IsLocalUrl(url))
+                return Redirect(url);
+            else
+                return Redirect("/");
         }
 
         public async Task<ActionResult> Logout()
