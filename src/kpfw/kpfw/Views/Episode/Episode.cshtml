@@ -48,17 +48,7 @@
             <strong>Production Number:</strong>
             @Model.ProductionNumber
         </p>
-
-        <h2>Cast</h2>
-        <p>
-            <strong>Regular Cast:</strong>
-            @Html.Raw(String.Join(", ", Model.Stars))
-        </p>
-        <p>
-            <strong>Guest Cast:</strong>
-            @Html.Raw(String.Join(", ", Model.GuestStars))
-        </p>
-
+        
         <p>
         @if (Model.HasTranscript)
         {
@@ -72,6 +62,16 @@
         {
             <a asp-route="caps" asp-route-episode="@Model.CapsUrl">@Model.Title Screencaps</a>
         }
+        </p>
+
+        <h2>Cast</h2>
+        <p>
+            <strong>Regular Cast:</strong>
+            @Html.Raw(String.Join(", ", Model.Stars))
+        </p>
+        <p>
+            <strong>Guest Cast:</strong>
+            @Html.Raw(String.Join(", ", Model.GuestStars))
         </p>
 
         <h2>Notes</h2>
