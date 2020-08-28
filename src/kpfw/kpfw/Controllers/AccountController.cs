@@ -41,7 +41,7 @@ namespace kpfw.Controllers
                 }
             }
         }
-        private DataContext _context;
+        private readonly DataContext _context;
         private readonly KpfwSettings settings;
         private readonly SignInManager<User> _signInManager;
         private readonly UserManager<User> _userManager;
@@ -77,7 +77,8 @@ namespace kpfw.Controllers
                     TempData["LoginModel"] = JsonConvert.SerializeObject(m);
                     TempData["LoginError"] = true;
                     TempData["ErrorMessage"] = "Invalid username. Your username must contain only letters, numbers, and the underscore character or must be an email address.";
-                    NumTries = NumTries + 1;
+                    int tries = NumTries + 1;
+                    NumTries = tries;
                 }
                 else
                 {
@@ -87,7 +88,8 @@ namespace kpfw.Controllers
                         TempData["LoginModel"] = JsonConvert.SerializeObject(m);
                         TempData["LoginError"] = true;
                         TempData["ErrorMessage"] = "Sorry, Wade couldn't find anyone on file with those credentials. <a href=\"/Contact\">Contact us</a> if you feel this is in error.";
-                        NumTries = NumTries + 1;
+                        int tries = NumTries + 1;
+                        NumTries = tries;
                     }
                     else
                     {
@@ -98,7 +100,8 @@ namespace kpfw.Controllers
                             TempData["LoginModel"] = JsonConvert.SerializeObject(m);
                             TempData["LoginError"] = true;
                             TempData["ErrorMessage"] = "Sorry, Wade couldn't find anyone on file with those credentials. <a href=\"/Contact\">Contact us</a> if you feel this is in error.";
-                            NumTries = NumTries + 1;
+                            int tries = NumTries + 1;
+                            NumTries = tries;
                         }
                         if (!String.IsNullOrWhiteSpace(user.TwoFactor))
                         {
@@ -107,7 +110,17 @@ namespace kpfw.Controllers
                             TempData["Show2FA"] = true;
                         }
                         else
+                        {
+                            if (isMd5)
+                            {
+                                user.UserPassword = auth.GetNewHash();
+                                user.EmailConfirmation = Guid.NewGuid();
+                                user.IsActive = true;
+                                _context.Update(user);
+                            }
+
                             await _signInManager.SignInAsync(user, false);
+                        }
                     }
                 }
             }
@@ -172,7 +185,8 @@ namespace kpfw.Controllers
                     //ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "LoginError", "$.magnificPopup.open({ items: { src: '#loginModalPopup' }, prependTo:'form#aspnetForm', closeOnBgClick: false });", true);
                     TempData["2FAErrorMessage"] = "Sorry, there's a problem with your account. <a href=\"/Contact\">Contact us</a> to get it resolved.";
                     //FailureText.Visible = true;
-                    NumTries = NumTries + 1;
+                    int tries = NumTries + 1;
+                    NumTries = tries;
                 }
             }
             else

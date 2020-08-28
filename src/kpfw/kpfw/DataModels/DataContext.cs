@@ -12,6 +12,10 @@ namespace kpfw.DataModels
         { }
 
         public DbSet<Episode> Episodes { get; set; }
+        public DbSet<Note> Notes { get; set; }
+        public DbSet<Quote> Quotes { get; set; }
+        public DbSet<Goof> Goofs { get; set; }
+        public DbSet<Cultural> Culturals { get; set; }
 
         public DbSet<Timeline> Timeline { get; set; }
         public DbSet<User> Users { get; set; }
