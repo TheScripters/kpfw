@@ -16,6 +16,7 @@ namespace kpfw.DataModels
         public DbSet<Quote> Quotes { get; set; }
         public DbSet<Goof> Goofs { get; set; }
         public DbSet<Cultural> Culturals { get; set; }
+        public DbSet<CrewLink> CrewLinks { get; set; }
 
         public DbSet<Timeline> Timeline { get; set; }
         public DbSet<User> Users { get; set; }
@@ -28,11 +29,13 @@ namespace kpfw.DataModels
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<User>()
-                .HasIndex(u => u.UserEmail)
+                .HasIndex(e => e.UserEmail)
                 .IsUnique();
             builder.Entity<Page>()
-                .HasIndex(u => u.Url)
+                .HasIndex(e => e.Url)
                 .IsUnique();
+            builder.Entity<CrewLink>()
+                .HasIndex(e => e.CrewName);
         }
     }
 }

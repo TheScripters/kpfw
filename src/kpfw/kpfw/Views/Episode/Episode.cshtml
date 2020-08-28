@@ -18,15 +18,15 @@
         </p>
         <p>
             <strong>Director:</strong>
-            @String.Join(", ", Model.Director)
+            @Html.Raw(String.Join(", ", Model.Director))
         </p>
         <p>
             <strong>Writer:</strong>
-            @String.Join(", ", Model.Writer)
+            @Html.Raw(String.Join(", ", Model.Writer))
         </p>
         <p>
             <strong>Producer:</strong>
-            @String.Join(", ", Model.Producer)
+            @Html.Raw(String.Join(", ", Model.Producer))
         </p>
         <p>
             <strong>Studio:</strong>
@@ -34,7 +34,7 @@
         </p>
         <p>
             <strong>Executive Producer:</strong>
-            @String.Join(", ", Model.ExecutiveProducer)
+            @Html.Raw(String.Join(", ", Model.ExecutiveProducer))
         </p>
         <p>
             <strong>Air Date:</strong>
@@ -52,11 +52,11 @@
         <h2>Cast</h2>
         <p>
             <strong>Regular Cast:</strong>
-            @String.Join(", ", Model.Stars)
+            @Html.Raw(String.Join(", ", Model.Stars))
         </p>
         <p>
             <strong>Guest Cast:</strong>
-            @String.Join(", ", Model.GuestStars)
+            @Html.Raw(String.Join(", ", Model.GuestStars))
         </p>
 
         <p>
@@ -75,15 +75,64 @@
         </p>
 
         <h2>Notes</h2>
+        @if (Model.Notes.Count == 0)
+        {
+            <p style="font-style:italic;">Sorry, nothing has been provided for this episode yet. <a href="/Contact">Contact us</a> for suggestions!</p>
+        }
+        else
+        {
+            foreach (var n in Model.Notes)
+            {
+                <div style="border-bottom:1px dashed #444;padding: 5px 0;">
+                    <p>@Html.Raw(n.NoteText)</p>
+                </div>
+            }
+        }
 
         <h2>Quotes</h2>
-        <p style="font-style:italic;">Sorry, nothing has been provided for this episode yet. <a href="/Contact">Contact us</a> for suggestions!</p>
+        @if (Model.Quotes.Count == 0)
+        {
+            <p style="font-style:italic;">Sorry, nothing has been provided for this episode yet. <a href="/Contact">Contact us</a> for suggestions!</p>
+        }
+        else
+        {
+            foreach (var n in Model.Quotes)
+            {
+                <div style="border-bottom:1px dashed #444;padding: 5px 0;">
+                    <p>@Html.Raw(n.QuoteText)</p>
+                </div>
+            }
+        }
 
         <h2>Goofs</h2>
-        <p style="font-style:italic;">Sorry, nothing has been provided for this episode yet. <a href="/Contact">Contact us</a> for suggestions!</p>
+        @if (Model.Goofs.Count == 0)
+        {
+            <p style="font-style:italic;">Sorry, nothing has been provided for this episode yet. <a href="/Contact">Contact us</a> for suggestions!</p>
+        }
+        else
+        {
+            foreach (var n in Model.Goofs)
+            {
+                <div style="border-bottom:1px dashed #444;padding: 5px 0;">
+                    <p>@Html.Raw(n.GoofText)</p>
+                </div>
+            }
+        }
 
         <h2>Cultural References</h2>
-        <p style="font-style:italic;">Sorry, nothing has been provided for this episode yet. <a href="/Contact">Contact us</a> for suggestions!</p>
+        @if (Model.Culturals.Count == 0)
+        {
+            <p style="font-style:italic;">Sorry, nothing has been provided for this episode yet. <a href="/Contact">Contact us</a> for suggestions!</p>
+        }
+        else
+        {
+            foreach (var n in Model.Culturals)
+            {
+                <div style="border-bottom:1px dashed #444;padding: 5px 0;">
+                    <p>@Html.Raw(n.CulturalText)</p>
+                </div>
+            }
+        }
     </div>
 </div>
 

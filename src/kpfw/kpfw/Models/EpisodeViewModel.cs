@@ -28,6 +28,10 @@ namespace kpfw.Models
         public int Season { get { return Convert.ToInt32(ProductionNumber[0].ToString()); } }
         public bool HasTranscript { get; set; }
         public string CapsUrl { get; set; }
+        public List<Note> Notes { get; set; }
+        public List<Quote> Quotes { get; set; }
+        public List<Goof> Goofs { get; set; }
+        public List<Cultural> Culturals { get; set; }
 
         public EpisodeViewModel(Episode episode)
         {
@@ -48,6 +52,11 @@ namespace kpfw.Models
             Recap = episode.Recap;
             Transcript = episode.Transcript;
             HasTranscript = !String.IsNullOrWhiteSpace(episode.Transcript);
+
+            Notes = new List<Note>();
+            Quotes = new List<Quote>();
+            Goofs = new List<Goof>();
+            Culturals = new List<Cultural>();
         }
     }
 }
