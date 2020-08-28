@@ -5,13 +5,16 @@ using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using kpfw.DataModels;
 using kpfw.Models;
+using kpfw.Services;
+using Markdig;
 using Microsoft.AspNetCore.Mvc;
 
 namespace kpfw.Controllers
 {
     public class EpisodeController : Controller
     {
-        private DataContext _context;
+        protected MarkdownPipeline pipeline = new MarkdownPipelineBuilder().UseAdvancedExtensions().UseCaps().Build();
+        private readonly DataContext _context;
         public EpisodeController(DataContext context)
         {
             _context = context;
@@ -34,8 +37,56 @@ namespace kpfw.Controllers
                 if (ep == null)
                     return Redirect("/Guides");
 
-                return View("Episode", new EpisodeViewModel(ep));
+                var model = new EpisodeViewModel(ep);
+                switch (model.Season)
+                {
+                    case 1:
+                        model.CapsUrl = EpCapsList.S1List.Where(p => p.UrlLabel == model.UrlLabel).SingleOrDefault()?.UrlLabel;
+                        break;
+                    case 2:
+                        model.CapsUrl = EpCapsList.S2List.Where(p => p.UrlLabel == model.UrlLabel).SingleOrDefault()?.UrlLabel;
+                        break;
+                    case 3:
+                        model.CapsUrl = EpCapsList.S3List.Where(p => p.UrlLabel == model.UrlLabel).SingleOrDefault()?.UrlLabel;
+                        break;
+                    case 4:
+                        model.CapsUrl = EpCapsList.S4List.Where(p => p.UrlLabel == model.UrlLabel).SingleOrDefault()?.UrlLabel;
+                        break;
+                }
+
+                return View("Episode", model);
             }
+        }
+
+        public IActionResult Transcript()
+        {
+            var ep = _context.Episodes.Where(x => x.UrlLabel == RouteData.Values["Episode"].ToString()).FirstOrDefault();
+            if (ep == null)
+                return Redirect("/Guides");
+
+            var model = new EpisodeViewModel(ep);
+            if (!model.HasTranscript)
+                return RedirectToAction("Index", "Episode", new { Episode = ep.UrlLabel });
+
+            switch (model.Season)
+            {
+                case 1:
+                    model.CapsUrl = EpCapsList.S1List.Where(p => p.UrlLabel == model.UrlLabel).SingleOrDefault()?.UrlLabel;
+                    break;
+                case 2:
+                    model.CapsUrl = EpCapsList.S2List.Where(p => p.UrlLabel == model.UrlLabel).SingleOrDefault()?.UrlLabel;
+                    break;
+                case 3:
+                    model.CapsUrl = EpCapsList.S3List.Where(p => p.UrlLabel == model.UrlLabel).SingleOrDefault()?.UrlLabel;
+                    break;
+                case 4:
+                    model.CapsUrl = EpCapsList.S4List.Where(p => p.UrlLabel == model.UrlLabel).SingleOrDefault()?.UrlLabel;
+                    break;
+            }
+
+            model.Transcript = Markdown.ToHtml(model.Transcript.Nl2Br(), pipeline);
+
+            return View("EpisodeTranscript", model);
         }
     }
 }

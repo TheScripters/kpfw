@@ -27,6 +27,7 @@ namespace kpfw.Models
         public string Transcript { get; set; }
         public int Season { get { return Convert.ToInt32(ProductionNumber[0].ToString()); } }
         public bool HasTranscript { get; set; }
+        public string CapsUrl { get; set; }
 
         public EpisodeViewModel(Episode episode)
         {
@@ -46,6 +47,7 @@ namespace kpfw.Models
             Director = episode.Director.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Trim().ToArray();
             Recap = episode.Recap;
             Transcript = episode.Transcript;
+            HasTranscript = !String.IsNullOrWhiteSpace(episode.Transcript);
         }
     }
 }

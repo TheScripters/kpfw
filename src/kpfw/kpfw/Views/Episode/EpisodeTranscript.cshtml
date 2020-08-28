@@ -1,0 +1,19 @@
+﻿@model EpisodeViewModel
+@{
+    ViewData["Title"] = Model.Title + " Episode Transcript";
+    Layout = "~/Views/Master.cshtml";
+}
+
+    <div class="interior cf">
+        <div class="inner">
+            <h1>@Model.Title</h1>
+            <a asp-route="guides" asp-route-episode="@Model.UrlLabel">&laquo; Back to @Model.Title Episode Guide</a>
+            @if (!String.IsNullOrWhiteSpace(Model.CapsUrl))
+            {
+                <text>&nbsp;|&nbsp;</text>
+                <a asp-route="caps" asp-route-episode="@Model.CapsUrl">@Model.Title Screencaps </a>
+            }
+
+            @Html.Raw(Model.Transcript)
+        </div>
+    </div>

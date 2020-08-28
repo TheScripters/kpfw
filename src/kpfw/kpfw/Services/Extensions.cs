@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Markdig;
+using Markdig.Helpers;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -158,6 +160,20 @@ namespace kpfw.Services
                 return path;
 
             return Path.Combine(domain.BaseDirectory, path.Replace("~/", ""));
+        }
+
+        public static MarkdownPipelineBuilder UseCaps(this MarkdownPipelineBuilder pipeline)
+        {
+            OrderedList<IMarkdownExtension> extensions;
+
+            extensions = pipeline.Extensions;
+
+            if (!extensions.Contains<CapsExtension>())
+            {
+                extensions.Add(new CapsExtension());
+            }
+
+            return pipeline;
         }
     }
 }

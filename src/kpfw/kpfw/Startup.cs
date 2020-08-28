@@ -139,6 +139,11 @@ namespace kpfw
                     name: "guides",
                     pattern: "Guides/{Episode?}",
                     defaults: new { controller = "Episode", action = "Index" });
+                
+                endpoints.MapControllerRoute(
+                    name: "transcript",
+                    pattern: "Guides/{Episode}/Transcript",
+                    defaults: new { controller = "Episode", action = "Transcript" });
 
                 // this is a catch-all. It MUST BE LAST
                 endpoints.MapControllerRoute(

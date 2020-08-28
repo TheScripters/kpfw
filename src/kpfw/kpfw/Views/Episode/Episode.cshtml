@@ -59,6 +59,21 @@
             @String.Join(", ", Model.GuestStars)
         </p>
 
+        <p>
+        @if (Model.HasTranscript)
+        {
+            <a asp-route="transcript" asp-route-episode="@Model.UrlLabel">@Model.Title Transcript</a>
+        }
+        @if (Model.HasTranscript && !String.IsNullOrWhiteSpace(Model.CapsUrl))
+        {
+            <text>&nbsp;|&nbsp;</text>
+        }
+        @if (!String.IsNullOrWhiteSpace(Model.CapsUrl))
+        {
+            <a asp-route="caps" asp-route-episode="@Model.CapsUrl">@Model.Title Screencaps</a>
+        }
+        </p>
+
         <h2>Notes</h2>
 
         <h2>Quotes</h2>
