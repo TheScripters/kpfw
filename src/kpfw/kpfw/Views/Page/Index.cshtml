@@ -1,0 +1,9 @@
+﻿@model PageModel
+@{
+    ViewData["Title"] = Model.PageName;
+    Layout = "~/Views/Master.cshtml";
+}
+
+<h1>@Model.PageName</h1>
+
+<p>This here page is located at /@Model.Url</p>

@@ -1,0 +1,121 @@
+﻿@{
+    Layout = "~/Views/Master.cshtml";
+    ViewData["Title"] = "Kim Possible Screencaps";
+
+    int capCount = 0;
+    foreach (var l in EpCapsList.S1List)
+    {
+        capCount += l.Count;
+    }
+    foreach (var l in EpCapsList.S2List)
+    {
+        capCount += l.Count;
+    }
+    foreach (var l in EpCapsList.S3List)
+    {
+        capCount += l.Count;
+    }
+    foreach (var l in EpCapsList.S4List)
+    {
+        capCount += l.Count;
+    }
+    foreach (var l in EpCapsList.MovieList)
+    {
+        capCount += l.Count;
+    }
+    foreach (var l in EpCapsList.MiscList)
+    {
+        capCount += l.Count;
+    }
+}
+
+@section  Meta {
+    <meta name="description" content="We have @String.Format("{0:N0}", capCount) Kim Possible screen shots, caps, memes, etc" />
+}
+
+    <div class="interior cf">
+        <div class="inner">
+            <h1>Kim Possible Screen Caps</h1>
+            <div class="screen-caps">
+                <p>Keep checking back as we continue to add more episodes! We currently have @String.Format("{0:N0}", capCount) screen captures of Kim Possible, Ron Stoppable, Rufus, Dr. Drakken, Shego, and the rest of the gang!</p>
+                <p>Don't see your favorite cap? The system we use takes a screenshot once every second, so we know it misses some great shots now and then. Request those <a href="/Contact">here</a> and watch for them!</p>
+                <br />
+
+                <h2>Season 1</h2>
+                <div class="epsList">
+                    <ol class="cf">
+                        @foreach (var i in EpCapsList.S1List)
+                        {
+                            <li>
+                                @Html.RouteLink(i.Title, "caps", new { Episode = i.UrlLabel })
+                            </li>
+                        }
+                    </ol>
+                </div>
+
+                <h2>Season 2</h2>
+                <div class="epsList">
+                    <ol class="cf">
+                        @foreach (var i in EpCapsList.S2List)
+                        {
+                            <li>
+                                @Html.RouteLink(i.Title, "caps", new { Episode = i.UrlLabel })
+                            </li>
+                        }
+                    </ol>
+                </div>
+
+                <h2>Season 3</h2>
+                <div class="epsList">
+                    <ol class="cf">
+                        @foreach (var i in EpCapsList.S3List)
+                        {
+                            <li>
+                                @Html.RouteLink(i.Title, "caps", new { Episode = i.UrlLabel })
+                            </li>
+                        }
+                    </ol>
+                </div>
+
+                <h2>Season 4</h2>
+                <div class="epsList">
+                    <ol class="cf">
+                        @foreach (var i in EpCapsList.S4List)
+                        {
+                            <li>
+                                @Html.RouteLink(i.Title, "caps", new { Episode = i.UrlLabel })
+                            </li>
+                        }
+                    </ol>
+                </div>
+
+                <h2>Movies</h2>
+                <div class="epsList">
+                    <ol class="cf">
+                        @foreach (var i in EpCapsList.MovieList)
+                        {
+                            <li>
+                                @Html.RouteLink(i.Title, "caps", new { Episode = i.UrlLabel })
+                            </li>
+                        }
+                    </ol>
+                </div>
+
+                <h2>Miscellaneous</h2>
+                <div class="epsList">
+                    <ol class="cf">
+                        @foreach (var i in EpCapsList.MiscList)
+                        {
+                            <li>
+                                @Html.RouteLink(i.Title, "caps", new { Episode = i.UrlLabel })
+                            </li>
+                        }
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+@section  Scripts {
+
+}

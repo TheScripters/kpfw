@@ -1,0 +1,50 @@
+﻿@model IEnumerable<EpisodeViewModel>
+@{
+    ViewData["Title"] = "EpisodeIndex";
+    Layout = "~/Views/Master.cshtml";
+
+    List<int> seasons = Model.Select(x => x.Season).Distinct().OrderBy(x => x).ToList();
+}
+@section Meta {
+
+}
+
+<div class="interior cf">
+    <div class="inner">
+        <h1>Guides</h1>
+        
+        @foreach (var s in seasons)
+        {
+            <h2>Season @s</h2>
+            <p class="hint">
+                <img src="/Images/swipe-icon.png" /><span>Swipe/scroll to view table.</span>
+            </p>
+            <div class="chart">
+                <div class="chart-wrap">
+                    <table>
+                        <tr class="head">
+                            <th>Ep.</th>
+                            <th>Ep. Title</th>
+                            <th>Air Date</th>
+                            <th>Prod. #</th>
+                        </tr>
+                        @foreach (var ep in Model.Where(x => x.Season == s))
+                        {
+                            <tr>
+                                <td>@ep.Number</td>
+                                <td>@Html.RouteLink(ep.Title, "guides", new { Episode = ep.UrlLabel })</td>
+                                <td>@String.Format("{0:MMMM dd, yyyy}", ep.AirDate)</td>
+                                <td>@ep.ProductionNumber</td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>
+
+@section Scripts {
+
+}

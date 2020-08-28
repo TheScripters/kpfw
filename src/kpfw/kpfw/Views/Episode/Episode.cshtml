@@ -1,0 +1,141 @@
+﻿@model EpisodeViewModel
+@{
+    ViewData["Title"] = Model.Title + " Episode Guide";
+    Layout = "~/Views/Master.cshtml";
+}
+@section Meta {
+
+}
+
+<div class="interior cf">
+    <div class="inner">
+        <h1>@Model.Title</h1>
+        <h2>Basic Information</h2>
+
+        <p>
+            <strong>Description:</strong>
+            @Model.Description
+        </p>
+        <p>
+            <strong>Director:</strong>
+            @Html.Raw(String.Join(", ", Model.Director))
+        </p>
+        <p>
+            <strong>Writer:</strong>
+            @Html.Raw(String.Join(", ", Model.Writer))
+        </p>
+        <p>
+            <strong>Producer:</strong>
+            @Html.Raw(String.Join(", ", Model.Producer))
+        </p>
+        <p>
+            <strong>Studio:</strong>
+            @Model.Studio
+        </p>
+        <p>
+            <strong>Executive Producer:</strong>
+            @Html.Raw(String.Join(", ", Model.ExecutiveProducer))
+        </p>
+        <p>
+            <strong>Air Date:</strong>
+            @String.Format("{0:MMMM d, yyyy}", Model.AirDate)
+        </p>
+        <p>
+            <strong>Season:</strong>
+            Season @Model.Season
+        </p>
+        <p>
+            <strong>Production Number:</strong>
+            @Model.ProductionNumber
+        </p>
+        
+        <p>
+        @if (Model.HasTranscript)
+        {
+            <a asp-route="transcript" asp-route-episode="@Model.UrlLabel">@Model.Title Transcript</a>
+        }
+        @if (Model.HasTranscript && !String.IsNullOrWhiteSpace(Model.CapsUrl))
+        {
+            <text>&nbsp;|&nbsp;</text>
+        }
+        @if (!String.IsNullOrWhiteSpace(Model.CapsUrl))
+        {
+            <a asp-route="caps" asp-route-episode="@Model.CapsUrl">@Model.Title Screencaps</a>
+        }
+        </p>
+
+        <h2>Cast</h2>
+        <p>
+            <strong>Regular Cast:</strong>
+            @Html.Raw(String.Join(", ", Model.Stars))
+        </p>
+        <p>
+            <strong>Guest Cast:</strong>
+            @Html.Raw(String.Join(", ", Model.GuestStars))
+        </p>
+
+        <h2>Notes</h2>
+        @if (Model.Notes.Count == 0)
+        {
+            <p style="font-style:italic;">Sorry, nothing has been provided for this episode yet. <a href="/Contact">Contact us</a> for suggestions!</p>
+        }
+        else
+        {
+            foreach (var n in Model.Notes)
+            {
+                <div style="border-bottom:1px dashed #444;padding: 5px 0;">
+                    <p>@Html.Raw(n.NoteText)</p>
+                </div>
+            }
+        }
+
+        <h2>Quotes</h2>
+        @if (Model.Quotes.Count == 0)
+        {
+            <p style="font-style:italic;">Sorry, nothing has been provided for this episode yet. <a href="/Contact">Contact us</a> for suggestions!</p>
+        }
+        else
+        {
+            foreach (var n in Model.Quotes)
+            {
+                <div style="border-bottom:1px dashed #444;padding: 5px 0;">
+                    <p>@Html.Raw(n.QuoteText)</p>
+                </div>
+            }
+        }
+
+        <h2>Goofs</h2>
+        @if (Model.Goofs.Count == 0)
+        {
+            <p style="font-style:italic;">Sorry, nothing has been provided for this episode yet. <a href="/Contact">Contact us</a> for suggestions!</p>
+        }
+        else
+        {
+            foreach (var n in Model.Goofs)
+            {
+                <div style="border-bottom:1px dashed #444;padding: 5px 0;">
+                    <p>@Html.Raw(n.GoofText)</p>
+                </div>
+            }
+        }
+
+        <h2>Cultural References</h2>
+        @if (Model.Culturals.Count == 0)
+        {
+            <p style="font-style:italic;">Sorry, nothing has been provided for this episode yet. <a href="/Contact">Contact us</a> for suggestions!</p>
+        }
+        else
+        {
+            foreach (var n in Model.Culturals)
+            {
+                <div style="border-bottom:1px dashed #444;padding: 5px 0;">
+                    <p>@Html.Raw(n.CulturalText)</p>
+                </div>
+            }
+        }
+    </div>
+</div>
+
+@section Scripts {
+
+}

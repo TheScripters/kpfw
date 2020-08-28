@@ -1,0 +1,54 @@
+﻿@model EpisodeTitle
+@{
+    int num = 0;
+    if (ViewContext.RouteData.Values["num"] != null)
+    {
+        num = Convert.ToInt32(ViewContext.RouteData.Values["num"]);
+    }
+    List<int> items = new List<int>();
+    int item = 100;
+    while (item < Model.Count)
+    {
+        items.Add(item);
+        item += 100;
+    }
+}
+
+<div class="menu">
+    <ul class="lr cf">
+        <li>
+            @if (num == 0)
+            {
+                <text>1-100</text>
+            }
+            else
+            {
+                <text>
+                @Html.RouteLink("1-100", "caps", new { Episode = Model.UrlLabel, num = (int?)null })
+                </text>
+            }
+        </li>
+        @foreach (int i in items)
+        {
+            int max = i + 100;
+            if (max > Model.Count)
+            {
+                max = Model.Count;
+            }
+            <li>
+                @if (num == i)
+                {
+                    <text>
+                    @i-@max
+                    </text>
+                }
+                else
+                {
+                    <text>
+                    @Html.RouteLink($"{i}-{max}", "caps", new { Episode = Model.UrlLabel, num = i })
+                    </text>
+                }
+            </li>
+        }
+    </ul>
+</div>
