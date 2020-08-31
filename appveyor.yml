@@ -1,0 +1,10 @@
+version: 1.0.{build}
+branches:
+  only:
+  - core-mvc
+image: Visual Studio 2019
+before_build:
+- cmd: nuget restore src\kpfw\kpfw.sln
+build:
+  project: src/kpfw/kpfw.sln
+  verbosity: minimal
