@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<EpisodeViewModel>
 @{
-    ViewData["Title"] = "EpisodeIndex";
+    ViewData["Title"] = "Episode List";
     Layout = "~/Views/Master.cshtml";
 
     List<int> seasons = Model.Select(x => x.Season).Distinct().OrderBy(x => x).ToList();
