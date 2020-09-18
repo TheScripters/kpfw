@@ -1,6 +1,9 @@
 ﻿@model EpisodeTitle
 @using System.Web;
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
 @{
+    var settings = Configuration.GetSection("Kpfw").Get<KpfwSettings>();
     ViewData["Title"] = $"{Model.Title} Screen Captures";
     Layout = "~/Views/Master.cshtml";
     int num = 0;
@@ -71,11 +74,17 @@
                             console.log(this.currItem.el[0].children[0].src);
                             dataLayer.push({ 'event': 'OpenModal', 'category': 'Caps', 'action': 'OpenModal', 'label': this.currItem.src, 'value' : this.currItem.el[0].children[0].src });
                             //ga('send', 'event', 'Caps', 'OpenModal', this.currItem.src, this.currItem.el[0].children[0].src);
+                            grecaptcha.ready(function () {
+                                grecaptcha.execute('@settings.ReCaptcha3SiteKey', { action: 'openModal' });
+                            });
                         },
                         change: function () {
                             console.log(this.currItem.el[0].children[0].src);
                             dataLayer.push({ 'event': 'ChangeModal', 'category': 'Caps', 'action': 'ChangeModal', 'label': this.currItem.src, 'value' : this.currItem.el[0].children[0].src });
                             //ga('send', 'event', 'Caps', 'ChangeModal', this.currItem.src, this.currItem.el[0].children[0].src);
+                            grecaptcha.ready(function () {
+                                grecaptcha.execute('@settings.ReCaptcha3SiteKey', { action: 'changeModal' });
+                            });
                         }
                     }
                 });
