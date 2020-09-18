@@ -37,14 +37,16 @@ namespace kpfw.Controllers
             var grecaptcha = VerifyReCaptcha();
             if (grecaptcha == null || !(bool)grecaptcha["success"] || (double)grecaptcha["score"] < 0.5 || (string)grecaptcha["action"] != "contact")
             {
-                ModelState.AddModelError("", "Could not validate as human");
+                ModelState.AddModelError("Captcha", "Could not validate as human");
                 return View("~/Views/Contact/Index.cshtml");
             }
 
             Notification.Settings = Settings;
             _ = Notification.SendEmail("staff@kpfanworld.com", m.Email, $"[KPFanWorld] {m.Subject}", GetBody(m)).Result;
 
-            return View("~/Views/Contact/Index.cshtml");
+            TempData["Success"] = true;
+
+            return View();
         }
 
         private string GetBody(ContactModel m)

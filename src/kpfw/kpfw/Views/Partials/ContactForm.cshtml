@@ -1,7 +1,7 @@
 ﻿@model ContactModel
 
 <div class="contact-form">
-    <form asp-controller="Contact" asp-action="Index" method="post">
+    <form asp-controller="Contact" asp-action="Index" method="post" id="contactForm">
         <input type="hidden" name="g-recaptcha-verify" id="g-recaptcha-verify" />
         <div asp-validation-summary="All" class="error"></div>
         <div class="item">
