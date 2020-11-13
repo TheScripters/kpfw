@@ -46,8 +46,7 @@
 
         ga('create', 'UA-96443023-1', 'auto');
         ga('send', 'pageview');
-
-/**/</script>
+    </script>
     @RenderSection("Meta", false)
     <script type="text/javascript">
         (function(c,l,a,r,i,t,y){
@@ -86,13 +85,13 @@
                 <div class="left"></div>
                 <nav aria-label="Primary Navigation" class="main-nav lr" id="main-nav">
                     <ul>
-                        <li>@Html.RouteLink("Home", "default", new { controller = "Home", action = "Index" })</li>
-                        <li>@Html.RouteLink("Guides", "guides", new { controller = "Episode", action = "Index", Episode = (string)null })</li>
-                        <li>@Html.RouteLink("Caps", "default", new { controller = "Caps", action = "Index" })</li>
+                        <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+                        <li><a asp-route="guides" asp-route-episode="">Guides</a></li>
+                        <li><a asp-controller="Caps" asp-action="Index" asp-route-episode="">Caps</a></li>
                         <li><a href="/Chat">Chat</a></li>
                         <li><a href="/About">About</a></li>
                         <li><a href="/Contact">Contact Us</a></li>
-                        <li><a href="/Donate" class="donate-nav-btn">Donate</a></li>
+                        <li><a asp-controller="Donate" asp-action="Index" class="donate-nav-btn">Donate</a></li>
                     </ul>
                 </nav>
                 @if (!User.Identity.IsAuthenticated)
