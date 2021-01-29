@@ -1179,9 +1179,15 @@ tr.head th {
     line-height: 1;
 }
 
-    .staff li {
-        margin-bottom: 25px;
-    }
+.staff .staff-title {
+    font: normal 28px/1 "Vipnagorgialla", Arial, sans-serif;
+    color: #0f0;
+    line-height: 1;
+}
+
+.staff li {
+    margin-bottom: 25px;
+}
 
 .web-help li {
     margin-bottom: 10px;
@@ -1191,4 +1197,44 @@ tr.head th {
     font-style: italic;
     color: #ff0 !important;
     text-transform: uppercase;
+}
+
+.select2-container--default .select2-selection--single:focus {
+    outline: none;
+}
+
+.select2-container--default .select2-selection--single {
+    border: none;
+    color: #fff;
+}
+
+.select2 .select2-selection {
+    background-color: #000;
+}
+
+.select2 {
+    border: 1px dashed #0f0;
+    outline: none;
+}
+
+    .select2.select2-container--focus {
+        border: 1px dashed #ff0 !important;
+        outline: none;
+    }
+
+.select2-dropdown {
+    background-color: #000;
+}
+
+.select2-container--default .select2-results__option[aria-selected=true] {
+    background-color: #202020;
+}
+
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+    background-color: #0f0;
+    color: #000;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #fff;
 }
