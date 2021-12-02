@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Web;
 
 namespace kpfw.Services.Authentication
@@ -19,79 +20,69 @@ namespace kpfw.Services.Authentication
 
         private const string TestUrlBase = "sandbox-api.authy.com";
         private const string UrlBase = "api.authy.com";
+        private readonly HttpClient httpClient;
 
         public AuthyClient(string key, bool isTest = false)
         {
             _ApiKey = key;
             _IsTest = isTest;
+            httpClient = new HttpClient();
+            httpClient.DefaultRequestHeaders.Add("X-Authy-API-Key", key);
         }
 
         public void Dispose()
         {
-            
-        }
-
-        private HttpWebRequest BeginRequest(string apiPath, string method)
-        {
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-            var client = (HttpWebRequest)WebRequest.Create(new Uri($"https://{(_IsTest ? TestUrlBase : UrlBase)}/protected/json/{apiPath}"));
-            client.Headers.Add("X-Authy-API-Key", _ApiKey);
-            client.Method = method;
-
-            return client;
+            httpClient.Dispose();
         }
 
         public string GetAuthenticatorQR(int authyUserId, string userName, string secret)
         {
-            var client = BeginRequest($"users/{authyUserId}/{secret}", HttpMethod.POST);
-            byte[] data = System.Text.Encoding.UTF8.GetBytes("qr_size=300&label=" + userName);
-            client.ContentType = "application/x-www-form-urlencoded";
-            client.ContentLength = data.Length;
-
-            using (var stream = client.GetRequestStream())
-            {
-                stream.Write(data, 0, data.Length);
-            }
-
-            HttpWebResponse response;
             try
             {
-                response = (HttpWebResponse)client.GetResponse();
-
-                QRResponse j = JsonConvert.DeserializeObject<QRResponse>(new StreamReader(response.GetResponseStream()).ReadToEnd());
-
-                if (j.Success)
-                    return j.QR_Code;
+                using (var content = new FormUrlEncodedContent(new Dictionary<string, string>
+                {
+                    { "qr_size", "300" },
+                    { "label", userName }
+                }))
+                using (HttpResponseMessage response = httpClient.PostAsync($"https://{(_IsTest ? TestUrlBase : UrlBase)}/protected/json/users/{authyUserId}/{secret}", content).Result)
+                {
+                    response.EnsureSuccessStatusCode();
+                    using (HttpContent resp = response.Content)
+                    {
+                        string result = resp.ReadAsStringAsync().Result;
+                        QRResponse j = JsonConvert.DeserializeObject<QRResponse>(result);
+                        if (j.Success)
+                            return j.QR_Code;
+                    }
+                }
             }
-            catch (WebException wEx)
-            {
-                response = (HttpWebResponse)wEx.Response;
-                string error = new StreamReader(response.GetResponseStream()).ReadToEnd();
-            }
+            catch
+            { }
 
             return "Failed.";
         }
 
         public bool VerifyToken(int authyUserId, int token)
         {
-            var client = BeginRequest($"verify/{token}/{authyUserId}", HttpMethod.GET);
+            //var client = BeginRequest($"verify/{token}/{authyUserId}", HttpMethod.GET);
 
             try
             {
-                var resp = client.GetResponse();
-                string res = new StreamReader(resp.GetResponseStream()).ReadToEnd();
-                return true;
+                using (HttpResponseMessage response = httpClient.GetAsync($"https://{(_IsTest ? TestUrlBase : UrlBase)}/protected/json/verify/{token}/{authyUserId}").Result)
+                {
+                    response.EnsureSuccessStatusCode();
+                    return true;
+                }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                string res = new StreamReader(((WebException)ex).Response.GetResponseStream()).ReadToEnd();
                 return false;
             }
         }
 
         public void AddUser(string email, string phone, string countryCode)
         {
-            var client = BeginRequest("users/new", HttpMethod.POST);
+            //var client = BeginRequest("users/new", HttpMethod.POST);
         }
     }
     public class HttpMethod

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using kpfw.Models;
 using kpfw.Services;
@@ -66,26 +67,28 @@ namespace kpfw.Controllers
             if (form["g-recaptcha-verify"].Count == 0)
                 return null;
 
-            HttpWebRequest req = (HttpWebRequest)WebRequest.Create("https://www.google.com/recaptcha/api/siteverify");
-            req.Method = "POST";
-            req.ContentType = "application/x-www-form-urlencoded";
+            Dictionary<string, string> Values = new Dictionary<string, string>
+            {
+                { "secret", Settings.ReCaptcha3SecretKey },
+                { "response", form["g-recaptcha-verify"][0].Trim(',') },
+                { "remoteip", Request.HttpContext.Connection.RemoteIpAddress?.ToString() ?? "" }
+            };
+            Dictionary<string, object> resp = new Dictionary<string, object>();
+            using (HttpClient client = new HttpClient())
+            {
+                using (var postContent = new FormUrlEncodedContent(Values))
+                using (HttpResponseMessage response = client.PostAsync("https://www.google.com/recaptcha/api/siteverify", postContent).Result)
+                {
+                    response.EnsureSuccessStatusCode();
+                    using (HttpContent content = response.Content)
+                    {
+                        string result = content.ReadAsStringAsync().Result;
+                        resp = JsonConvert.DeserializeObject<Dictionary<string, object>>(result);
+                    }
+                }
+            }
 
-            string postData = $"secret={Settings.ReCaptcha3SecretKey}&response={form["g-recaptcha-verify"][0].Trim(',')}&remoteip={Request.HttpContext.Connection.RemoteIpAddress}";
-            byte[] send = System.Text.Encoding.Default.GetBytes(postData);
-            req.ContentLength = send.Length;
-
-            Stream stream = req.GetRequestStream();
-            stream.Write(send, 0, send.Length);
-            stream.Flush();
-            stream.Close();
-
-            HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
-            StreamReader sr = new StreamReader(resp.GetResponseStream());
-            string returnValue = sr.ReadToEnd();
-
-            Dictionary<string, object> val = JsonConvert.DeserializeObject<Dictionary<string, object>>(returnValue);
-
-            return val;
+            return resp;
         }
     }
 }
