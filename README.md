@@ -8,7 +8,7 @@ This project is written in ASP.NET Core MVC in C#. You will need Visual Studio o
 
 ### Requirements
 
-* .NET 6.0
+* .NET 8.0
 * Visual Studio/VS Code
 
 ## Contributing
