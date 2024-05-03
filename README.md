@@ -2,6 +2,8 @@
 
 This project is the open source development arm of the website [https://www.kpfanworld.com](https://www.kpfanworld.com). Those wanting to help in development are encouraged to contribute.
 
+A lot of work still needs to be done to bring it up to par with the original ([seen here](https://old.kpfanworld.com)) such as trivia, etc. You can check implementation of the original [here](https://github.com/TheScripters/kpfw-old).
+
 ## Building/Running
 
 This project is written in ASP.NET Core MVC in C#. You will need Visual Studio or Visual Studio Code to run it.
