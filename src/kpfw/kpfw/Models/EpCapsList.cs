@@ -120,12 +120,13 @@ namespace kpfw
             // Movies and stuff
             new EpisodeTitle() { Title = "A Sitch in Time", UrlLabel = "a-sitch-in-time", CDNPath = "A Sitch in Time", Count = 3795 },
             new EpisodeTitle() { Title = "So the Drama", UrlLabel = "so-the-drama", CDNPath = "std", Count = 2700 },
-			new EpisodeTitle() { Title = "Kim Possible (2019)", UrlLabel = "kim-possible-2019", CDNPath = "Kim Possible 2019", Count = 5117 }
+            new EpisodeTitle() { Title = "Kim Possible (2019)", UrlLabel = "kim-possible-2019", CDNPath = "Kim Possible 2019", Count = 5117 }
         };
         public static List<EpisodeTitle> MiscList = new List<EpisodeTitle>()
         {
             // Miscellaneous
             new EpisodeTitle() { Title = "Lilo and Stitch: Rufus", UrlLabel = "ls-rufus", CDNPath = "LS Rufus", Count = 1256 },
+            new EpisodeTitle() { Title = "Chibiverse: Dr. Doof's Lab", UrlLabel = "chibiverse-dr-doofs-lab", CDNPath = "Chibiverse Dr Doofs Lab", Count = 440 },
             new EpisodeTitle() { Title = "Opening", UrlLabel = "opening", CDNPath = "Opening", Count = 266 },
             new EpisodeTitle() { Title = "Season 4 Opening", UrlLabel = "season-4-opening", CDNPath = "S4 Opening", Count = 284 },
             new EpisodeTitle() { Title = "Half Opening", UrlLabel = "half-opening", CDNPath = "Half Opening", Count = 45 },
