@@ -19,7 +19,7 @@ namespace kpfw.Controllers
 
         public IActionResult Index()
         {
-            var now = DateTime.UtcNow;
+            var now = DateTime.Now;
             var events = _context.Timeline.Where(x => x.Date.Day == now.Day && x.Date.Month == now.Month);
             List<TimelineViewModel> l = new List<TimelineViewModel>();
             foreach (var t in events)
