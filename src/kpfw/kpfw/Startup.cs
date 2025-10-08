@@ -72,7 +72,8 @@ namespace kpfw
 
             services.AddRazorPages();
             services.AddAntiforgery(opts => opts.Cookie.Name = settings.Antiforgery);
-            services.AddDbContext<DataContext>(options => options.UseSqlServer(settings.ConnectionString));
+            services.AddDbContext<DataContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddIdentity<User, UserRole>().AddDefaultTokenProviders();
             services.AddTransient<IUserStore<User>, UserStore>();
             services.AddTransient<IRoleStore<UserRole>, RoleStore>();
