@@ -13,6 +13,12 @@ This project is written in ASP.NET Core MVC in C#. You will need Visual Studio o
 * .NET 8.0
 * Visual Studio/VS Code
 
+### First Run
+
+You will need to edit the `appsettings.Development.json` file to match your server and database name as well as filling in details for other configuration options.
+
+Create a new, empty database in SQL Server and the project will populate it with the appropriate tables. There will be no data (episode titles, etc).
+
 ## Contributing
 
 All contributions are welcome. Start with creating an issue and go from there. Explain what the issue is. If you want to submit a pull request, reference the issue and explain what's being fixed and how. Be sure to include comments in your code.
