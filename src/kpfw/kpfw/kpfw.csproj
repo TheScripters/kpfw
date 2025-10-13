@@ -16,7 +16,7 @@
   <ItemGroup>
     <PackageReference Include="AWSSDK.S3" Version="4.0.7.7" />
     <PackageReference Include="AWSSDK.SimpleEmail" Version="4.0.1.6" />
-    <PackageReference Include="AWSSDK.SimpleNotificationService" Version="4.0.1.6" />
+    <PackageReference Include="AWSSDK.SimpleNotificationService" Version="4.0.1.8" />
     <PackageReference Include="BuildBundlerMinifier" Version="3.2.449" />
     <PackageReference Include="cryptsharpstandard" Version="1.0.0" />
     <PackageReference Include="GoogleAuthenticator" Version="3.2.0" />
