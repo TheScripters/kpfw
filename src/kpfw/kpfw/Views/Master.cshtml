@@ -99,10 +99,7 @@
                     <nav aria-label="Account Navigation" class="account-nav lr" id="account-nav">
                         <ul>
                             <li>
-                                <a class="btn sign-in" href="#loginModalPopup">Login</a>
-                            </li>
-                            <li>
-                                <a class="btn sign-up" href="#signupModalPopup">Sign Up</a>
+                                <a class="btn sign-in" asp-controller="Account" asp-action="Login">Login / Sign Up</a>
                             </li>
                         </ul>
                     </nav>
@@ -137,7 +134,9 @@
             <p>"Kim Possible" © <a href="http://www.disney.com/">Disney</a>.</p>
             <p>KP Fan World is in no way affiliated with the Disney Company.</p>
             <p>Characters and content presumed to be used and provided under "fair use."</p>
-            <p>Hosted by <a href="https://www.manwaringweb.com/">Manwaring Web</a>.</p>
+            <p><a href="/privacy">Privacy Policy</a> | <a href="/terms">Terms of Service</a></p>
+            <p>Hosted by <a href="https://mws.dev/">Manwaring Web</a>.</p>
+            <a href="http://portal.thescripters.org/disgracefulridiculo.aspx"><span style="display: none;">jays-sidearm</span></a>
         </div>
     </footer>
 
@@ -198,92 +197,92 @@
     </script>
     @RenderSection("Scripts", false)
     <script>
-        $(function () {
-            $('.sign-in').magnificPopup({
-                type: 'inline',
-                preloader: false,
-                focus: '#txtUserName',
-                closeOnBgClick: false,
+        // $(function () {
+        //     $('.sign-in').magnificPopup({
+        //         type: 'inline',
+        //         preloader: false,
+        //         focus: '#txtUserName',
+        //         closeOnBgClick: false,
 
-                // When element is focused, some mobile browsers in some cases zoom in
-                // It looks not nice, so we disable it:
-                callbacks: {
-                    beforeOpen: function () {
-                        if ($(window).width() < 700) {
-                            this.st.focus = false;
-                        } else {
-                            this.st.focus = '#txtUserName';
-                        }
-                    }
-                }
-            });
-            $('.sign-up').magnificPopup({
-                type: 'inline',
-                preloader: false,
-                focus: '#txtSignUpUser',
-                closeOnBgClick: false,
-                callbacks: {
-                    beforeOpen: function () {
-                        if ($(window).width() < 700) {
-                            this.st.focus = false;
-                        } else {
-                            this.st.focus = '#txtSignUpUser';
-                        }
-                    }
-                }
-            });
-            $('.reset-password').magnificPopup({
-                type: 'inline',
-                preloader: false,
-                focus: '#txtUserEmail',
-                closeOnBgClick: false,
-                callbacks: {
-                    beforeOpen: function () {
-                        if ($(window).width() < 700) {
-                            this.st.focus = false;
-                        } else {
-                            this.st.focus = '#txtUserEmail';
-                        }
-                    }
-                }
-            });
-            @if (TempData["LoginError"] != null && (bool)TempData["LoginError"])
-            {
-                <text>
-            $.magnificPopup.open({
-                items: {
-                    src: '#loginModalPopup'
-                },
-                type: 'inline',
-                preloader: false,
-                focus: '#txtUserName',
-                closeOnBgClick: false,
+        //         // When element is focused, some mobile browsers in some cases zoom in
+        //         // It looks not nice, so we disable it:
+        //         callbacks: {
+        //             beforeOpen: function () {
+        //                 if ($(window).width() < 700) {
+        //                     this.st.focus = false;
+        //                 } else {
+        //                     this.st.focus = '#txtUserName';
+        //                 }
+        //             }
+        //         }
+        //     });
+        //     $('.sign-up').magnificPopup({
+        //         type: 'inline',
+        //         preloader: false,
+        //         focus: '#txtSignUpUser',
+        //         closeOnBgClick: false,
+        //         callbacks: {
+        //             beforeOpen: function () {
+        //                 if ($(window).width() < 700) {
+        //                     this.st.focus = false;
+        //                 } else {
+        //                     this.st.focus = '#txtSignUpUser';
+        //                 }
+        //             }
+        //         }
+        //     });
+        //     $('.reset-password').magnificPopup({
+        //         type: 'inline',
+        //         preloader: false,
+        //         focus: '#txtUserEmail',
+        //         closeOnBgClick: false,
+        //         callbacks: {
+        //             beforeOpen: function () {
+        //                 if ($(window).width() < 700) {
+        //                     this.st.focus = false;
+        //                 } else {
+        //                     this.st.focus = '#txtUserEmail';
+        //                 }
+        //             }
+        //         }
+        //     });
+            // @if (TempData["LoginError"] != null && (bool)TempData["LoginError"])
+            // {
+            //     <text>
+            // $.magnificPopup.open({
+            //     items: {
+            //         src: '#loginModalPopup'
+            //     },
+            //     type: 'inline',
+            //     preloader: false,
+            //     focus: '#txtUserName',
+            //     closeOnBgClick: false,
 
-                // When element is focused, some mobile browsers in some cases zoom in
-                // It looks not nice, so we disable it:
-                callbacks: {
-                    beforeOpen: function () {
-                        if ($(window).width() @Html.Raw("<") 700) {
-                            this.st.focus = false;
-                        } else {
-                            this.st.focus = '#txtUserName';
-                        }
-                    }
-                }
-            });
-                </text>
-            }
-            @if (TempData["Show2FA"] != null && (bool)TempData["Show2FA"])
-            {
-                <text>
-            $.magnificPopup.open({
-                items: {
-                    src: '#twoFAModal'
-                },
-                closeOnBgClick: false
-            });
-                </text>
-            }
+            //     // When element is focused, some mobile browsers in some cases zoom in
+            //     // It looks not nice, so we disable it:
+            //     callbacks: {
+            //         beforeOpen: function () {
+            //             if ($(window).width() @Html.Raw("<") 700) {
+            //                 this.st.focus = false;
+            //             } else {
+            //                 this.st.focus = '#txtUserName';
+            //             }
+            //         }
+            //     }
+            // });
+            //     </text>
+            // }
+            // @if (TempData["Show2FA"] != null && (bool)TempData["Show2FA"])
+            // {
+            //     <text>
+            // $.magnificPopup.open({
+            //     items: {
+            //         src: '#twoFAModal'
+            //     },
+            //     closeOnBgClick: false
+            // });
+            //     </text>
+            // }
         });
     </script>
 

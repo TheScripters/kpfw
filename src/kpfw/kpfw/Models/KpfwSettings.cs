@@ -11,6 +11,10 @@ namespace kpfw.Models
         public string AuthyApiKey { get; set; }
         public string ConnectionString { get; set; }
         public string CookieName { get; set; }
+        public string GoogleClientId { get; set; }
+        public string GoogleClientSecret { get; set; }
+        public string FacebookAppId { get; set; }
+        public string FacebookAppSecret { get; set; }
         public string MailChimpApiKey { get; set; }
         public string MailChimpListID { get; set; }
         public string ReCaptcha3SecretKey { get; set; }

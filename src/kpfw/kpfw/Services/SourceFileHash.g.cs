@@ -1,0 +1,1 @@
+namespace ProjectHoneyPot.Controllers { public partial class HoneypotController { private const string GENERATED_SOURCE_HASH = "2ABF3B153D38895440DB9ABDCC95B59C"; private const string BASE_PATH = "/php/"; } }

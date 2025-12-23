@@ -17,7 +17,7 @@ namespace kpfw.DataModels
         public string UserName { get; set; }
         [Required, MaxLength(50)]
         public string UserEmail { get; set; }
-        [Required, MaxLength(250)]
+        [MaxLength(250)]
         public string UserPassword { get; set; }
         public DateTime JoinDate { get; set; }
         [Required]
@@ -28,6 +28,8 @@ namespace kpfw.DataModels
         public bool IsActive { get; set; }
         public Guid? EmailConfirmation { get; set; }
         public string TwoFactor { get; set; }
+        public string ExternalLoginProvider { get; set; }
+        public string ExternalLoginProviderKey { get; set; }
 
         public virtual ICollection<UserRole> UserRoles { get; set; }
     }

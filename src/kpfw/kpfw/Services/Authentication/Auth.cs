@@ -44,8 +44,8 @@ namespace kpfw.Services.Authentication
         /// <returns>True if the password is correct, false if it is not</returns>
         public bool Compare(out bool isMD5)
         {
-            bool isValid = false;
-            isMD5 = _dbHash.Length == 32 && !_dbHash.Contains("$");
+            bool isValid;
+            isMD5 = _dbHash.Length == 32 && !_dbHash.Contains('$');
             if (!isMD5)
                 isValid = Crypter.CheckPassword(_pwd.FromBase64(), _dbHash);
             else
@@ -66,9 +66,8 @@ namespace kpfw.Services.Authentication
         private static string CalculateMD5Hash(string input)
         {
             // step 1, calculate MD5 hash from input
-            var md5 = System.Security.Cryptography.MD5.Create();
-            byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(input);
-            byte[] hash = md5.ComputeHash(inputBytes);
+            byte[] inputBytes = Encoding.ASCII.GetBytes(input);
+            byte[] hash = System.Security.Cryptography.MD5.HashData(inputBytes);
 
             // step 2, convert byte array to hex string
             StringBuilder sb = new StringBuilder();
