@@ -42,7 +42,7 @@
   </ItemGroup>
 
   <!-- Generate MD5 hash and inject it as a compile-time constant -->
-  <Target Name="GeneratedSourceFileHash" BeforeTargets="BeforeBuild">
+  <Target Name="GeneratedSourceFileHash" BeforeTargets="BeforeBuild" Condition="'$(GITHUB_ACTIONS)'!='true'">
     <PropertyGroup>
       <HoneypotControllerPath>$(MSBuildProjectDirectory)\Controllers\HoneypotController.cs</HoneypotControllerPath>
       <HoneypotRouteBasePath>/php/</HoneypotRouteBasePath>
@@ -52,7 +52,7 @@
       <Output TaskParameter="ConsoleOutput" PropertyName="HoneypotControllerMD5" />
     </Exec>
 
-    <!--<WriteLinesToFile File="$(MSBuildProjectDirectory)\Services\SourceFileHash.g.cs" Lines="namespace ProjectHoneyPot.Controllers { public partial class HoneypotController { private const string GENERATED_SOURCE_HASH = &quot;$(HoneypotControllerMD5)&quot;%3B private const string BASE_PATH = &quot;$(HoneypotRouteBasePath)&quot;%3B } }" Overwrite="true" />-->
+    <WriteLinesToFile File="$(MSBuildProjectDirectory)\Services\SourceFileHash.g.cs" Lines="namespace ProjectHoneyPot.Controllers { public partial class HoneypotController { private const string GENERATED_SOURCE_HASH = &quot;$(HoneypotControllerMD5)&quot;%3B private const string BASE_PATH = &quot;$(HoneypotRouteBasePath)&quot;%3B } }" Overwrite="true" />
   </Target>
 
 </Project>
