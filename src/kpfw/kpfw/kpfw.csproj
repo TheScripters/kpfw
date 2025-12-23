@@ -14,13 +14,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AWSSDK.S3" Version="4.0.13.1" />
-    <PackageReference Include="AWSSDK.SimpleEmail" Version="4.0.2.5" />
-    <PackageReference Include="AWSSDK.SimpleNotificationService" Version="4.0.2.7" />
+    <PackageReference Include="AWSSDK.S3" Version="4.0.14.1" />
+    <PackageReference Include="AWSSDK.SimpleEmail" Version="4.0.2.6" />
+    <PackageReference Include="AWSSDK.SimpleNotificationService" Version="4.0.2.8" />
     <PackageReference Include="BuildBundlerMinifier" Version="3.2.449" />
     <PackageReference Include="cryptsharpstandard" Version="1.0.0" />
-    <PackageReference Include="GoogleAuthenticator" Version="3.2.0" />
-    <PackageReference Include="Markdig" Version="0.43.0" />
+    <PackageReference Include="GoogleAuthenticator" Version="3.2.0" />4
+    <PackageReference Include="Markdig" Version="0.44.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="8.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="8.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.22" />
