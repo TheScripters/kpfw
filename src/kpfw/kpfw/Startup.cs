@@ -43,7 +43,7 @@ namespace kpfw
             services.ConfigureApplicationCookie(options =>
             {
                 options.Cookie.Name = settings.CookieName;
-                options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+                //options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
                 options.SlidingExpiration = true;
 
                 options.LoginPath = "/Account/Login";
@@ -64,12 +64,24 @@ namespace kpfw
                     options.ClientId = settings.GoogleClientId;
                     options.ClientSecret = settings.GoogleClientSecret;
                     options.CallbackPath = "/signin-google";
+                    options.Events.OnRemoteFailure = context =>
+                    {
+                        context.Response.Redirect("/Account/Login");
+                        context.HandleResponse();
+                        return Task.CompletedTask;
+                    };
                 })
                 .AddFacebook(options =>
                 {
                     options.AppId = settings.FacebookAppId;
                     options.AppSecret = settings.FacebookAppSecret;
                     options.CallbackPath = "/signin-facebook";
+                    options.Events.OnRemoteFailure = context =>
+                    {
+                        context.Response.Redirect("/Account/Login");
+                        context.HandleResponse();
+                        return Task.CompletedTask;
+                    };
                 });
 
             if (settings.UseHsts)
@@ -111,7 +123,7 @@ namespace kpfw
             });
 
             app.UseHttpModule();
-            app.UseCookiePolicy(new CookiePolicyOptions { MinimumSameSitePolicy = SameSiteMode.Strict, Secure = CookieSecurePolicy.Always, HttpOnly = Microsoft.AspNetCore.CookiePolicy.HttpOnlyPolicy.Always });
+            //app.UseCookiePolicy(new CookiePolicyOptions { MinimumSameSitePolicy = SameSiteMode.Strict, Secure = CookieSecurePolicy.Always, HttpOnly = Microsoft.AspNetCore.CookiePolicy.HttpOnlyPolicy.Always });
 
             app.UseStaticFiles();
             app.UseRouting();
