@@ -43,7 +43,7 @@ namespace kpfw
             services.ConfigureApplicationCookie(options =>
             {
                 options.Cookie.Name = settings.CookieName;
-                //options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+                options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
                 options.SlidingExpiration = true;
 
                 options.LoginPath = "/Account/Login";
