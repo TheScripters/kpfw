@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Google.Authenticator;
@@ -8,6 +9,7 @@ using kpfw.DataModels;
 using kpfw.Models;
 using kpfw.Services;
 using kpfw.Services.Authentication;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -18,7 +20,6 @@ namespace kpfw.Controllers
 {
     public class AccountController : Controller
     {
-        //private readonly IConfiguration Configuration;
         private int NumTries
         {
             get
@@ -45,6 +46,7 @@ namespace kpfw.Controllers
         private readonly KpfwSettings settings;
         private readonly SignInManager<User> _signInManager;
         private readonly UserManager<User> _userManager;
+        
         public AccountController(DataContext context, UserManager<User> u, SignInManager<User> s, IConfiguration configuration)
         {
             settings = configuration.GetSection("Kpfw").Get<KpfwSettings>();
@@ -58,10 +60,19 @@ namespace kpfw.Controllers
             return View();
         }
 
+        [HttpGet]
+        public IActionResult Login(string returnUrl = null)
+        {
+            ViewData["ReturnUrl"] = returnUrl;
+            return View(new LoginModel());
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginModel m)
+        public async Task<ActionResult> Login(LoginModel m, string returnUrl = null)
         {
+            ViewData["ReturnUrl"] = returnUrl;
+            
             if (TempData["Show2FA"] != null)
                 TempData.Remove("Show2FA");
             if (!ModelState.IsValid)
@@ -126,8 +137,103 @@ namespace kpfw.Controllers
             }
 
             string url = Request.Form["loginPage"];
-            if (Url.IsLocalUrl(url))
+            if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+                return Redirect(returnUrl);
+            else if (Url.IsLocalUrl(url))
                 return Redirect(url);
+            else
+                return Redirect("/");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult ExternalLogin(string provider, string returnUrl = null)
+        {
+            var redirectUrl = Url.Action(nameof(ExternalLoginCallback), "Account", new { returnUrl });
+            var properties = _signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
+            return Challenge(properties, provider);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ExternalLoginCallback(string returnUrl = null, string remoteError = null)
+        {
+            if (remoteError != null)
+            {
+                TempData["ErrorMessage"] = $"Error from external provider: {remoteError}";
+                TempData["LoginError"] = true;
+                return RedirectToAction(nameof(Login));
+            }
+
+            var info = await _signInManager.GetExternalLoginInfoAsync();
+            if (info == null)
+            {
+                TempData["ErrorMessage"] = "Error loading external login information.";
+                TempData["LoginError"] = true;
+                return RedirectToAction(nameof(Login));
+            }
+
+            // Check if user already exists with this external login
+            var user = _context.Users.FirstOrDefault(u => 
+                u.ExternalLoginProvider == info.LoginProvider && 
+                u.ExternalLoginProviderKey == info.ProviderKey);
+
+            if (user == null)
+            {
+                // Check if user exists by email
+                var email = info.Principal.FindFirstValue(ClaimTypes.Email);
+                user = _context.Users.FirstOrDefault(u => u.UserEmail == email);
+
+                if (user == null)
+                {
+                    // Create new user
+                    var userName = info.Principal.FindFirstValue(ClaimTypes.Name) ?? 
+                                   info.Principal.FindFirstValue(ClaimTypes.Email)?.Split('@')[0] ??
+                                   $"{info.LoginProvider}User{DateTime.Now.Ticks}";
+
+                    // Ensure username is unique
+                    var baseUserName = userName;
+                    int counter = 1;
+                    while (_context.Users.Any(u => u.UserName == userName))
+                    {
+                        userName = $"{baseUserName}{counter}";
+                        counter++;
+                    }
+
+                    user = new User
+                    {
+                        UserName = userName,
+                        UserEmail = email ?? $"{userName}@{info.LoginProvider.ToLower()}.com",
+                        DisplayName = info.Principal.FindFirstValue(ClaimTypes.Name) ?? userName,
+                        JoinDate = DateTime.UtcNow,
+                        IsActive = true,
+                        ExternalLoginProvider = info.LoginProvider,
+                        ExternalLoginProviderKey = info.ProviderKey,
+                        IPAddress = HttpContext.Connection.RemoteIpAddress?.ToString()
+                    };
+
+                    _context.Users.Add(user);
+                    await _context.SaveChangesAsync();
+                }
+                else
+                {
+                    // Link external login to existing user
+                    user.ExternalLoginProvider = info.LoginProvider;
+                    user.ExternalLoginProviderKey = info.ProviderKey;
+                    _context.Users.Update(user);
+                    await _context.SaveChangesAsync();
+                }
+            }
+
+            // Sign in the user
+            await _signInManager.SignInAsync(user, isPersistent: false);
+
+            if (NumTries > 0)
+            {
+                Response.Cookies.Delete("InvalidTries");
+            }
+
+            if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+                return Redirect(returnUrl);
             else
                 return Redirect("/");
         }
@@ -144,7 +250,6 @@ namespace kpfw.Controllers
             string[] u = Request.Form["2FAUser"][0].FromBase64().Split('|');
             bool md5 = Convert.ToBoolean(u[3]), isActive = Convert.ToBoolean(u[4]);
             var user = _context.Users.Where(x => x.Id == Convert.ToInt32(u[0])).Single();
-            //var u = User.GetPassword(txtUserName.Text);
             bool tfaValid = false;
 
             if (!Regex.IsMatch(user.TwoFactor, @"^[\d]+$"))
@@ -165,7 +270,6 @@ namespace kpfw.Controllers
                 if ((md5 && !isActive) || isActive)
                 {
                     await _signInManager.SignInAsync(user, false);
-                    //FormsAuthentication.RedirectFromLoginPage(u[1], false);
                     if (NumTries > 0)
                     {
                         Response.Cookies.Delete("InvalidTries");
@@ -177,14 +281,13 @@ namespace kpfw.Controllers
                         user.EmailConfirmation = Guid.NewGuid();
                         user.IsActive = true;
                         _context.Users.Update(user);
+                        await _context.SaveChangesAsync();
                     }
                 }
                 else
                 {
                     TempData["2FAError"] = true;
-                    //ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "LoginError", "$.magnificPopup.open({ items: { src: '#loginModalPopup' }, prependTo:'form#aspnetForm', closeOnBgClick: false });", true);
                     TempData["2FAErrorMessage"] = "Sorry, there's a problem with your account. <a href=\"/Contact\">Contact us</a> to get it resolved.";
-                    //FailureText.Visible = true;
                     int tries = NumTries + 1;
                     NumTries = tries;
                 }
@@ -194,8 +297,6 @@ namespace kpfw.Controllers
                 // Display error and re-display popup
                 TempData["2FAError"] = true;
                 TempData["2FAErrorMessage"] = "Invalid token. Please try again.";
-                //TwoFactorError.InnerText = "Invalid token. Please try again.";
-                //ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "changePassword", "$.magnificPopup.open({ items: { src: '#twoFAModal' }, prependTo:'form#aspnetForm', closeOnBgClick: false });", true);
             }
 
             string url = Request.Form["loginPage"];
@@ -208,7 +309,6 @@ namespace kpfw.Controllers
         public async Task<ActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
-
             return Redirect("~/");
         }
     }

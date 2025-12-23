@@ -39,35 +39,15 @@ namespace kpfw
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.Strict;
             });
-            //services.Configure<IdentityOptions>(options =>
-            //{
-            //    // Password settings.
-            //    options.Password.RequireDigit = true;
-            //    options.Password.RequireLowercase = true;
-            //    options.Password.RequireNonAlphanumeric = true;
-            //    options.Password.RequireUppercase = true;
-            //    options.Password.RequiredLength = 6;
-            //    options.Password.RequiredUniqueChars = 1;
-
-            //    // Lockout settings.
-            //    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
-            //    options.Lockout.MaxFailedAccessAttempts = 5;
-            //    options.Lockout.AllowedForNewUsers = true;
-
-            //    // User settings.
-            //    options.User.AllowedUserNameCharacters =
-            //    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
-            //    options.User.RequireUniqueEmail = false;
-            //});
+            
             services.ConfigureApplicationCookie(options =>
             {
                 options.Cookie.Name = settings.CookieName;
                 options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
                 options.SlidingExpiration = true;
 
-                options.LoginPath = "/Identity/Account/Login";
-                options.AccessDeniedPath = "/Identity/Account/AccessDenied";
-                options.SlidingExpiration = true;
+                options.LoginPath = "/Account/Login";
+                options.AccessDeniedPath = "/Account/AccessDenied";
             });
 
             services.AddRazorPages();
@@ -76,6 +56,21 @@ namespace kpfw
             services.AddIdentity<User, UserRole>().AddDefaultTokenProviders();
             services.AddTransient<IUserStore<User>, UserStore>();
             services.AddTransient<IRoleStore<UserRole>, RoleStore>();
+
+            // Add external authentication providers
+            services.AddAuthentication()
+                .AddGoogle(options =>
+                {
+                    options.ClientId = settings.GoogleClientId;
+                    options.ClientSecret = settings.GoogleClientSecret;
+                    options.CallbackPath = "/signin-google";
+                })
+                .AddFacebook(options =>
+                {
+                    options.AppId = settings.FacebookAppId;
+                    options.AppSecret = settings.FacebookAppSecret;
+                    options.CallbackPath = "/signin-facebook";
+                });
 
             if (settings.UseHsts)
             {
@@ -96,19 +91,9 @@ namespace kpfw
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                //if (s.UserManager.FindByNameAsync("dev").Result == null)
-                //{
-                //    var result = s.UserManager.CreateAsync(new User
-                //    {
-                //        UserName = "dev",
-                //        UserEmail = "dev@app.com",
-                //    }, "Aut94L#G-a").Result;
-                //}
             }
             else
             {
-                //app.UseStatusCodePagesWithReExecute("/Home/Error", "?code={0}");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
             app.Use(async (ctx, next) =>
