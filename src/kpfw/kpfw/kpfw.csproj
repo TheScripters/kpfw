@@ -15,7 +15,7 @@
 
   <ItemGroup>
     <PackageReference Include="AWSSDK.S3" Version="4.0.17" />
-    <PackageReference Include="AWSSDK.SimpleEmail" Version="4.0.2.8" />
+    <PackageReference Include="AWSSDK.SimpleEmail" Version="4.0.2.10" />
     <PackageReference Include="AWSSDK.SimpleNotificationService" Version="4.0.2.13" />
     <PackageReference Include="BuildBundlerMinifier" Version="3.2.449" />
     <PackageReference Include="cryptsharpstandard" Version="1.0.0" />
