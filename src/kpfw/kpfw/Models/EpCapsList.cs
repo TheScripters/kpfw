@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
-namespace kpfw
+namespace kpfw.Models
 {
     /// <summary>
     /// Summary description for EpCapsList
     /// </summary>
-    public static class EpCapsList
+    internal static class EpCapsList
     {
-        public static List<EpisodeTitle> S1List = new List<EpisodeTitle>()
-        {
+        public static List<EpisodeTitle> S1List =
+        [
             // Season 1
             new EpisodeTitle() { Title = "Crush", UrlLabel = "crush", CDNPath = "Crush", Count = 1258 },
             new EpisodeTitle() { Title = "Sink Or Swim", UrlLabel = "sink-or-swim", CDNPath = "Sink Or Swim", Count = 1265 },
@@ -34,9 +31,9 @@ namespace kpfw
             new EpisodeTitle() { Title = "Monkey Ninjas in Space", UrlLabel = "monkey-ninjas-in-space", CDNPath = "Monkey Ninjas In Space", Count = 1261 },
             new EpisodeTitle() { Title = "Ron the Man", UrlLabel = "ron-the-man", CDNPath = "Ron the Man", Count = 1258 },
             new EpisodeTitle() { Title = "Low Budget", UrlLabel = "low-budget", CDNPath = "Low Budget", Count = 1259 }
-        };
-        public static List<EpisodeTitle> S2List = new List<EpisodeTitle>()
-        {
+        ];
+        public static List<EpisodeTitle> S2List =
+        [
             // Season 2
             new EpisodeTitle() { Title = "Naked Genius", UrlLabel = "naked-genius", CDNPath = "Naked Genius", Count = 1255 },
             new EpisodeTitle() { Title = "Grudge Match", UrlLabel = "grudge-match", CDNPath = "Grudge Match", Count = 1262 },
@@ -72,9 +69,9 @@ namespace kpfw
             new EpisodeTitle() { Title = "Triple S", UrlLabel = "triple-s", CDNPath = "Triple S", Count = 1269 },
             new EpisodeTitle() { Title = "Rewriting History", UrlLabel = "rewriting-history", CDNPath = "Rewriting History", Count = 1258 },
             new EpisodeTitle() { Title = "Showdown at the Crooked D", UrlLabel = "showdown-at-the-crooked-d", CDNPath = "Showdown at the Crooked D", Count = 1266 }
-        };
-        public static List<EpisodeTitle> S3List = new List<EpisodeTitle>()
-        {
+        ];
+        public static List<EpisodeTitle> S3List =
+        [
             // Season 3
             new EpisodeTitle() { Title = "Steal Wheels", UrlLabel = "steal-wheels", CDNPath = "Steal Wheels", Count = 1258 },
             new EpisodeTitle() { Title = "Emotion Sickness", UrlLabel = "emotion-sickness", CDNPath = "Emotion Sickness", Count = 1269 },
@@ -87,9 +84,9 @@ namespace kpfw
             new EpisodeTitle() { Title = "Team Impossible", UrlLabel = "team-impossible", CDNPath = "Team Impossible", Count = 1266 },
             new EpisodeTitle() { Title = "Gorilla Fist", UrlLabel = "gorilla-fist", CDNPath = "Gorilla Fist", Count = 1272 },
             new EpisodeTitle() { Title = "And The Molerat Will Be CGI...", UrlLabel = "and-the-molerat-will-be-cgi", CDNPath = "And the Molerat Will Be CGI", Count = 1264 }
-        };
-        public static List<EpisodeTitle> S4List = new List<EpisodeTitle>()
-        {
+        ];
+        public static List<EpisodeTitle> S4List =
+        [
             // Season 4
             new EpisodeTitle() { Title = "Ill-Suited", UrlLabel = "ill-suited", CDNPath = "Ill-Suited", Count = 1284 },
             new EpisodeTitle() { Title = "Car Alarm", UrlLabel = "car-alarm", CDNPath = "Car Alarm", Count = 1278 },
@@ -114,16 +111,16 @@ namespace kpfw
             new EpisodeTitle() { Title = "Chasing Rufus", UrlLabel = "chasing-rufus", CDNPath = "Chasing Rufus", Count = 619 },
             new EpisodeTitle() { Title = "Graduation Part 1", UrlLabel = "graduation-pt-1", CDNPath = "Graduation Pt 1", Count = 1272 },
             new EpisodeTitle() { Title = "Graduation Part 2", UrlLabel = "graduation-pt-2", CDNPath = "Graduation Pt 2", Count = 1276 }
-        };
-        public static List<EpisodeTitle> MovieList = new List<EpisodeTitle>()
-        {
+        ];
+        public static List<EpisodeTitle> MovieList =
+        [
             // Movies and stuff
             new EpisodeTitle() { Title = "A Sitch in Time", UrlLabel = "a-sitch-in-time", CDNPath = "A Sitch in Time", Count = 3795 },
             new EpisodeTitle() { Title = "So the Drama", UrlLabel = "so-the-drama", CDNPath = "std", Count = 2700 },
             new EpisodeTitle() { Title = "Kim Possible (2019)", UrlLabel = "kim-possible-2019", CDNPath = "Kim Possible 2019", Count = 5117 }
-        };
-        public static List<EpisodeTitle> MiscList = new List<EpisodeTitle>()
-        {
+        ];
+        public static List<EpisodeTitle> MiscList =
+        [
             // Miscellaneous
             new EpisodeTitle() { Title = "Lilo and Stitch: Rufus", UrlLabel = "ls-rufus", CDNPath = "LS Rufus", Count = 1256 },
             new EpisodeTitle() { Title = "Chibiverse: Dr. Doof's Lab", UrlLabel = "chibiverse-dr-doofs-lab", CDNPath = "Chibiverse Dr Doofs Lab", Count = 440 },
@@ -144,6 +141,6 @@ namespace kpfw
             new EpisodeTitle() { Title = "Tick Tick Tick Additional", UrlLabel = "tick-tick-tick-additional", CDNPath = "misc/tick-tick-tick", Count = 256 },
             new EpisodeTitle() { Title = "Rappin' Drakken Additional", UrlLabel = "rappin-drakken-additional", CDNPath = "misc/rappin-drakken", Count = 1 },
             new EpisodeTitle() { Title = "Other (Memes, etc)", UrlLabel = "other-memes-etc", CDNPath = "other", Count = 39 }
-        };
+        ];
     }
 }

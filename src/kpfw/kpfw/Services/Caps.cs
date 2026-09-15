@@ -1,15 +1,13 @@
-﻿using Markdig;
+﻿using kpfw.Models;
+using Markdig;
 using Markdig.Helpers;
 using Markdig.Parsers;
 using Markdig.Renderers;
 using Markdig.Renderers.Html;
 using Markdig.Syntax.Inlines;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace kpfw.Services
 {
@@ -28,7 +26,7 @@ namespace kpfw.Services
     }
     public class CapsRenderer : HtmlObjectRenderer<Caps>
     {
-        private CapsOptions _options;
+        private readonly CapsOptions _options;
 
         public CapsRenderer(CapsOptions options)
         {
@@ -47,18 +45,18 @@ namespace kpfw.Services
             CapNumber = obj.CapNumber;
             CapEpisode = obj.CapEpisode;
             var ep = EpCapsList.S1List.Where(e => e.UrlLabel == CapEpisode.Text);
-            if (ep.Count() == 0)
+            if (!ep.Any())
                 ep = EpCapsList.S2List.Where(e => e.UrlLabel == CapEpisode.Text);
-            if (ep.Count() == 0)
+            if (!ep.Any())
                 ep = EpCapsList.S3List.Where(e => e.UrlLabel == CapEpisode.Text);
-            if (ep.Count() == 0)
+            if (!ep.Any())
                 ep = EpCapsList.S4List.Where(e => e.UrlLabel == CapEpisode.Text);
-            if (ep.Count() == 0)
+            if (!ep.Any())
                 ep = EpCapsList.MovieList.Where(e => e.UrlLabel == CapEpisode.Text);
-            if (ep.Count() == 0)
+            if (!ep.Any())
                 ep = EpCapsList.MiscList.Where(e => e.UrlLabel == CapEpisode.Text);
 
-            if (ep.Count() == 0)
+            if (!ep.Any())
                 return; // The user supplied an invalid argument
 
             var epUrl = ep.First().CDNPath;

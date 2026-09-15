@@ -2,61 +2,33 @@
 using kpfw.Services;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace kpfw.Models
 {
-    public class EpisodeViewModel
+    public class EpisodeViewModel(Episode episode)
     {
-        public int Id { get; set; }
-        public int Number { get; set; }
-        public string Title { get; set; }
-        public string UrlLabel { get; set; }
-        public string Description { get; set; }
-        public DateTime AirDate { get; set; }
-        public string ProductionNumber { get; set; }
-        public string Studio { get; set; }
-        public string[] Writer { get; set; }
-        public string[] Director { get; set; }
-        public string[] Producer { get; set; }
-        public string[] ExecutiveProducer { get; set; }
-        public string[] Stars { get; set; }
-        public string[] GuestStars { get; set; }
-        public string Recap { get; set; }
-        public string Transcript { get; set; }
+        public int Id { get; set; } = episode.Id;
+        public int Number { get; set; } = episode.Number;
+        public string Title { get; set; } = episode.Title;
+        public string UrlLabel { get; set; } = episode.UrlLabel;
+        public string Description { get; set; } = episode.Description;
+        public DateTime AirDate { get; set; } = episode.AirDate;
+        public string ProductionNumber { get; set; } = episode.ProductionNumber;
+        public string Studio { get; set; } = episode.Studio;
+        public string[] Writer { get; set; } = [.. episode.Writer.Split([','], StringSplitOptions.RemoveEmptyEntries).Trim()];
+        public string[] Director { get; set; } = [.. episode.Director.Split([','], StringSplitOptions.RemoveEmptyEntries).Trim()];
+        public string[] Producer { get; set; } = [.. episode.Producer.Split([','], StringSplitOptions.RemoveEmptyEntries).Trim()];
+        public string[] ExecutiveProducer { get; set; } = [.. episode.ExecutiveProducer.Split([','], StringSplitOptions.RemoveEmptyEntries).Trim()];
+        public string[] Stars { get; set; } = [.. episode.Stars.Split([','], StringSplitOptions.RemoveEmptyEntries).Trim()];
+        public string[] GuestStars { get; set; } = [.. episode.GuestStars.Split([','], StringSplitOptions.RemoveEmptyEntries).Trim()];
+        public string Recap { get; set; } = episode.Recap;
+        public string Transcript { get; set; } = episode.Transcript;
         public int Season { get { return Convert.ToInt32(ProductionNumber[0].ToString()); } }
-        public bool HasTranscript { get; set; }
+        public bool HasTranscript { get; set; } = !String.IsNullOrWhiteSpace(episode.Transcript);
         public string CapsUrl { get; set; }
-        public List<Note> Notes { get; set; }
-        public List<Quote> Quotes { get; set; }
-        public List<Goof> Goofs { get; set; }
-        public List<Cultural> Culturals { get; set; }
-
-        public EpisodeViewModel(Episode episode)
-        {
-            Id = episode.Id;
-            Number = episode.Number;
-            Title = episode.Title;
-            AirDate = episode.AirDate;
-            ProductionNumber = episode.ProductionNumber;
-            Stars = episode.Stars.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Trim().ToArray();
-            GuestStars = episode.GuestStars.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Trim().ToArray();
-            Producer = episode.Producer.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Trim().ToArray();
-            ExecutiveProducer = episode.ExecutiveProducer.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Trim().ToArray();
-            Description = episode.Description;
-            Writer = episode.Writer.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Trim().ToArray();
-            Studio = episode.Studio;
-            UrlLabel = episode.UrlLabel;
-            Director = episode.Director.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Trim().ToArray();
-            Recap = episode.Recap;
-            Transcript = episode.Transcript;
-            HasTranscript = !String.IsNullOrWhiteSpace(episode.Transcript);
-
-            Notes = new List<Note>();
-            Quotes = new List<Quote>();
-            Goofs = new List<Goof>();
-            Culturals = new List<Cultural>();
-        }
+        public List<Note> Notes { get; set; } = [];
+        public List<Quote> Quotes { get; set; } = [];
+        public List<Goof> Goofs { get; set; } = [];
+        public List<Cultural> Culturals { get; set; } = [];
     }
 }

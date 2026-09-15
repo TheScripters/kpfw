@@ -1,31 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Threading.Tasks;
-using kpfw.DataModels;
+﻿using kpfw.DataModels;
 using kpfw.Models;
 using kpfw.Services;
 using Markdig;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace kpfw.Controllers
 {
-    public class EpisodeController : Controller
+    public class EpisodeController(DataContext context) : Controller
     {
         protected MarkdownPipeline pipeline = new MarkdownPipelineBuilder().UseAdvancedExtensions().UseCaps().Build();
-        private readonly DataContext _context;
-        public EpisodeController(DataContext context)
-        {
-            _context = context;
-        }
+        private readonly DataContext _context = context;
 
         public IActionResult Index()
         {
             if (RouteData.Values["Episode"] == null)
             {
                 var eps = _context.Episodes.ToList();
-                List<EpisodeViewModel> model = new List<EpisodeViewModel>();
+                List<EpisodeViewModel> model = [];
                 foreach (var ep in eps)
                     model.Add(new EpisodeViewModel(ep));
 

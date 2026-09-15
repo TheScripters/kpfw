@@ -1,16 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace kpfw.DataModels
 {
-    public class DataContext : DbContext
+    public class DataContext(DbContextOptions<DataContext> options) : DbContext(options)
     {
-        public DataContext(DbContextOptions<DataContext> options) : base(options)
-        { }
-
         public DbSet<Episode> Episodes { get; set; }
         public DbSet<Note> Notes { get; set; }
         public DbSet<Quote> Quotes { get; set; }
@@ -25,6 +18,8 @@ namespace kpfw.DataModels
         public DbSet<BouncedEmail> BouncedEmails { get; set; }
         public DbSet<ComplainedEmail> ComplainedEmails { get; set; }
         public DbSet<Page> Pages { get; set; }
+
+        public DbSet<Settings> Settings { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

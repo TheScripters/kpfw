@@ -38,7 +38,6 @@
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Donate\" />
   </ItemGroup>
 
   <!-- Generate MD5 hash and inject it as a compile-time constant -->

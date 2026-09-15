@@ -1,40 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
+﻿using kpfw.DataModels;
 using kpfw.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace kpfw.Controllers
 {
-    public class DonateController : Controller
+    public class DonateController(IConfiguration configuration, DataContext dataContext) : Controller
     {
-        private readonly KpfwSettings Settings;
-
-        public DonateController(IConfiguration configuration)
-        {
-            Settings = configuration.GetSection("Kpfw").Get<KpfwSettings>();
-        }
+        private readonly KpfwSettings Settings = configuration.GetSection("Kpfw").Get<KpfwSettings>();
 
         // GET: /<controller>/
         public IActionResult Index()
         {
+            var goal = dataContext.Settings.FirstOrDefault(s => s.SettingName == "DonationGoal")?.SettingValue;
+            var goalYear = dataContext.Settings.FirstOrDefault(s => s.SettingName == "DonationGoalYear")?.SettingValue;
             ViewData["StripePK"] = Settings.StripePublishableKey;
             return View();
         }
 
         [HttpPost]
-        public IActionResult Index(object model)
+        public IActionResult Submit()
         {
-
             var grecaptcha = VerifyReCaptcha();
             if (grecaptcha == null || !(bool)grecaptcha["success"] || (double)grecaptcha["score"] < 0.5 || (string)grecaptcha["action"] != "contact")
             {
@@ -57,7 +50,7 @@ namespace kpfw.Controllers
                 { "response", form["g-recaptcha-verify"][0].Trim(',') },
                 { "remoteip", Request.HttpContext.Connection.RemoteIpAddress?.ToString() ?? "" }
             };
-            Dictionary<string, object> resp = new Dictionary<string, object>();
+            Dictionary<string, object> resp = [];
             using (HttpClient client = new HttpClient())
             {
                 using (var postContent = new FormUrlEncodedContent(Values))

@@ -1,0 +1,33 @@
+﻿@using Microsoft.Extensions.Configuration
+@using kpfw.DataModels
+@using Microsoft.AspNetCore.Identity
+@model List<Timeline>
+@inject SignInManager<User> _signInManager
+
+@{
+    ViewData["Title"] = "Timeline";
+    Layout = "~/Views/Master.cshtml";
+}
+
+<div class="interior cf">
+    <div class="inner cf">
+        <h1>Timeline</h1>
+        <ul style="list-style:none;">
+        @foreach (var item in Model)
+        {
+            <li>
+                @item.Date.ToString("MMM dd, yyyy"): @item.Message
+                @if (_signInManager.IsSignedIn(User))
+                {
+                    <a asp-controller="Timeline" asp-action="Edit" asp-route-id="@item.Id" class="edit-link">Edit</a>
+                }
+            </li>
+        }
+        </ul>
+
+        @if (_signInManager.IsSignedIn(User))
+        {
+            <p><a asp-controller="Timeline" asp-action="Create">Add New Timeline Item</a></p>
+        }
+    </div>
+</div>

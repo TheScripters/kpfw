@@ -1238,3 +1238,8 @@ tr.head th {
 .select2-container--default .select2-selection--single .select2-selection__rendered {
     color: #fff;
 }
+
+.edit-link {
+    display: block;
+    font-size: 0.7em;
+}
