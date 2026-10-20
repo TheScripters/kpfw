@@ -22,7 +22,7 @@
     <PackageReference Include="GoogleAuthenticator" Version="3.2.0" />
     <PackageReference Include="Markdig" Version="1.4.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="[8.0.31,8.999.0)" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="[8.0.31,8.999.0)" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="[8.0.32, 8.999.0)" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="[8.0.31,8.999.0)" />
     <PackageReference Include="Microsoft.Build" Version="[17.11.48,17.11.9999)" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.12">
